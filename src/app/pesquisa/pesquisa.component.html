@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/garagem2.jpg');">
+      <div class="filter"></div>
+  </div>
+  <div class="section profile-content">
+      <div class="container">
+          <div class="owner">
+              <div class="name">
+                  <h3 class="title">Pesquisa de Veiculos<br /></h3>
+              </div>
+          </div>
+        <form>
+          <select name="Escolha a Marca" class="btn btn-primary">
+            <option value="">Escolha a Marca</option>
+            <option value="saab">Saab</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+          </select>
+
+          <select name="Modelo" class="btn btn-primary">
+            <option value="">Escolha o Modelo</option>
+            <option value="saab">Saab</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+          </select>
+
+          <select name="Modelo" class="btn btn-primary">
+            <option value="">Ano</option>
+            <option value="saab">2018</option>
+            <option value="fiat">2017</option>
+          </select>
+
+        <!-- <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="100" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="false"></nouislider>-->
+        <nouislider class="slider slider-info" [min]="someMin" [max]="someMax" [step]="0.05" [(ngModel)]="someValue">Success</nouislider>
+        <button class="btn btn-success">Pesquisar</button><button class="btn btn-success">Mostrar Tudo</button>
+        </form>
+          
+      </div>
+  </div>
+</div>
