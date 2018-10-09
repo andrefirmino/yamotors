@@ -4,8 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
-import { NouisliderModule } from 'ng2-nouislider';
+import { HttpModule } from '@angular/http';
 import localePt from '@angular/common/locales/pt';
+import { Ng5SliderModule } from  'ng5-slider' ;
+
 //registerLocaleData(localePt);
 
 import { AppComponent } from './app.component';
@@ -44,8 +46,8 @@ import { firestoreSerice } from './services/Firestore.service';
     RouterModule,
     AppRoutingModule,
     HomeModule,
-    NouisliderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng5SliderModule
   ],
   providers: [Auth, ClienteService, AnuncioService, firestoreSerice],
   bootstrap: [AppComponent]

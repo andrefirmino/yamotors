@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
-import { NouiFormatter } from "ng2-nouislider/src/nouislider";
 import '../app.component.scss';
+import { Options } from 'ng5-slider';
 
 @Component({
   selector: 'app-pesquisa',
@@ -10,10 +10,13 @@ import '../app.component.scss';
 })
 export class PesquisaComponent implements OnInit {
 
-  public disabled: boolean = false;          
-  public someValue: number = 5;
-  public someMin: number = -10;
-  public someMax: number = 10;
+  minValue: number = 0;
+  maxValue: number = 180000;
+  options: Options = {
+    floor: 0,
+    ceil: 180000,
+    step: 5
+  };
 
   constructor() { }
 
