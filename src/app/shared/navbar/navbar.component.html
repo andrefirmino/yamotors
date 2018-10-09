@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="5">
     <div class="container teste">
         <div class="navbar-translate">
-            <a class="navbar-brand" [routerLink]="">YA - Motors</a>
+            <a class="navbar-brand" [routerLink]="['/home']">YA - Motors</a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a routerLink="/pesquisa" class="nav-link" target="_blank"><i class="fa fa-search"></i> Pesquisar</a>
+                    <a [routerLink]="['/pesquisa']" class="nav-link" target="_blank"><i class="fa fa-search"></i> Pesquisar</a>
                 </li>
              <!--   <li class="nav-item" *ngIf="isLogado()">
                     <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href=# target="_blank">

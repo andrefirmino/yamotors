@@ -24,15 +24,12 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/sass/paper-kit.scss",
               "src/assets/css/demo.css",
-              "src/assets/css/nucleo-icons.css",
-              "./node_modules/nouislider/distribute/nouislider.min.css"
+              "src/assets/css/nucleo-icons.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/popper.js/dist/umd/popper.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "./node_modules/ng2-nouislider/src/nouislider.js",
-              "./node_modules/nouislider/distribute/nouislider.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {

@@ -10,7 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
-    private logado: boolean = true;
+    private logado: boolean = false;
 
     constructor(public location: Location, private element : ElementRef) {
         this.sidebarVisible = false;

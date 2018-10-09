@@ -6,7 +6,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { NouiFormatter } from 'ng2-nouislider';
+
 
 @Component({
     selector: 'app-root',
