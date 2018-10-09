@@ -1,27 +1,27 @@
 <div class="wrapper">
-  <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
-      <div class="filter"></div>
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
-                      <div class="card card-register azul">
-                          <h3 class="d-flex justify-content-center">Cadastro Sistema</h3>
-                          <form class="register-form">
-                              <label>Email</label>
-                              <input type="text" class="form-control" placeholder="Email">
-                              <label>Senha</label>
-                              <input type="password" class="form-control" placeholder="Password">
-                              <button class="btn btn-success btn-block btn-round">Cadastrar</button>
-                          </form>
-                          <div class="forgot">
-                              <label>Cadastro realizado com sucesso, verifique seu email!</label>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="footer register-footer text-center">
-                  <h6>&copy;{{test | date: 'yyyy'}}, <i class="fa fa-star heart"></i> TG André | Yuri</h6>
-              </div>
-          </div>
-  </div>
+    <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
+        <div class="filter"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+                    <div class="card card-register azul">
+                        <h3 class="d-flex justify-content-center">Cadastro Sistema</h3>
+                        <form class="register-form" [formGroup]="formulario" (ngSubmit)="cadastrarUsuario()">
+                            <label>Email</label>
+                            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                            <label>Senha</label>
+                            <input type="password" class="form-control" placeholder="Password" formControlName="senha">
+                            <button class="btn btn-success btn-block btn-round">Cadastrar</button>
+                        </form>
+                        <div class="forgot">
+                            <label>Cadastro realizado com sucesso, verifique seu email!</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer register-footer text-center">
+                <h6>&copy;{{test | date: 'yyyy'}}, <i class="fa fa-star heart"></i> TG André | Yuri</h6>
+            </div>
+        </div>
+    </div>
 </div>

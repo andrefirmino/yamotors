@@ -1,173 +1,135 @@
 <div class="wrapper">
-  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/garagem2.jpg');">
-      <div class="filter"></div>
-  </div>
-  <div class="section profile-content">
-      <div class="container">
-          <div class="owner">
-              <div class="avatar">
-                  <img src="./assets/img/faces/brasilcar.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-              </div>
-              <div class="name">
-                  <h4 class="title">Brasil Car<br /></h4>
-                  <h6 class="description">Revendedora de Veiculos</h6>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-md-6 ml-auto mr-auto text-center">
-                  <p>A Brasil Car é uma empresa familiar fundada em março de 2012, em Franca/SP. Em pouco tempo, tornou-se destaque no comércio de carros em Franca e região em virtude do atendimento familiar, confiável, e a alta qualidade dos serviços e carros oferecidos. </p>
-                  <br />
-              </div>
-          </div>
-          <br/>
-          <div class="nav-tabs-navigation">
-              <div class="nav-tabs-wrapper">
-                  <ngb-tabset [justify]="'center'">
-                      <ngb-tab title="Carros">
-                          <ng-template ngbTabContent >
-                              <div class="row following" id="follows">
-                                  <div class="col-md-9 ml-auto mr-auto">
-                                      <ul class="list-unstyled follows">
-                                          <li>
-                                              <div class="row">
-                                                <div class="col-md-4 col-sm-4 ml-auto">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Pesquisar">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/garagem2.jpg');">
+        <div class="filter"></div>
+    </div>
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                    <!--
+                      <img src="./assets/img/faces/brasilcar.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                  -->
+                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="url_imagem || '' " />
+                </div>
+                <div class="name">
+                    <h4 class="title">{{cliente.nome }}<br /></h4>
+                    <!-- <h6 class="description">Revendedora de Veiculos</h6> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    <p>{{cliente.descricao }} </p>
+                    <br />
+                </div>
+            </div>
+            <br/>
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ngb-tabset [justify]="'center'">
+                        <ngb-tab title="Carros">
+                            <ng-template ngbTabContent>
+                                <div class="row following" id="follows">
+                                    <div class="col-md-9 ml-auto mr-auto">
+                                        <ul class="list-unstyled follows">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-4 ml-auto">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Pesquisar">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                        <button class="btn btn-success btn-round">Inserir Veiculo</button>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                    <button class="btn btn-success btn-round">Inserir Veiculo</button>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto">
+                                                        <img src="./assets/img/fotos/carro4.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 ml-auto">
+                                                        <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 35.000,00 </b></small></h5>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                        <button class="btn btn-info btn-round">Editar</button>
+                                                        <button class="btn btn-danger btn-round">Excluir</button>
+                                                    </div>
                                                 </div>
-                                              </div>
-                                              <br>
-                                              <div class="row">
-                                                  <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                      <img src="./assets/img/fotos/carro4.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
-                                                  </div>
-                                                  <div class="col-md-4 col-sm-4 ml-auto">
-                                                      <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 35.000,00 </b></small></h5>
-                                                  </div>
-                                                  <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                      <button class="btn btn-info btn-round">Editar</button>
-                                                      <button class="btn btn-danger btn-round">Excluir</button>
-                                                  </div>
-                                              </div>
-                                          </li>
-                                          <hr />
-                                          <li>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                    <img src="./assets/img/fotos/carro2.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
+                                            </li>
+                                            <hr />
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto">
+                                                        <img src="./assets/img/fotos/carro2.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 ml-auto">
+                                                        <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 23.970,00 </b></small></h5>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                        <button class="btn btn-info btn-round">Editar</button>
+                                                        <button class="btn btn-danger btn-round">Excluir</button>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4 col-sm-4 ml-auto">
-                                                    <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 23.970,00 </b></small></h5>
-                                                </div>
-                                                <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                    <button class="btn btn-info btn-round">Editar</button>
-                                                    <button class="btn btn-danger btn-round">Excluir</button>
-                                                </div>
-                                            </div>
-                                        </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </ng-template>
-                      </ngb-tab>
-                      <ngb-tab title="Cadastro">
-                          <ng-template ngbTabContent>
-                            <div class="row">
-                                 <button class="btn btn-info btn-round">Editar</button>    
-                            </div>
-                            <br />  
-                            <form>
-                                <h5>Dados da Empresa</h5>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab title="Cadastro">
+                            <ng-template ngbTabContent>
+                                <div class="row">
+                                    <button class="btn btn-info btn-round">Editar</button>
+                                </div>
                                 <br />
-                            <div class="form-row">
-                              
-                                      <div class="form-group col-md-6">
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          placeholder="Rua Antonio Brasilino dos Santos"
-                                          autocomplete="off"
-                                          name="endereco"
-                                          minlength="3"
-                                          maxlength="120"
-                                          required
-                                          ngModel
-                                          disabled
-                                          
-                                          #inputEndereco="ngModel"
-                                        >
-                                        <small *ngIf="inputEndereco.valid && inputEndereco.touched" class="form-text text-success">OK</small>
-                                        <small *ngIf="!inputEndereco.valid && inputEndereco.touched" class="form-text text-danger">Endereço Inválido</small>
-                                      </div>
-                              
-                                      <div class="form-group col-md-2">
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          placeholder="Número"
-                                          autocomplete="off"
-                                          name="numero"
-                                          minlength="1"
-                                          required
-                                          ngModel
-                                          #inputNumero="ngModel"
-                                        >
-                                        <small *ngIf="inputNumero.valid && inputNumero.touched" class="form-text text-success">OK</small>
-                                        <small *ngIf="!inputNumero.valid && inputNumero.touched" class="form-text text-danger">Numero Inválido</small>
-                                      </div>
-                              
-                                      <div class="form-group col-md-4">
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          placeholder="Complemento"
-                                          autocomplete="off"
-                                          name="complemento"
-                                          ngModel
-                                          #inputComplemento="ngModel"
-                                        >
-                                        <small *ngIf="inputComplemento.valid && inputComplemento.touched" class="form-text text-success">OK</small>
-                                      </div>
-                              
+                                <form>
+                                    <h5>Dados da Empresa</h5>
+                                    <br />
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" placeholder="Rua Antonio Brasilino dos Santos" autocomplete="off" name="endereco" minlength="3" maxlength="120" required ngModel disabled #inputEndereco="ngModel">
+                                            <small *ngIf="inputEndereco.valid && inputEndereco.touched" class="form-text text-success">OK</small>
+                                            <small *ngIf="!inputEndereco.valid && inputEndereco.touched" class="form-text text-danger">Endereço Inválido</small>
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            <input type="text" class="form-control" placeholder="Número" autocomplete="off" name="numero" minlength="1" required ngModel #inputNumero="ngModel">
+                                            <small *ngIf="inputNumero.valid && inputNumero.touched" class="form-text text-success">OK</small>
+                                            <small *ngIf="!inputNumero.valid && inputNumero.touched" class="form-text text-danger">Numero Inválido</small>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control" placeholder="Complemento" autocomplete="off" name="complemento" ngModel #inputComplemento="ngModel">
+                                            <small *ngIf="inputComplemento.valid && inputComplemento.touched" class="form-text text-success">OK</small>
+                                        </div>
+
                                     </div>
                                     <br />
                                     <h5>Dados Pessoais</h5>
                                     <hr />
-                              
+
                                     <div class="form-row">
-                              
-                                      <div class="form-group col-md-3">
-                                        <select
-                                          class="form-control"
-                                          name="formaPagamento"
-                                          required
-                                          ngModel
-                                          #selectFormaPagamento="ngModel"
-                                        >
+
+                                        <div class="form-group col-md-3">
+                                            <select class="form-control" name="formaPagamento" required ngModel #selectFormaPagamento="ngModel">
                                           <option value="">Selecione uma opção</option>
                                           <option value="dinheiro">Dinheiro</option>
                                           <option value="debito">Débito</option>
                                         </select>
-                                        <small *ngIf="selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-success">OK</small>
-                                        <small *ngIf="!selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-danger">Forma de pagamento inválido</small>
-                                      </div>
+                                            <small *ngIf="selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-success">OK</small>
+                                            <small *ngIf="!selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-danger">Forma de pagamento inválido</small>
+                                        </div>
                                     </div>
-                              
+
                                     <hr />
-                                    <button
-                                      type="submit"
-                                      class="btn btn-info btn-lg"
-                                      ng-submit=""
-                                    >Cofirmar</button>
-                                  </form>
-                          </ng-template>
-                      </ngb-tab>
-                  </ngb-tabset>
-              </div>
-          </div>
-      </div>
-  </div>
+                                    <button type="submit" class="btn btn-info btn-lg" ng-submit="">Cofirmar</button>
+                                </form>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

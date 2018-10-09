@@ -7,6 +7,8 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NouiFormatter } from 'ng2-nouislider';
+import * as firebase from "firebase";
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -54,6 +56,9 @@ export class AppComponent implements OnInit {
 
         }
 
+        //Yuri - inicialização do firebase
+        firebase.initializeApp(environment.firebase);
+        
     }
     removeFooter() {
         var titlee = this.location.prepareExternalUrl(this.location.path());

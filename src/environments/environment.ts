@@ -4,5 +4,14 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyBC63XXAmUg-jxvWX6NaPa3ItGmodC8CRc",
+    authDomain: "ya-motors.firebaseapp.com",
+    databaseURL: "https://ya-motors.firebaseio.com",
+    projectId: "ya-motors",
+    storageBucket: "ya-motors.appspot.com",
+    messagingSenderId: "706179016938",
+    timestampsInSnapshots: true
+  }
 };

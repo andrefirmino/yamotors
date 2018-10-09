@@ -20,6 +20,10 @@ import { LoginComponent } from './login/login.component';
 import { SuporteComponent } from './suporte/suporte.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { Auth } from './services/Auth.service';
+import { ClienteService } from './services/Cliente.service';
+import { AnuncioService } from './services/Anuncio.service';
+import { firestoreSerice } from './services/Firestore.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,7 @@ import { CadastroComponent } from './cadastro/cadastro.component';
     NouisliderModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [Auth, ClienteService, AnuncioService, firestoreSerice],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
