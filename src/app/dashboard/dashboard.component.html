@@ -52,7 +52,7 @@
                                                     </div>
                                                     <div class="col-md-6 col-sm-2 ml-auto mr-auto">
                                                         <button class="btn btn-info btn-round">Editar</button>
-                                                        <button class="btn btn-danger btn-round">Excluir</button>
+                                                        <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
                                                     </div>
                                                 </div>
                                             </li>
@@ -61,32 +61,33 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-                        <ngb-tab title="Cadastro">
+                        <ngb-tab title="Cadastro ">
                             <ng-template ngbTabContent>
-                                <div class="row">
-                                    <button class="btn btn-info btn-round">Editar</button>
+                                <div class="row ">
+                                    <button class="btn btn-info btn-round ">Editar</button>
                                 </div>
                                 <br />
-                                <form>
+                                <!--
+                                < <form>
                                     <h5>Dados da Empresa</h5>
                                     <br />
-                                    <div class="form-row">
+                                    <div class="form-row ">
 
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Rua Antonio Brasilino dos Santos" autocomplete="off" name="endereco" minlength="3" maxlength="120" required ngModel disabled #inputEndereco="ngModel">
-                                            <small *ngIf="inputEndereco.valid && inputEndereco.touched" class="form-text text-success">OK</small>
-                                            <small *ngIf="!inputEndereco.valid && inputEndereco.touched" class="form-text text-danger">Endereço Inválido</small>
+                                        <div class="form-group col-md-6 ">
+                                            <input type="text " class="form-control " placeholder="Rua Antonio Brasilino dos Santos " autocomplete="off " name="endereco " minlength="3 " maxlength="120 " required ngModel disabled #inputEndereco="ngModel ">
+                                            <small *ngIf="inputEndereco.valid && inputEndereco.touched " class="form-text text-success ">OK</small>
+                                            <small *ngIf="!inputEndereco.valid && inputEndereco.touched " class="form-text text-danger ">Endereço Inválido</small>
                                         </div>
 
-                                        <div class="form-group col-md-2">
-                                            <input type="text" class="form-control" placeholder="Número" autocomplete="off" name="numero" minlength="1" required ngModel #inputNumero="ngModel">
-                                            <small *ngIf="inputNumero.valid && inputNumero.touched" class="form-text text-success">OK</small>
-                                            <small *ngIf="!inputNumero.valid && inputNumero.touched" class="form-text text-danger">Numero Inválido</small>
+                                        <div class="form-group col-md-2 ">
+                                            <input type="text " class="form-control " placeholder="Número " autocomplete="off " name="numero " minlength="1 " required ngModel #inputNumero="ngModel ">
+                                            <small *ngIf="inputNumero.valid && inputNumero.touched " class="form-text text-success ">OK</small>
+                                            <small *ngIf="!inputNumero.valid && inputNumero.touched " class="form-text text-danger ">Numero Inválido</small>
                                         </div>
 
-                                        <div class="form-group col-md-4">
-                                            <input type="text" class="form-control" placeholder="Complemento" autocomplete="off" name="complemento" ngModel #inputComplemento="ngModel">
-                                            <small *ngIf="inputComplemento.valid && inputComplemento.touched" class="form-text text-success">OK</small>
+                                        <div class="form-group col-md-4 ">
+                                            <input type="text " class="form-control " placeholder="Complemento " autocomplete="off " name="complemento " ngModel #inputComplemento="ngModel ">
+                                            <small *ngIf="inputComplemento.valid && inputComplemento.touched " class="form-text text-success ">OK</small>
                                         </div>
 
                                     </div>
@@ -94,22 +95,23 @@
                                     <h5>Dados Pessoais</h5>
                                     <hr />
 
-                                    <div class="form-row">
+                                    <div class="form-row ">
 
-                                        <div class="form-group col-md-3">
-                                            <select class="form-control" name="formaPagamento" required ngModel #selectFormaPagamento="ngModel">
-                                          <option value="">Selecione uma opção</option>
-                                          <option value="dinheiro">Dinheiro</option>
-                                          <option value="debito">Débito</option>
+                                        <div class="form-group col-md-3 ">
+                                            <select class="form-control " name="formaPagamento " required ngModel #selectFormaPagamento="ngModel ">
+                                          <option value=" ">Selecione uma opção</option>
+                                          <option value="dinheiro ">Dinheiro</option>
+                                          <option value="debito ">Débito</option>
                                         </select>
-                                            <small *ngIf="selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-success">OK</small>
-                                            <small *ngIf="!selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-danger">Forma de pagamento inválido</small>
+                                            <small *ngIf="selectFormaPagamento.valid && selectFormaPagamento.touched " class="form-text text-success ">OK</small>
+                                            <small *ngIf="!selectFormaPagamento.valid && selectFormaPagamento.touched " class="form-text text-danger ">Forma de pagamento inválido</small>
                                         </div>
                                     </div>
 
                                     <hr />
-                                    <button type="submit" class="btn btn-info btn-lg" ng-submit="">Cofirmar</button>
-                                </form>
+                                    <button type="submit " class="btn btn-info btn-lg " ng-submit=" ">Cofirmar</button>
+                                    </form>
+-->
                             </ng-template>
                         </ngb-tab>
                     </ngb-tabset>

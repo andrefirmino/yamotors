@@ -23,6 +23,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.anuncios = new Array()
     this.getUserData()
+    this.getAnuncios()
+
+    this.anuncioService.mockAnuncio()
   }
 
   private getUserData(): void {
@@ -31,17 +34,27 @@ export class DashboardComponent implements OnInit {
       .then((result) => {
         this.cliente = result as Cliente
       })
+  }
 
+  private getAnuncios(): void {
+
+     this.anuncios = []
     //carrega os anuncios do cliente especifico
     this.anuncioService.getAnuncios().then((result) => {
       result.forEach((an) => {
         this.anuncios.push(an as Anuncio)
       })
-      
+
     }).catch((err) => {
       console.log(err)
     }).then(() => {
       console.log(this.anuncios)
     })
+  }
+
+  private deleteAnuncio(id: string) {
+    this.anuncioService.deleteAnuncio(id)
+
+    this.getAnuncios()
   }
 }
