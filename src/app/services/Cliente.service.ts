@@ -2,20 +2,38 @@ import * as firebase from "firebase";
 import { Injectable } from "@Angular/core";
 import { Cliente } from "../models/cliente.model";
 import { Auth } from "./Auth.service";
+import { reject } from "q";
+import { FirestoreService } from "./Firestore.service";
 
 
 @Injectable()
 export class ClienteService {
 
     private collection: firebase.firestore.CollectionReference
+    private firestoreService: FirestoreService
 
-    constructor(){
+    constructor(
+        
+    ) {
         this.collection = firebase.firestore().collection('cliente')
+        this.firestoreService = new FirestoreService()
     }
 
     public getCurrentClient(): any {
-        return this.collection.doc(Auth.getCurrentUserHash())
+
+        return new Promise((resolve, reject) => {
+
+            this.collection.doc(Auth.getCurrentUserHash())
                 .get()
+                .then((result) => {
+                    let cli = result.data()
+                    this.firestoreService.getClienteFoto(cli.foto)
+                        .then((url) => {
+                            cli.foto = url
+                            resolve(cli)
+                        })
+                })
+        })
     }
 
     public persistCliente(cli: Cliente): void {

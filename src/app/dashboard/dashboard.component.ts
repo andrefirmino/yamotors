@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../services/Cliente.service';
 import { Cliente } from '../models/cliente.model';
-import { firestoreSerice } from '../services/Firestore.service';
 import { Anuncio } from '../models/anuncio.model';
 import { AnuncioService } from '../services/Anuncio.service';
 
@@ -18,11 +17,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private firestoreService: firestoreSerice,
     private anuncioService: AnuncioService
   ) { }
 
   ngOnInit() {
+    this.anuncios = new Array()
     this.getUserData()
   }
 
@@ -30,19 +29,19 @@ export class DashboardComponent implements OnInit {
     //carrega os dados do cliente especifico
     this.clienteService.getCurrentClient()
       .then((result) => {
-        this.cliente = result.data() as Cliente
+        this.cliente = result as Cliente
+      })
 
-        this.firestoreService.getClienteFoto(this.cliente.foto)
-          .then((f) => {
-            this.url_imagem = f
-          })
-      });
-
-      //carrega os anuncios do cliente especifico
-      this.anuncioService.getAnuncios()
-        .then((data) => {
-          console.log(data)
-        })
+    //carrega os anuncios do cliente especifico
+    this.anuncioService.getAnuncios().then((result) => {
+      result.forEach((an) => {
+        this.anuncios.push(an as Anuncio)
+      })
+      
+    }).catch((err) => {
+      console.log(err)
+    }).then(() => {
+      console.log(this.anuncios)
+    })
   }
-
 }

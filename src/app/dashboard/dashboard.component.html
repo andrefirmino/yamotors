@@ -9,7 +9,7 @@
                     <!--
                       <img src="./assets/img/faces/brasilcar.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                   -->
-                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="url_imagem || '' " />
+                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="cliente.foto || '' " />
                 </div>
                 <div class="name">
                     <h4 class="title">{{cliente.nome }}<br /></h4>
@@ -31,39 +31,24 @@
                                 <div class="row following" id="follows">
                                     <div class="col-md-9 ml-auto mr-auto">
                                         <ul class="list-unstyled follows">
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Pesquisar">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                        <button class="btn btn-success btn-round">Inserir Veiculo</button>
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4 ml-auto">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Pesquisar">
                                                     </div>
                                                 </div>
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                        <img src="./assets/img/fotos/carro4.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 35.000,00 </b></small></h5>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                        <button class="btn btn-info btn-round">Editar</button>
-                                                        <button class="btn btn-danger btn-round">Excluir</button>
-                                                    </div>
+                                                <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                    <button class="btn btn-success btn-round">Inserir Veiculo</button>
                                                 </div>
-                                            </li>
-                                            <hr />
-                                            <li>
+                                            </div>
+                                            <br>
+                                            <li *ngFor="let anuncio of anuncios">
                                                 <div class="row">
                                                     <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                        <img src="./assets/img/fotos/carro2.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
+                                                        <img [src]="anuncio.veiculo.fotos[0] || ''" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 23.970,00 </b></small></h5>
+                                                        <h5>{{anuncio.titulo}}<br/><small>Aberto: {{anuncio.aberto}} | <b> {{anuncio.veiculo.preco}} </b></small></h5>
                                                     </div>
                                                     <div class="col-md-6 col-sm-2 ml-auto mr-auto">
                                                         <button class="btn btn-info btn-round">Editar</button>
