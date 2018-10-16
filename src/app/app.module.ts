@@ -42,9 +42,9 @@ import { firestoreSerice } from './services/Firestore.service';
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    AppRoutingModule,
     FormsModule,
     RouterModule,
-    AppRoutingModule,
     HomeModule,
     ReactiveFormsModule,
     Ng5SliderModule

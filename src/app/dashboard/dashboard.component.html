@@ -31,18 +31,17 @@
                                 <div class="row following" id="follows">
                                     <div class="col-md-9 ml-auto mr-auto">
                                         <ul class="list-unstyled follows">
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Pesquisar">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                        <button class="btn btn-success btn-round">Inserir Veiculo</button>
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4 ml-auto">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Pesquisar">
                                                     </div>
                                                 </div>
-                                                <br>
+                                                <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                    <button class="btn btn-success btn-round" data-toggle="modal" data-target=".bd-example-modal-lg">Inserir Veiculo</button>
+                                                </div>
+                                            </div>
+                                            <li>
                                                 <div class="row">
                                                     <div class="col-md-2 col-sm-2 ml-auto mr-auto">
                                                         <img src="./assets/img/fotos/carro4.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
@@ -132,4 +131,81 @@
             </div>
         </div>
     </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="container topo">
+                    <div class="modal-header">
+                <h5 class="modal-title">Cadastro de Veiculo</h5>
+                    </div>
+                    <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                    <select name="Escolha a Marca" class="btn btn-primary">
+                                            <option value="">Escolha a Marca</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="fiat">Fiat</option>
+                                            <option value="audi">Audi</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group has-success">
+                                    <select name="Modelo" class="btn btn-primary">
+                                            <option value="">Escolha o Modelo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="fiat">Fiat</option>
+                                            <option value="audi">Audi</option>
+                                          </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="form-group has-success">
+                                        <select name="Modelo" class="btn btn-primary">
+                                                <option value="">Ano</option>
+                                                <option value="saab">2018</option>
+                                                <option value="fiat">2017</option>
+                                              </select>
+                                </div>
+                            </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Ano" aria-describedby="basic-addon1">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Combustivel" aria-describedby="basic-addon1">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Valor" aria-describedby="basic-addon1">
+                                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                     </div>
+                     <br><br>
+                     <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              Unchecked
+                              <span class="form-check-sign"></span>
+                            </label>
+                        </div>
+                    <br><br>
+                     <input class="form-control-file" name="arquivos[]" type=file multiple />
+        
+                     </div>
+            
+                    
+                </div>
+            </div>
+          </div>
+        </div>  
 </div>
