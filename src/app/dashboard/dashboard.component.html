@@ -9,10 +9,12 @@
                     <!--
                       <img src="./assets/img/faces/brasilcar.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                   -->
-                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="url_imagem || '' " />
+                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="cliente.foto || '' " />
                 </div>
                 <div class="name">
-                    <h4 class="title">{{cliente.nome }}<br /></h4>
+                    <h4 class="title">{{cliente.nome }}
+                        <br />
+                    </h4>
                     <!-- <h6 class="description">Revendedora de Veiculos</h6> -->
                 </div>
             </div>
@@ -41,32 +43,22 @@
                                                     <button class="btn btn-success btn-round" data-toggle="modal" data-target=".bd-example-modal-lg">Inserir Veiculo</button>
                                                 </div>
                                             </div>
-                                            <li>
+                                            <li *ngFor="let anuncio of anuncios">
                                                 <div class="row">
                                                     <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                        <img src="./assets/img/fotos/carro4.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
+                                                        <img [src]="anuncio.veiculo.fotos[0] || ''" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 35.000,00 </b></small></h5>
+                                                        <h5>{{anuncio.titulo}}
+                                                            <br/>
+                                                            <small>Aberto: {{anuncio.aberto}} |
+                                                                <b> {{anuncio.veiculo.preco}} </b>
+                                                            </small>
+                                                        </h5>
                                                     </div>
                                                     <div class="col-md-6 col-sm-2 ml-auto mr-auto">
                                                         <button class="btn btn-info btn-round">Editar</button>
-                                                        <button class="btn btn-danger btn-round">Excluir</button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <hr />
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                        <img src="./assets/img/fotos/carro2.jpg" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <h5>Gol 1.0<br/><small>Status: Á venda | <b> R$ 23.970,00 </b></small></h5>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                        <button class="btn btn-info btn-round">Editar</button>
-                                                        <button class="btn btn-danger btn-round">Excluir</button>
+                                                        <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
                                                     </div>
                                                 </div>
                                             </li>
@@ -75,32 +67,33 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-                        <ngb-tab title="Cadastro">
+                        <ngb-tab title="Cadastro ">
                             <ng-template ngbTabContent>
-                                <div class="row">
-                                    <button class="btn btn-info btn-round">Editar</button>
+                                <div class="row ">
+                                    <button class="btn btn-info btn-round ">Editar</button>
                                 </div>
                                 <br />
-                                <form>
+                                <!--
+                                < <form>
                                     <h5>Dados da Empresa</h5>
                                     <br />
-                                    <div class="form-row">
+                                    <div class="form-row ">
 
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" placeholder="Rua Antonio Brasilino dos Santos" autocomplete="off" name="endereco" minlength="3" maxlength="120" required ngModel disabled #inputEndereco="ngModel">
-                                            <small *ngIf="inputEndereco.valid && inputEndereco.touched" class="form-text text-success">OK</small>
-                                            <small *ngIf="!inputEndereco.valid && inputEndereco.touched" class="form-text text-danger">Endereço Inválido</small>
+                                        <div class="form-group col-md-6 ">
+                                            <input type="text " class="form-control " placeholder="Rua Antonio Brasilino dos Santos " autocomplete="off " name="endereco " minlength="3 " maxlength="120 " required ngModel disabled #inputEndereco="ngModel ">
+                                            <small *ngIf="inputEndereco.valid && inputEndereco.touched " class="form-text text-success ">OK</small>
+                                            <small *ngIf="!inputEndereco.valid && inputEndereco.touched " class="form-text text-danger ">Endereço Inválido</small>
                                         </div>
 
-                                        <div class="form-group col-md-2">
-                                            <input type="text" class="form-control" placeholder="Número" autocomplete="off" name="numero" minlength="1" required ngModel #inputNumero="ngModel">
-                                            <small *ngIf="inputNumero.valid && inputNumero.touched" class="form-text text-success">OK</small>
-                                            <small *ngIf="!inputNumero.valid && inputNumero.touched" class="form-text text-danger">Numero Inválido</small>
+                                        <div class="form-group col-md-2 ">
+                                            <input type="text " class="form-control " placeholder="Número " autocomplete="off " name="numero " minlength="1 " required ngModel #inputNumero="ngModel ">
+                                            <small *ngIf="inputNumero.valid && inputNumero.touched " class="form-text text-success ">OK</small>
+                                            <small *ngIf="!inputNumero.valid && inputNumero.touched " class="form-text text-danger ">Numero Inválido</small>
                                         </div>
 
-                                        <div class="form-group col-md-4">
-                                            <input type="text" class="form-control" placeholder="Complemento" autocomplete="off" name="complemento" ngModel #inputComplemento="ngModel">
-                                            <small *ngIf="inputComplemento.valid && inputComplemento.touched" class="form-text text-success">OK</small>
+                                        <div class="form-group col-md-4 ">
+                                            <input type="text " class="form-control " placeholder="Complemento " autocomplete="off " name="complemento " ngModel #inputComplemento="ngModel ">
+                                            <small *ngIf="inputComplemento.valid && inputComplemento.touched " class="form-text text-success ">OK</small>
                                         </div>
 
                                     </div>
@@ -108,22 +101,23 @@
                                     <h5>Dados Pessoais</h5>
                                     <hr />
 
-                                    <div class="form-row">
+                                    <div class="form-row ">
 
-                                        <div class="form-group col-md-3">
-                                            <select class="form-control" name="formaPagamento" required ngModel #selectFormaPagamento="ngModel">
-                                          <option value="">Selecione uma opção</option>
-                                          <option value="dinheiro">Dinheiro</option>
-                                          <option value="debito">Débito</option>
+                                        <div class="form-group col-md-3 ">
+                                            <select class="form-control " name="formaPagamento " required ngModel #selectFormaPagamento="ngModel ">
+                                          <option value=" ">Selecione uma opção</option>
+                                          <option value="dinheiro ">Dinheiro</option>
+                                          <option value="debito ">Débito</option>
                                         </select>
-                                            <small *ngIf="selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-success">OK</small>
-                                            <small *ngIf="!selectFormaPagamento.valid && selectFormaPagamento.touched" class="form-text text-danger">Forma de pagamento inválido</small>
+                                            <small *ngIf="selectFormaPagamento.valid && selectFormaPagamento.touched " class="form-text text-success ">OK</small>
+                                            <small *ngIf="!selectFormaPagamento.valid && selectFormaPagamento.touched " class="form-text text-danger ">Forma de pagamento inválido</small>
                                         </div>
                                     </div>
 
                                     <hr />
-                                    <button type="submit" class="btn btn-info btn-lg" ng-submit="">Cofirmar</button>
-                                </form>
+                                    <button type="submit " class="btn btn-info btn-lg " ng-submit=" ">Cofirmar</button>
+                                    </form>
+-->
                             </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
@@ -133,79 +127,82 @@
     </div>
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <div class="container topo">
+            <div class="modal-content">
+                <div class="container topo">
                     <div class="modal-header">
-                <h5 class="modal-title">Cadastro de Veiculo</h5>
+                        <h5 class="modal-title">Cadastro de Veiculo</h5>
                     </div>
                     <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <select name="Escolha a Marca" class="btn btn-primary">
-                                            <option value="">Escolha a Marca</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="fiat">Fiat</option>
-                                            <option value="audi">Audi</option>
+                                        <option value="">Escolha a Marca</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="fiat">Fiat</option>
+                                        <option value="audi">Audi</option>
                                     </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group has-success">
-                                    <select name="Modelo" class="btn btn-primary">
-                                            <option value="">Escolha o Modelo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="fiat">Fiat</option>
-                                            <option value="audi">Audi</option>
-                                          </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="form-group has-success">
-                                        <select name="Modelo" class="btn btn-primary">
-                                                <option value="">Ano</option>
-                                                <option value="saab">2018</option>
-                                                <option value="fiat">2017</option>
-                                              </select>
-                                </div>
-                            </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Ano" aria-describedby="basic-addon1">
-                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Combustivel" aria-describedby="basic-addon1">
-                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Valor" aria-describedby="basic-addon1">
-                                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
-                                    </div>
+                                <div class="form-group has-success">
+                                    <select name="Modelo" class="btn btn-primary">
+                                        <option value="">Escolha o Modelo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="fiat">Fiat</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
                                 </div>
-                     </div>
-                     <br><br>
-                     <div class="form-check">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group has-success">
+                                    <select name="Modelo" class="btn btn-primary">
+                                        <option value="">Ano</option>
+                                        <option value="saab">2018</option>
+                                        <option value="fiat">2017</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Ano" aria-describedby="basic-addon1">
+                                    <span class="input-group-addon" id="basic-addon1">
+                                        <i class="fa fa-group" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Combustivel" aria-describedby="basic-addon1">
+                                    <span class="input-group-addon" id="basic-addon1">
+                                        <i class="fa fa-group" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Valor" aria-describedby="basic-addon1">
+                                    <span class="input-group-addon" id="basic-addon1">
+                                        <i class="fa fa-group" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              Unchecked
-                              <span class="form-check-sign"></span>
+                                <input class="form-check-input" type="checkbox" value=""> Unchecked
+                                <span class="form-check-sign"></span>
                             </label>
                         </div>
-                    <br><br>
-                     <input class="form-control-file" name="arquivos[]" type=file multiple />
-        
-                     </div>
-            
-                    
+                        <br>
+                        <br>
+                        <input class="form-control-file" name="arquivos[]" type=file multiple />
+                    </div>
                 </div>
             </div>
-          </div>
-        </div>  
-</div>
+        </div>
+    </div>

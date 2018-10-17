@@ -25,7 +25,8 @@ import { CadastroComponent } from './cadastro/cadastro.component';
 import { Auth } from './services/Auth.service';
 import { ClienteService } from './services/Cliente.service';
 import { AnuncioService } from './services/Anuncio.service';
-import { firestoreSerice } from './services/Firestore.service';
+import { FirestoreService } from './services/Firestore.service';
+import { AnuncioAbertoService } from './services/AnuncioAberto.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { firestoreSerice } from './services/Firestore.service';
     ReactiveFormsModule,
     Ng5SliderModule
   ],
-  providers: [Auth, ClienteService, AnuncioService, firestoreSerice],
+  providers: [Auth, ClienteService, AnuncioService, FirestoreService, AnuncioAbertoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

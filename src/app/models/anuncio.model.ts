@@ -48,6 +48,7 @@ export class Veiculo {
 }
 
 export class Anuncio {
+    public id: string
     public titulo: string
     public descricao: string
     public veiculo: Veiculo
