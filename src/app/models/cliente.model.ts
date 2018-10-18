@@ -1,4 +1,3 @@
-//import * as firebase from 'firebase/app'
 
 export class Endereco {
     public uf: string;
@@ -38,6 +37,7 @@ export class Cliente {
     public email: string;
     public foto: string;
     public descricao: string;
+    public timestamp: number;
 
     constructor(){
         this.email = null;
@@ -47,6 +47,7 @@ export class Cliente {
         this.email = null;
         this.foto = null;
         this.descricao = null;
+        this.timestamp = new Date().getTime();
     }
 }
 

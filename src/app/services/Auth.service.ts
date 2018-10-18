@@ -6,7 +6,8 @@ import { Cliente } from "../models/cliente.model";
 import { ClienteService } from "./Cliente.service";
 
 @Injectable()
-export class Auth {
+
+ export class Auth {
     public token_id: string
 
     private cliente: Cliente

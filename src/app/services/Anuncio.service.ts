@@ -53,7 +53,7 @@ export class AnuncioService {
 
     public getAnuncios(): any {
         return new Promise((resolve, reject) => {
-            this.collection.get()
+            this.collection.orderBy('timestamp', 'desc').get()
                 .then((snapshot: any) => {
                     let anuncios: Array<any> = []
 
@@ -61,7 +61,7 @@ export class AnuncioService {
                         anuncios.push(childSnapshot.data())
                     })
 
-                    return anuncios.reverse()
+                    return anuncios
                 })
                 .then((anuncios: any) => {
 
@@ -97,9 +97,9 @@ export class AnuncioService {
         anuncio.veiculo.fotos = []
 
         anuncio.veiculo.fotos.push('1.jpg')
-        anuncio.veiculo.preco = Math.ceil(Math.random() * 10000)
+        anuncio.preco = Math.ceil(Math.random() * 100000)
 
-        anuncio.aberto = anuncio.veiculo.preco > 5000;
+        anuncio.aberto = true
         
         this.persistAnuncio(anuncio);
 

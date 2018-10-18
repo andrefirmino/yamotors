@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
     this.getUserData()
     this.getAnuncios()
 
-    this.anuncioService.mockAnuncio()
   }
 
   private getUserData(): void {
@@ -55,6 +54,11 @@ export class DashboardComponent implements OnInit {
   private deleteAnuncio(id: string) {
     this.anuncioService.deleteAnuncio(id)
 
+    this.getAnuncios()
+  }
+
+  private mock(): void {
+    this.anuncioService.mockAnuncio()
     this.getAnuncios()
   }
 }

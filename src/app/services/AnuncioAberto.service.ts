@@ -16,7 +16,7 @@ export class AnuncioAbertoService {
 
     public getAnunciosAbertos(): any {
         return new Promise((resolve, reject) => {
-            this.collection.get()
+            this.collection.orderBy('timestamp', "desc").get()
                 .then((snapshot: any) => {
                     let anuncios: Array<any> = []
 
@@ -55,5 +55,65 @@ export class AnuncioAbertoService {
         // FALTA TESTAR
 
         this.collection.doc(id).delete()
+    }
+
+    public getMostRecently(limit: number): any {
+        return new Promise((resolve, reject) => {
+            this.collection.orderBy('timestamp', 'asc')
+                .limit(limit)
+                .get()
+                .then((snapshot: any) => {
+                    let anuncios: Array<any> = []
+
+                    snapshot.forEach((childSnapshot: any) => {
+                        anuncios.push(childSnapshot.data())
+                    })
+
+                    return anuncios
+                })
+                .then((anuncios: any) => {
+
+                    anuncios.forEach((anuncio) => {
+                        anuncio.veiculo.fotos.forEach((foto, idx) => {
+                            this.firestoreService.getAnuncioFoto(foto)
+                                .then((url) => {
+                                    anuncio.veiculo.fotos[idx] = url
+                                })
+                        })
+                    })
+                    resolve(anuncios)
+                })
+        })
+        
+    }
+
+    public getCheaper(limit: number): any {
+        return new Promise((resolve, reject) => {
+            this.collection.orderBy('preco', 'asc')
+                .limit(limit)
+                .get()
+                .then((snapshot: any) => {
+                    let anuncios: Array<any> = []
+
+                    snapshot.forEach((childSnapshot: any) => {
+                        anuncios.push(childSnapshot.data())
+                    })
+
+                    return anuncios
+                })
+                .then((anuncios: any) => {
+
+                    anuncios.forEach((anuncio) => {
+                        anuncio.veiculo.fotos.forEach((foto, idx) => {
+                            this.firestoreService.getAnuncioFoto(foto)
+                                .then((url) => {
+                                    anuncio.veiculo.fotos[idx] = url
+                                })
+                        })
+                    })
+                    resolve(anuncios)
+                })
+        })
+        
     }
 }

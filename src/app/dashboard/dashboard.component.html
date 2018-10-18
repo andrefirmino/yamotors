@@ -6,16 +6,12 @@
         <div class="container">
             <div class="owner">
                 <div class="avatar">
-                    <!--
-                      <img src="./assets/img/faces/brasilcar.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                  -->
                     <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="cliente.foto || '' " />
                 </div>
                 <div class="name">
                     <h4 class="title">{{cliente.nome }}
                         <br />
                     </h4>
-                    <!-- <h6 class="description">Revendedora de Veiculos</h6> -->
                 </div>
             </div>
             <div class="row">
@@ -41,6 +37,7 @@
                                                 </div>
                                                 <div class="col-md-6 col-sm-2 ml-auto mr-auto">
                                                     <button class="btn btn-success btn-round" data-toggle="modal" data-target=".bd-example-modal-lg">Inserir Veiculo</button>
+                                                    <button class="btn btn-success btn-round" (click)="mock()">Mock Veiculo</button>
                                                 </div>
                                             </div>
                                             <li *ngFor="let anuncio of anuncios">
@@ -52,7 +49,7 @@
                                                         <h5>{{anuncio.titulo}}
                                                             <br/>
                                                             <small>Aberto: {{anuncio.aberto}} |
-                                                                <b> {{anuncio.veiculo.preco}} </b>
+                                                                <b> {{anuncio.preco}} </b>
                                                             </small>
                                                         </h5>
                                                     </div>
