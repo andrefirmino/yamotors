@@ -27,6 +27,7 @@ import { ClienteService } from './services/Cliente.service';
 import { AnuncioService } from './services/Anuncio.service';
 import { FirestoreService } from './services/Firestore.service';
 import { AnuncioAbertoService } from './services/AnuncioAberto.service';
+import { ConfigService } from "./services/Config.service";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { AnuncioAbertoService } from './services/AnuncioAberto.service';
     ReactiveFormsModule,
     Ng5SliderModule
   ],
-  providers: [Auth, ClienteService, AnuncioService, FirestoreService, AnuncioAbertoService],
+  providers: [Auth, ClienteService, AnuncioService, FirestoreService, AnuncioAbertoService, ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

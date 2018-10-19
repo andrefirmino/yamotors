@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnuncioAbertoService } from '../services/AnuncioAberto.service';
 import { Anuncio } from '../models/anuncio.model';
+import { ConfigService } from "../services/Config.service";
 
 @Component({
     selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
     LIMIT: number = 3;
     private recentes: Anuncio[]
     private baratos: Anuncio[]
-    
+    private images: {}
 
     model = {
         left: true,
@@ -21,12 +22,14 @@ export class HomeComponent implements OnInit {
         right: false
     };
     constructor(
-        private anuncioAbertoService: AnuncioAbertoService
+        private anuncioAbertoService: AnuncioAbertoService,
+        private configService: ConfigService
     ) { }
 
     ngOnInit() {
         this.getMostRecently()
         this.getCheaper()
+        this.getImages()
     }
 
     private getMostRecently(): void {
@@ -39,8 +42,6 @@ export class HomeComponent implements OnInit {
 
         }).catch((err) => {
             console.log(err)
-        }).then(() => {
-            console.log(this.recentes)
         })
 
     }
@@ -55,11 +56,15 @@ export class HomeComponent implements OnInit {
 
         }).catch((err) => {
             console.log(err)
-        }).then(() => {
-            console.log(this.baratos)
         })
 
     }
 
+    private getImages(): void {
+        this.configService.getAllConfig()
+            .then((config) => {
+                this.images = config.data()
+            })
+    }
 
 }

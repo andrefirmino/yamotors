@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Auth } from '../services/Auth.service';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
+import { ConfigService } from "../services/Config.service";
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   test: Date = new Date();
+  backGroundImage: string
 
   public formulario: FormGroup = new FormGroup({
     'email': new FormControl(null),
@@ -19,10 +21,17 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: Auth,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.configService.getConfig('login')
+      .then((url) => {
+        this.backGroundImage = url
+      })
+
+   }
 
   public autenticar(): void {
     let usuario = new Usuario(

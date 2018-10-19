@@ -3,6 +3,7 @@ import { ClienteService } from '../services/Cliente.service';
 import { Cliente } from '../models/cliente.model';
 import { Anuncio } from '../models/anuncio.model';
 import { AnuncioService } from '../services/Anuncio.service';
+import { ConfigService } from "../services/Config.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,16 +15,19 @@ export class DashboardComponent implements OnInit {
   private cliente: Cliente;
   private url_imagem: string;
   private anuncios: Anuncio[]
+  private garageImage: string
 
   constructor(
     private clienteService: ClienteService,
-    private anuncioService: AnuncioService
+    private anuncioService: AnuncioService,
+    private configService: ConfigService
   ) { }
 
   ngOnInit() {
     this.anuncios = new Array()
     this.getUserData()
     this.getAnuncios()
+    this.getImage()
 
   }
 
@@ -46,8 +50,6 @@ export class DashboardComponent implements OnInit {
 
     }).catch((err) => {
       console.log(err)
-    }).then(() => {
-      console.log(this.anuncios)
     })
   }
 
@@ -60,5 +62,12 @@ export class DashboardComponent implements OnInit {
   private mock(): void {
     this.anuncioService.mockAnuncio()
     this.getAnuncios()
+  }
+
+  private getImage(): void {
+    this.configService.getConfig('garagem')
+      .then((url) => {
+        this.garageImage = url
+      })
   }
 }

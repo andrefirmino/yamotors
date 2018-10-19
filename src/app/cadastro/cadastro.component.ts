@@ -3,6 +3,7 @@ import { Auth } from '../services/Auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
+import { ConfigService } from "../services/Config.service";
 
 @Component({
   selector: 'app-cadastro',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class CadastroComponent implements OnInit {
 
+  backGroundImage: string
+
   public formulario: FormGroup = new FormGroup({
     'email': new FormControl(null),
     'senha': new FormControl(null)
@@ -18,10 +21,15 @@ export class CadastroComponent implements OnInit {
 
   constructor(
     private authService: Auth,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) { }
 
   ngOnInit() {
+    this.configService.getConfig('login')
+      .then((url) => {
+        this.backGroundImage = url
+      })
   }
 
   public cadastrarUsuario(): void {

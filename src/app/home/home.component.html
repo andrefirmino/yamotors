@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="page-header section-dark" style="background-image: url('assets/img/fundo_principal.jpg')">
+    <div class="page-header section-dark" [style.backgroundImage]="'url(' + images.fundo_principal + ')'">
         <div class="filter"></div>
         <div class="content-center">
             <div class="container">
@@ -185,7 +185,7 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img src="https://firebasestorage.googleapis.com/v0/b/ya-motors.appspot.com/o/home%2Fcadastrar.png?alt=media&token=b7803ccb-201b-4866-84ae-35f6206625a1" alt="..."></a>
+                        <a href="#avatar"><img [src]="images.cadastrar || ''" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">
@@ -206,7 +206,7 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img src="https://firebasestorage.googleapis.com/v0/b/ya-motors.appspot.com/o/home%2Facesso_dash.png?alt=media&token=d4e83b61-ad3d-4651-8fca-640516f87979" alt="..."></a>
+                        <a href="#avatar"><img [src]="images.acesso_dash || ''" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">
@@ -227,7 +227,7 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img src="https://firebasestorage.googleapis.com/v0/b/ya-motors.appspot.com/o/home%2Fdashboard.png?alt=media&token=71f6785d-1e50-40b8-bab5-08a62a6643e2" alt="..."></a>
+                        <a href="#avatar"><img [src]="images.dashboard || ''" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">
