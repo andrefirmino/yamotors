@@ -9,49 +9,10 @@ export class Opcional {
     }
 }
 
-export class Fipe {
-    public idMarca: number
-    public nomeMarca: string
-    public tipo: string
-    
-    public idModelo: number
-    public nomeModelo: string
-    
-    public anoComposto: string
-    public ano: number
-    public combustivel: string
-
-    constructor(){
-        this.tipo = null
-        this.nomeMarca = null
-        this.tipo = null
-        this.idModelo = null
-        this.nomeModelo = null
-        this.anoComposto = null
-        this.ano = NaN
-        this.combustivel = null
-    }
-
-}
-
-export class Veiculo {
-    public fipe = new Fipe()
-    public opcionais: Opcional[]
-    
-    public fotos: string[]
-
-    contructor(){
-        this.fipe = new Fipe()
-        this.opcionais = [new Opcional()]
-        this.fotos = [null]
-    }
-}
-
 export class Anuncio {
     public id: string
     public titulo: string
     public descricao: string
-    public veiculo: Veiculo
     public preco: number
     
     public aberto: boolean
@@ -61,15 +22,37 @@ export class Anuncio {
 
     public timestamp: number 
 
+    public idMarca: number
+    public nomeMarca: string
+    public tipo: string
+    
+    public idModelo: number
+    public nomeModelo: string
+    public anoComposto: string
+    public ano: number
+    public combustivel: string
+
+    public opcionais: Opcional[]
+    public fotos: string[]
+
     constructor() {
         this.titulo = null
         this.descricao = null
-        this.veiculo = new Veiculo()
         this.preco = 0
         this.aberto = false
         this.anuncianteId = null
         this.anuncianteNome = null
         this.timestamp = new Date().getTime()
+        this.tipo = null
+        this.nomeMarca = null
+        this.tipo = null
+        this.idModelo = null
+        this.nomeModelo = null
+        this.anoComposto = null
+        this.ano = NaN
+        this.combustivel = null
+        this.opcionais = [new Opcional()]
+        this.fotos = [null]
     }
 
 }

@@ -2,6 +2,8 @@ import * as firebase from 'firebase';
 import { Injectable } from "@Angular/core";
 import { Anuncio } from "../models/anuncio.model";
 import { FirestoreService } from "./Firestore.service";
+import { FipeRealService } from './FIpeReal.service';
+import { AnuncioService } from './Anuncio.service';
 
 @Injectable()
 export class AnuncioAbertoService {
@@ -9,7 +11,8 @@ export class AnuncioAbertoService {
     private collection: firebase.firestore.CollectionReference
 
     constructor(
-        private firestoreService: FirestoreService
+        private firestoreService: FirestoreService,
+        private fipeRealService: FipeRealService
     ) {
         this.collection = firebase.firestore().collection('anuncioAberto')
     }
@@ -29,10 +32,10 @@ export class AnuncioAbertoService {
                 .then((anuncios: any) => {
 
                     anuncios.forEach((anuncio) => {
-                        anuncio.veiculo.fotos.forEach((foto, idx) => {
+                        anuncio.fotos.forEach((foto, idx) => {
                             this.firestoreService.getAnuncioFoto(foto)
                                 .then((url) => {
-                                    anuncio.veiculo.fotos[idx] = url
+                                    anuncio.fotos[idx] = url
                                 })
                         })
                     })
@@ -45,16 +48,19 @@ export class AnuncioAbertoService {
 
         if (anuncio.aberto) {
             this.collection.doc(anuncio.id).set(JSON.parse(JSON.stringify(anuncio)))
+            this.fipeRealService.increment(anuncio)
         } else {
             this.collection.doc(anuncio.id).delete()
+            this.fipeRealService.decrement(anuncio)
         }
     }
 
-    public deleteAnuncio(id: string) {
+    public deleteAnuncio(anuncio: Anuncio): any {
+        
+        this.collection.doc(anuncio.id).delete()
 
-        // FALTA TESTAR
 
-        this.collection.doc(id).delete()
+        this.fipeRealService.decrement(anuncio)
     }
 
     public getMostRecently(limit: number): any {
@@ -74,10 +80,10 @@ export class AnuncioAbertoService {
                 .then((anuncios: any) => {
 
                     anuncios.forEach((anuncio) => {
-                        anuncio.veiculo.fotos.forEach((foto, idx) => {
+                        anuncio.fotos.forEach((foto, idx) => {
                             this.firestoreService.getAnuncioFoto(foto)
                                 .then((url) => {
-                                    anuncio.veiculo.fotos[idx] = url
+                                    anuncio.fotos[idx] = url
                                 })
                         })
                     })
@@ -104,10 +110,10 @@ export class AnuncioAbertoService {
                 .then((anuncios: any) => {
 
                     anuncios.forEach((anuncio) => {
-                        anuncio.veiculo.fotos.forEach((foto, idx) => {
+                        anuncio.fotos.forEach((foto, idx) => {
                             this.firestoreService.getAnuncioFoto(foto)
                                 .then((url) => {
-                                    anuncio.veiculo.fotos[idx] = url
+                                    anuncio.fotos[idx] = url
                                 })
                         })
                     })

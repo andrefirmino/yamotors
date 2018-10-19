@@ -4,6 +4,7 @@ import { Auth } from '../services/Auth.service';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 import { ConfigService } from "../services/Config.service";
+import { FipeRealService } from '../services/FIpeReal.service';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +31,6 @@ export class SignupComponent implements OnInit {
       .then((url) => {
         this.backGroundImage = url
       })
-
    }
 
   public autenticar(): void {

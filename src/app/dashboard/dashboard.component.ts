@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   private getAnuncios(): void {
 
-     this.anuncios = []
+    this.anuncios = []
     //carrega os anuncios do cliente especifico
     this.anuncioService.getAnuncios().then((result) => {
       result.forEach((an) => {
@@ -55,8 +55,11 @@ export class DashboardComponent implements OnInit {
 
   private deleteAnuncio(id: string) {
     this.anuncioService.deleteAnuncio(id)
+      .then(() => {
+        this.getAnuncios()
+      })
 
-    this.getAnuncios()
+
   }
 
   private mock(): void {

@@ -19,7 +19,7 @@
         <div class="row posicao">
             <div class="col-md-4" *ngFor="let barato of baratos">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="barato.veiculo.fotos[0] || ''" alt="Card image cap">
+                    <img class="card-img-top" [src]="barato.fotos[0] || ''" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{barato.titulo}}</h5>
                         <h6 class="card-title">{{barato.preco}}</h6>
@@ -78,7 +78,7 @@
         <div class="row posicao">
             <div class="col-md-4" *ngFor="let recente of recentes">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="recente.veiculo.fotos[0] || ''" alt="Card image cap">
+                    <img class="card-img-top" [src]="recente.fotos[0] || ''" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{recente.titulo}}</h5>
                         <h6 class="card-title">{{recente.preco}}</h6>
