@@ -6,6 +6,7 @@ import { FipeRealService } from './FIpeReal.service';
 import { AnuncioService } from './Anuncio.service';
 import { Filter } from 'app/models/filter.model';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { jsonFilter } from 'app/utils';
 
 @Injectable()
 export class AnuncioAbertoService {
@@ -21,7 +22,7 @@ export class AnuncioAbertoService {
 
     public getAnunciosAbertos(filter: Filter[]): any {
         return new Promise((resolve, reject) => {
-            
+
             this.collection.orderBy('timestamp', "desc").get()
                 .then((snapshot: any) => {
                     let anuncios: Array<any> = []
@@ -30,11 +31,8 @@ export class AnuncioAbertoService {
                         anuncios.push(childSnapshot.data())
                     })
 
-                    filter.forEach((f) => {
-                        anuncios = anuncios.filter(new Function("item", `return item.${f.name} ${f.type} ${f.value};`))        
-                    })
+                    return jsonFilter(anuncios, filter).reverse()
 
-                    return anuncios.reverse()
                 })
                 .then((anuncios: any) => {
 
@@ -63,7 +61,7 @@ export class AnuncioAbertoService {
     }
 
     public deleteAnuncio(anuncio: Anuncio): any {
-        
+
         this.collection.doc(anuncio.id).delete()
 
 
@@ -97,7 +95,7 @@ export class AnuncioAbertoService {
                     resolve(anuncios)
                 })
         })
-        
+
     }
 
     public getCheaper(limit: number): any {
@@ -127,6 +125,28 @@ export class AnuncioAbertoService {
                     resolve(anuncios)
                 })
         })
-        
+
+    }
+
+    public minValue(): any {
+        return this.getValue('asc')
+    }
+
+    public maxValue(): any {
+        return this.getValue('desc')
+    }
+
+    private getValue(type: firebase.firestore.OrderByDirection): any {
+        return new Promise((resolve, reject) => {
+
+            this.collection.orderBy('preco', type)
+                .limit(1)
+                .get()
+                .then((snapshot: any) => {
+                    snapshot.forEach(childSnapshot => {
+                        resolve(childSnapshot.data())
+                    })
+                })
+        })
     }
 }

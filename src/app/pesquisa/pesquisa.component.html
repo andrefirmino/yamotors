@@ -10,17 +10,17 @@
                 </div>
             </div>
             <form>
-                <select name="Escolha a Marca" class="btn btn-primary" [(ngModel)]="selectedMarca" (change)="getFipeData()">
+                <select name="Escolha a Marca" class="btn btn-outline-primary" [(ngModel)]="selectedMarca" (change)="getFipeData()">
                     <option value="0">Escolha a Marca</option>
             <option *ngFor="let marca of marcas" value="{{marca.idMarca}}">{{marca.nomeMarca}}</option>
           </select>
 
-                <select name="Modelo" class="btn btn-primary" [(ngModel)]="selectedModelo" (change)="getFipeData()">
+                <select name="Modelo" class="btn btn-outline-primary" [(ngModel)]="selectedModelo" (change)="getFipeData()">
             <option value="0">Escolha o Modelo</option>
             <option *ngFor="let modelo of modelos" value="{{modelo.idModelo}}">{{modelo.nomeModelo}}</option>
           </select>
 
-                <select name="Modelo" class="btn btn-primary" [(ngModel)]="selectedAno" (change)="getFipeData()">
+                <select name="Modelo" class="btn btn-outline-primary" [(ngModel)]="selectedAno" (change)="getFipeData()">
             <option value="0">Escolha o Ano</option>
             <option *ngFor="let ano of anos" value="{{ano.ano}}">{{ano.ano}}</option>
           </select>
@@ -31,20 +31,30 @@
 
                 <div class="row">
                     <div class="d-flex justify-content-start">
-                        <button class="btn btn-success" (click)="getAnuncios()">Pesquisar</button>
+                        <button class="btn btn-outline-success" (click)="getAnuncios()">Pesquisar</button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-neutral">Mostrar Tudo</button>
+                        <button class="btn btn-outline-default" (click)="getAll()">Mostrar Tudo</button>
                     </div>
 
                 </div>
-
-
-
-
-
             </form>
-
+            <h2 class="text-center">Anuncios</h2>
+            <div class="row posicao">
+                <div class="col-md-4" *ngFor="let anuncio of anuncios">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{anuncio.titulo}}</h5>
+                            <h6 class="card-title">{{anuncio.preco}}</h6>
+                            <p class="card-text">
+                                {{anuncio.descricao}}
+                            </p>
+                            <a href="#" class="btn btn-primary">Informações</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

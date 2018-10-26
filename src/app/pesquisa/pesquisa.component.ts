@@ -5,7 +5,8 @@ import { Options } from 'ng5-slider';
 import { FipeRealService } from 'app/services/FIpeReal.service';
 import { AnuncioAbertoService } from 'app/services/AnuncioAberto.service';
 import { Anuncio } from 'app/models/anuncio.model';
-import { Filter } from 'app/models/filter.model';
+import { Filter, FilterType } from 'app/models/filter.model';
+import { log } from 'util';
 
 @Component({
   selector: 'app-pesquisa',
@@ -23,13 +24,9 @@ export class PesquisaComponent implements OnInit {
   private selectedModelo = 0;
   private selectedAno = 0;
 
-  minValue: number = 0;
-  maxValue: number = 1000000;
-  options: Options = {
-    floor: 0,
-    ceil: 1000000,
-    step: 5
-  };
+  private minValue: number = 0;
+  private maxValue: number = 0;
+  private options: Options
 
   constructor(
     private fipeRealService: FipeRealService,
@@ -38,9 +35,23 @@ export class PesquisaComponent implements OnInit {
 
   ngOnInit() {
     this.getFipeData()
-    this.getAnuncios()
+    this.getMin()
+      .then(() => {
+        this.getMax()
+          .then(() => {
+            this.options = {
+              step: 5,
+              ceil: this.maxValue,
+              floor: this.minValue
+            }
 
+            this.getAnuncios()
+
+          })
+      })
+    
     this.filters = []
+
   }
 
   private getFipeData(): void {
@@ -50,66 +61,110 @@ export class PesquisaComponent implements OnInit {
   }
 
   private getMarcas(): void {
-    this.marcas = []
+    let aux = []
 
     this.fipeRealService.getMarcas(this.selectedMarca, this.selectedModelo, this.selectedAno)
       .then((snapshot: any) => {
         snapshot.forEach(childsnapshot => {
-          this.marcas.push(childsnapshot)
+          aux.push(childsnapshot)
         })
+      }).then(() => {
+        this.marcas = aux
       })
   }
 
   private getModelos(): void {
-    this.modelos = []
+    let aux = []
 
     this.fipeRealService.getModelos(this.selectedMarca, this.selectedModelo, this.selectedAno)
       .then((snapshot: any) => {
         snapshot.forEach(childsnapshot => {
-          this.modelos.push(childsnapshot)
+          aux.push(childsnapshot)
         })
+      }).then(() => {
+        this.modelos = aux
       })
   }
   private getAnos(): void {
-    this.anos = []
+    let aux = []
 
     this.fipeRealService.getAnos(this.selectedMarca, this.selectedModelo, this.selectedAno)
       .then((snapshot: any) => {
         snapshot.forEach(childsnapshot => {
-          this.anos.push(childsnapshot)
+          aux.push(childsnapshot)
         })
+      }).then(() => {
+        this.anos = aux
       })
   }
 
   private getAnuncios(): void {
-    
-    this.anuncios = []
+    let aux = []
     this.filters = []
 
     if (this.selectedMarca != 0){
-      this.filters.push(new Filter('idMarca', '==', this.selectedMarca))
+      this.filters.push(new Filter('idMarca', FilterType.IGUAL, this.selectedMarca))
     }
     
     if (this.selectedModelo != 0){
-      this.filters.push(new Filter('idModelo', '==', this.selectedModelo))
+      this.filters.push(new Filter('idModelo', FilterType.IGUAL, this.selectedModelo))
     }
 
     if (this.selectedAno != 0){
-      this.filters.push(new Filter('ano', '==', this.selectedAno))
+      this.filters.push(new Filter('ano', FilterType.IGUAL, this.selectedAno))
     }
 
-    //aqui entra o filtro de preços
-    this.filters.push(new Filter('preco', '>=', 30000))
-    this.filters.push(new Filter('preco', '<=', 50000))
+    //aqui entra os demais filtros antes de buscar
+    this.filters.push(new Filter('preco', FilterType.MAIORIGUAL, this.minValue))
+    this.filters.push(new Filter('preco', FilterType.MENORIGUAL, this.maxValue))
         
 
     this.anuncioAbertoService.getAnunciosAbertos(this.filters)
       .then((snapshot) => {
         snapshot.forEach(childsnapshot => {
-          this.anuncios.push(childsnapshot as Anuncio)
+          aux.push(childsnapshot as Anuncio)
         })
-      }).then((result) => {
-        console.log(this.anuncios)
-      });
+      })
+      .then(() => {
+        this.anuncios = aux
+      })
+  }
+
+  private getMin(): any {
+    return new Promise((resolve, reject) => {
+      this.anuncioAbertoService.minValue()
+      .then((snapshot: any) => {
+        this.minValue = (snapshot as Anuncio).preco
+
+        resolve(true)
+      })
+    })
+    
+  }
+
+  private getMax(): any {
+    return new Promise((resolve, reject) => {
+      this.anuncioAbertoService.maxValue()
+        .then((snapshot: any) => {
+          this.maxValue = (snapshot as Anuncio).preco
+
+          resolve(true)
+        })
+      })
+  }
+
+  private getAll(): void {
+    let aux = []
+    this.filters = []
+    
+    this.anuncioAbertoService.getAnunciosAbertos(this.filters)
+      .then((snapshot) => {
+        snapshot.forEach(childsnapshot => {
+          aux.push(childsnapshot as Anuncio)
+        })
+      })
+      .then(() => {
+        this.anuncios = aux
+      })
   }
 }
