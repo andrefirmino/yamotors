@@ -53,7 +53,7 @@ export class FipeRealService {
             })
     }
 
-    public getMarcas(idModelo: number, ano: number): any {
+    public getMarcas(idMarca: number, idModelo: number, ano: number): any {
         return new Promise((resolve, reject) => {
             this.collection.get()
                 .then((snapshot) => {
@@ -62,9 +62,12 @@ export class FipeRealService {
                     snapshot.forEach((child) => {
                         let data = child.data()
 
-                        if (data.idModelo == idModelo || idModelo == null) {
-                            if (data.ano == ano || ano == null) {
-                                marcas[data.idMarca] = { idMarca: data.idMarca, nomeMarca: data.nomeMarca }
+                        if (data.idMarca == idMarca || idMarca == 0) {
+                            if (data.idModelo == idModelo || idModelo == 0) {
+                                if (data.ano == ano || ano == 0) {
+                                    marcas[data.idMarca] = { idMarca: data.idMarca, nomeMarca: data.nomeMarca }
+                                }
+
                             }
                         }
 
@@ -74,7 +77,7 @@ export class FipeRealService {
         })
     }
 
-    public getModelos(idMarca: number, ano: number): any {
+    public getModelos(idMarca: number, idModelo: number, ano: number): any {
         return new Promise((resolve, reject) => {
             let modelos = []
             this.collection.get()
@@ -82,19 +85,20 @@ export class FipeRealService {
                     snapshot.forEach((child) => {
                         let data = child.data()
 
-                        if (data.idMarca == idMarca || idMarca == null) {
-                            if (data.ano == ano || ano == null) {
-                                modelos[data.idModelo] = { idModelo: data.idModelo, nomeModelo: data.nomeModelo }
+                        if (data.idMarca == idMarca || idMarca == 0) {
+                            if (data.idModelo == idModelo || idModelo == 0) {
+                                if (data.ano == ano || ano == 0) {
+                                    modelos[data.idModelo] = { idModelo: data.idModelo, nomeModelo: data.nomeModelo }
+                                }
                             }
                         }
-
                     })
                     resolve(modelos)
                 })
         })
     }
 
-    public getAnos(idMarca: number, idModelo: number): any {
+    public getAnos(idMarca: number, idModelo: number, ano: number): any {
         return new Promise((resolve, reject) => {
             let anos = []
             this.collection.get()
@@ -102,9 +106,11 @@ export class FipeRealService {
                     snapshot.forEach((child) => {
                         let data = child.data()
 
-                        if (data.idMarca == idMarca || idMarca == null) {
-                            if (data.idModelo == idModelo || idModelo == null) {
-                                anos[data.ano] = { ano: data.ano }
+                        if (data.idMarca == idMarca || idMarca == 0) {
+                            if (data.idModelo == idModelo || idModelo == 0) {
+                                if (data.ano == ano || ano == 0) {
+                                    anos[data.ano] = { ano: data.ano }
+                                }
                             }
                         }
                     })

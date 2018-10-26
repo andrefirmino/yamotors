@@ -4,6 +4,8 @@ import { Anuncio } from "../models/anuncio.model";
 import { FirestoreService } from "./Firestore.service";
 import { FipeRealService } from './FIpeReal.service';
 import { AnuncioService } from './Anuncio.service';
+import { Filter } from 'app/models/filter.model';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable()
 export class AnuncioAbertoService {
@@ -17,14 +19,19 @@ export class AnuncioAbertoService {
         this.collection = firebase.firestore().collection('anuncioAberto')
     }
 
-    public getAnunciosAbertos(): any {
+    public getAnunciosAbertos(filter: Filter[]): any {
         return new Promise((resolve, reject) => {
+            
             this.collection.orderBy('timestamp', "desc").get()
                 .then((snapshot: any) => {
                     let anuncios: Array<any> = []
 
                     snapshot.forEach((childSnapshot: any) => {
                         anuncios.push(childSnapshot.data())
+                    })
+
+                    filter.forEach((f) => {
+                        anuncios = anuncios.filter(new Function("item", `return item.${f.name} ${f.type} ${f.value};`))        
                     })
 
                     return anuncios.reverse()

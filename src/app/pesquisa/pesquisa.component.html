@@ -1,55 +1,50 @@
 <div class="wrapper">
-  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/garagem2.jpg');">
-      <div class="filter"></div>
-  </div>
-  <div class="section profile-content">
-      <div class="container">
-          <div class="owner">
-              <div class="name">
-                  <h3 class="title">Pesquisa de Veiculos<br /></h3>
-              </div>
-          </div>
-        <form>
-          <select name="Escolha a Marca" class="btn btn-primary">
-            <option value="">Escolha a Marca</option>
-            <option value="saab">Saab</option>
-            <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option>
-          </select>
-
-          <select name="Modelo" class="btn btn-primary">
-            <option value="">Escolha o Modelo</option>
-            <option value="saab">Saab</option>
-            <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option>
-          </select>
-
-          <select name="Modelo" class="btn btn-primary">
-            <option value="">Ano</option>
-            <option value="saab">2018</option>
-            <option value="fiat">2017</option>
-          </select>
-          <br><br>
-          <label>Escolha a faixa de Preço</label>
-          <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" class="slider"></ng5-slider>
-          <br><br>
-          
-          <div class="row">
-            <div class="d-flex justify-content-start">
-              <button class="btn btn-success">Pesquisar</button>
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/garagem2.jpg');">
+        <div class="filter"></div>
+    </div>
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="name">
+                    <h3 class="title">Pesquisa de Veiculos<br /></h3>
+                </div>
             </div>
-            <div class="d-flex justify-content-end">
-              <button class="btn btn-neutral">Mostrar Tudo</button>
-            </div>
-            
-          </div>
-            
-         
+            <form>
+                <select name="Escolha a Marca" class="btn btn-primary" [(ngModel)]="selectedMarca" (change)="getFipeData()">
+                    <option value="0">Escolha a Marca</option>
+            <option *ngFor="let marca of marcas" value="{{marca.idMarca}}">{{marca.nomeMarca}}</option>
+          </select>
 
-        
-        
-        </form>
-          
-      </div>
-  </div>
+                <select name="Modelo" class="btn btn-primary" [(ngModel)]="selectedModelo" (change)="getFipeData()">
+            <option value="0">Escolha o Modelo</option>
+            <option *ngFor="let modelo of modelos" value="{{modelo.idModelo}}">{{modelo.nomeModelo}}</option>
+          </select>
+
+                <select name="Modelo" class="btn btn-primary" [(ngModel)]="selectedAno" (change)="getFipeData()">
+            <option value="0">Escolha o Ano</option>
+            <option *ngFor="let ano of anos" value="{{ano.ano}}">{{ano.ano}}</option>
+          </select>
+                <br><br>
+                <label>Escolha a faixa de Preço</label>
+                <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" class="slider"></ng5-slider>
+                <br><br>
+
+                <div class="row">
+                    <div class="d-flex justify-content-start">
+                        <button class="btn btn-success" (click)="getAnuncios()">Pesquisar</button>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-neutral">Mostrar Tudo</button>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </form>
+
+        </div>
+    </div>
 </div>
