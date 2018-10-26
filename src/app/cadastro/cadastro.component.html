@@ -6,11 +6,11 @@
                 <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                     <div class="card card-register azul">
                         <h3 class="d-flex justify-content-center">Cadastro Sistema</h3>
-                        <form class="register-form" [formGroup]="formulario" (ngSubmit)="cadastrarUsuario()">
+                        <form class="register-form" (ngSubmit)="cadastrarUsuario()">
                             <label>Email</label>
-                            <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                            <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="usuario.email">
                             <label>Senha</label>
-                            <input type="password" class="form-control" placeholder="Password" formControlName="senha">
+                            <input type="password" class="form-control" name="passowrd" placeholder="Password" [(ngModel)]="usuario.senha">
                             <button class="btn btn-success btn-block btn-round">Cadastrar</button>
                         </form>
                         <div class="forgot">

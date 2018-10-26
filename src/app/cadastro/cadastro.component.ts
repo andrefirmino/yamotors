@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '../services/Auth.service';
-import { FormGroup, FormControl } from '@angular/forms';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 import { ConfigService } from "../services/Config.service";
@@ -14,10 +13,7 @@ export class CadastroComponent implements OnInit {
 
   backGroundImage: string
 
-  public formulario: FormGroup = new FormGroup({
-    'email': new FormControl(null),
-    'senha': new FormControl(null)
-  })
+  private usuario: Usuario = new Usuario('', '')
 
   constructor(
     private authService: Auth,
@@ -33,13 +29,8 @@ export class CadastroComponent implements OnInit {
   }
 
   public cadastrarUsuario(): void {
-
-    let usuario: Usuario = new Usuario(
-      this.formulario.value.email,
-      this.formulario.value.senha
-    )
-
-      this.authService.cadastrarUsuario(usuario)
+    
+      this.authService.cadastrarUsuario(this.usuario)
         .then((erro) => {
           if (erro){
             //aqui tem que mostrar avisando que o email já está cadastrado no sistema
@@ -47,6 +38,7 @@ export class CadastroComponent implements OnInit {
             this.router.navigateByUrl('/signup')
           }
         })
+    
   }
 
 }

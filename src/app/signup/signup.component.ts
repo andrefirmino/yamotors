@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { Auth } from '../services/Auth.service';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 import { ConfigService } from "../services/Config.service";
-import { FipeRealService } from '../services/FIpeReal.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,10 +13,7 @@ export class SignupComponent implements OnInit {
   test: Date = new Date();
   backGroundImage: string
 
-  public formulario: FormGroup = new FormGroup({
-    'email': new FormControl(null),
-    'senha': new FormControl(null)
-  })
+  private usuario: Usuario = new Usuario('', '')
 
   constructor(
     private authService: Auth,
@@ -34,12 +29,7 @@ export class SignupComponent implements OnInit {
    }
 
   public autenticar(): void {
-    let usuario = new Usuario(
-      this.formulario.value.email,
-      this.formulario.value.senha
-    )
-
-    this.authService.autenticar(usuario)
+    this.authService.autenticar(this.usuario)
       .then((erro) => {
         if (erro) {
           //aqui tem que mostrar avisando que o email não está cadastrado no sistema ou a senha está errada

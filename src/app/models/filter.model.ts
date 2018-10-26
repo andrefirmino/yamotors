@@ -1,6 +1,3 @@
-import * as firebase from 'firebase';
-import { constants } from 'fs';
-
 export class Filter {
     name: string
     filterType: FilterType
