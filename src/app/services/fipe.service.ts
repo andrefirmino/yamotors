@@ -9,10 +9,11 @@ export class FipeService {
 
     }
 
-    public getMarcas(filters: Filter[]): any {
+    public getMarcas(tipo: string): any {
         return new Promise((resolve, reject) => {
             
             firebase.firestore().collection('marca')
+                .where('tipo', '==', tipo)
                 .orderBy('nome')
                 .get()
                 .then((snapshot: any) => {
@@ -22,7 +23,7 @@ export class FipeService {
                         marcas.push(childsnapshot.data())
                     })
 
-                    resolve(jsonFilter(marcas, filters))
+                    resolve(marcas)
                 })
         })
     }

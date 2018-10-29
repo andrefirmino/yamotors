@@ -20,7 +20,7 @@
             <option *ngFor="let modelo of modelos" value="{{modelo.idModelo}}">{{modelo.nomeModelo}}</option>
           </select>
 
-                <select name="Modelo" class="btn btn-outline-primary" [(ngModel)]="selectedAno" (change)="getFipeData()">
+                <select name="Ano" class="btn btn-outline-primary" [(ngModel)]="selectedAno" (change)="getFipeData()">
             <option value="0">Escolha o Ano</option>
             <option *ngFor="let ano of anos" value="{{ano.ano}}">{{ano.ano}}</option>
           </select>

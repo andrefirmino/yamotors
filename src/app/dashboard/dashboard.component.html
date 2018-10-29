@@ -36,7 +36,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-2 ml-auto mr-auto ">
-                                                    <button class="btn btn-success btn-round " data-toggle="modal" data-target=".bd-example-modal-lg">Inserir Veiculo</button>
+                                                    <button class="btn btn-success btn-round " data-toggle="modal" data-target=".bd-example-modal-lg" (click)='novoAnuncio()'>Inserir Veiculo</button>
                                                     <button class="btn btn-success btn-round " (click)="mock() ">Mock Veiculo</button>
                                                 </div>
                                             </div>
@@ -54,7 +54,7 @@
                                                         </h5>
                                                     </div>
                                                     <div class="col-md-6 col-sm-2 ml-auto mr-auto ">
-                                                        <button class="btn btn-info btn-round ">Editar</button>
+                                                        <button class="btn btn-info btn-round " data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
                                                         <button class="btn btn-danger btn-round " (click)="deleteAnuncio(anuncio.id) ">Excluir</button>
                                                     </div>
                                                 </div>
@@ -135,7 +135,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group ">
                                         <label>Titulo Anúncio</label>
-                                        <input type="text" class="form-control " placeholder="Titulo do Anuncio" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control " name="titulo" placeholder="Titulo do Anuncio" aria-describedby="basic-addon1" [(ngModel)]='anuncio.titulo'>
                                     </div>
                                 </div>
                             </div>
@@ -143,110 +143,117 @@
                                 <div class="col-md-11">
                                     <div class="form-group ">
                                         <label>Descrição Anuncio</label>
-                                        <textarea class="form-control" rows="4" placeholder="Descrição do Anuncio"></textarea>
+                                        <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição do Anuncio" [(ngModel)]='anuncio.descricao'></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-md-3">
                                     <div class="form-group ">
-                                        <select name="Marca " class="btn btn-primary ">
-                                            <option value=" ">Marca</option>
-                                            <option value="saab ">Saab</option>
-                                            <option value="fiat ">Fiat</option>
-                                            <option value="audi ">Audi</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group has-success ">
-                                        <select name="Modelo " class="btn btn-primary ">
-                                            <option value=" ">Modelo</option>
-                                            <option value="saab ">Saab</option>
-                                            <option value="fiat ">Fiat</option>
-                                            <option value="audi ">Audi</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group has-success ">
-                                        <select name="Modelo " class="btn btn-primary ">
-                                            <option value=" ">Ano</option>
-                                            <option value="saab ">2018</option>
-                                            <option value="fiat ">2017</option>
-                                        </select>
+                                        <select name="Tipo" class="btn btn-outline-primary " [(ngModel)]='selectedTipo' (change)='getMarcas()'>
+                                                    <option value=" ">Tipo</option>
+                                                    <option value="carros">Carros</option>
+                                                    <option value="motos">Motos</option>
+                                                    <option value="caminhoes">Caminhoes</option>
+                                                </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
+                                    <div class="form-group">
+                                        <select name=" Escolha a Marca " class="btn btn-outline-primary " [(ngModel)]="selectedMarca " (change)='getModelos()'>
+                                                    <option value="0 ">Escolha a Marca</option>
+                                            <option [ngValue]="marca " *ngFor="let marca of marcas " >{{marca.nome}}</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
                                     <div class="form-group has-success ">
-                                        <select name="Combustivel" class="btn btn-primary">
-                                            <option value="">Combustivel</option>
-                                            <option value="saab ">Gasolina</option>
-                                            <option value="fiat ">Alcool</option>
-                                            <option value="diesel">Diesel</option>
-                                            <option value="flex">Flex</option>
+                                        <select name="Escolha o Modelo " class="btn btn-outline-primary " [(ngModel)]="selectedModelo " (change)='getAnos()'>
+                                                    <option value="0 ">Escolha o Modelo</option>
+                                            <option *ngFor="let modelo of modelos " [ngValue]="modelo ">{{modelo.nome}}</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 ">
+                                    <div class="form-group has-success ">
+                                        <select name="Escolha o Ano " class="btn btn-outline-primary " [(ngModel)]="selectedAno " (change)="getFipe() ">
+                                                    <option value="0 ">Escolha o Ano</option>
+                                            <option *ngFor="let ano of anos " [ngValue]="ano ">{{ano.nome}}</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="form-group has-success ">
+                                        <select name="Combustivel" class="btn btn-primary " [(ngModel)]="anuncio.combustivel ">
+                                            <option value=" ">Combustivel</option>
+                                            <option value="Gasolina">Gasolina</option>
+                                            <option value="Alcool">Alcool</option>
+                                            <option value="Diesel">Diesel</option>
+                                            <option value="Flex">Flex</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row ">
-                                <div class="col-md-6">
+                                <div class="col-md-6 ">
                                     <div class="form-group ">
                                         <label>Valor do Veiculo</label>
-                                        <input type="number" class="form-control " placeholder="Valor do Veiculo" aria-describedby="basic-addon1">
+                                        <input type="number " class="form-control " name="preco " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 " [(ngModel)]='anuncio.preco'>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 ">
                                     <div class="form-group ">
                                         <label>Valor Tabela Fipe</label>
-                                        <input type="number" class="form-control " placeholder="Valor do Veiculo" aria-describedby="basic-addon1">
+                                        <input type="number " class="form-control " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 ">
                                     </div>
                                 </div>
                             </div>
+                            <!--
                             <div class="row ">
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""> Ar-Condicionado
-                                            <span class="form-check-sign"></span>
+                                <div class="col-md-3 ">
+                                    <div class="form-check ">
+                                        <label class="form-check-label ">
+                                            <input class="form-check-input " type="checkbox " value=" "> Ar-Condicionado
+                                            <span class="form-check-sign "></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""> Desembasador
-                                            <span class="form-check-sign"></span>
+                                <div class="col-md-3 ">
+                                    <div class="form-check ">
+                                        <label class="form-check-label ">
+                                            <input class="form-check-input " type="checkbox " value=" "> Desembasador
+                                            <span class="form-check-sign "></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""> Freio-ABS
-                                            <span class="form-check-sign"></span>
+                                <div class="col-md-3 ">
+                                    <div class="form-check ">
+                                        <label class="form-check-label ">
+                                            <input class="form-check-input " type="checkbox " value=" "> Freio-ABS
+                                            <span class="form-check-sign "></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""> Direção Hidraulica
-                                            <span class="form-check-sign"></span>
+                                <div class="col-md-3 ">
+                                    <div class="form-check ">
+                                        <label class="form-check-label ">
+                                            <input class="form-check-input " type="checkbox " value=" "> Direção Hidraulica
+                                            <span class="form-check-sign "></span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
+                            -->
                             <br>
                             <br>
-                            <input class="form-control-file " name="arquivos[]" type=file multiple />
+                            <input class="form-control-file " name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
                             <br>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success center">Cadastrar Anuncio</button>
+                            <div class="modal-footer ">
+                                <button type="button " class="btn btn-success center " (click)='postAnuncio()'>Cadastrar Anuncio</button>
                             </div>
-                </div>
-                </form>
+                        </div>
+                    </form>
 
+                </div>
             </div>
         </div>
-    </div>
