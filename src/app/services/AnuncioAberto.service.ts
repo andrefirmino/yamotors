@@ -3,9 +3,7 @@ import { Injectable } from "@Angular/core";
 import { Anuncio } from "../models/anuncio.model";
 import { FirestoreService } from "./Firestore.service";
 import { FipeRealService } from './FIpeReal.service';
-import { AnuncioService } from './Anuncio.service';
 import { Filter } from 'app/models/filter.model';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { jsonFilter } from 'app/utils';
 
 @Injectable()

@@ -8,6 +8,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { PesquisaComponent } from './pesquisa/pesquisa.component';
 import { SignupComponent } from './signup/signup.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { AnuncioComponent } from './anuncio/anuncio.component';
 
 
 const routes: Routes =[
@@ -16,6 +18,8 @@ const routes: Routes =[
     { path: 'cadastro',         component: CadastroComponent},
     { path: 'pesquisa',         component: PesquisaComponent},
     { path: 'signup',           component: SignupComponent },
+    { path: 'perfil/:id',       component: PerfilComponent },
+    { path: 'anuncio/:id',       component: AnuncioComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

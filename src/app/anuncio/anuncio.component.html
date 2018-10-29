@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <div class="section profile-content ">
+        <div class="container ">
+            <div class="row posicao">
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{anuncio.titulo}}</h5>
+                            <h6 class="card-title">{{anuncio.preco}}</h6>
+                            <p class="card-text">
+                                {{anuncio.descricao}}
+                            </p>
+                            <a [routerLink]="['/perfil', anuncio.anuncianteId]" class="btn btn-primary">perfil anunciante</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

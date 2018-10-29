@@ -10,10 +10,10 @@ export class Filter {
 }
 
 export enum FilterType {
-    IGUAL = '==',
-    MAIOR = '>',
-    MENOR = '<',
-    DIFERENTE = '!=',
+    MAIOR      = '>' ,
+    MENOR      = '<' ,
+    IGUAL      = '==',
+    DIFERENTE  = '!=',
     MAIORIGUAL = '>=',
     MENORIGUAL = '<='
 }

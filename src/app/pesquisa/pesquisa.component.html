@@ -50,7 +50,9 @@
                             <p class="card-text">
                                 {{anuncio.descricao}}
                             </p>
-                            <a href="#" class="btn btn-primary">Informações</a>
+                            <a [routerLink]="['/anuncio', anuncio.id]" class="btn btn-primary">Informações</a>
+                            <a [routerLink]="['/perfil', anuncio.anuncianteId]" class="btn btn-primary">perfil anunciante</a>
+
                         </div>
                     </div>
                 </div>

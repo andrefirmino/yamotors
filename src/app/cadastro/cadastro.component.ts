@@ -3,6 +3,8 @@ import { Auth } from '../services/Auth.service';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 import { ConfigService } from "../services/Config.service";
+import { FipeService } from 'app/services/fipe.service';
+import { Filter, FilterType } from 'app/models/filter.model';
 
 @Component({
   selector: 'app-cadastro',
@@ -18,7 +20,8 @@ export class CadastroComponent implements OnInit {
   constructor(
     private authService: Auth,
     private router: Router,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private fipeService: FipeService
   ) { }
 
   ngOnInit() {
@@ -26,19 +29,21 @@ export class CadastroComponent implements OnInit {
       .then((url) => {
         this.backGroundImage = url
       })
+
   }
 
   public cadastrarUsuario(): void {
-    
-      this.authService.cadastrarUsuario(this.usuario)
-        .then((erro) => {
-          if (erro){
-            //aqui tem que mostrar avisando que o email já está cadastrado no sistema
-          } else {
-            this.router.navigateByUrl('/signup')
-          }
-        })
-    
+
+    this.authService.cadastrarUsuario(this.usuario)
+      .then((erro) => {
+        if (erro) {
+          //aqui tem que mostrar avisando que o email já está cadastrado no sistema
+        } else {
+          this.router.navigateByUrl('/signup')
+        }
+      })
+
   }
+
 
 }

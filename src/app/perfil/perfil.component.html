@@ -1,0 +1,41 @@
+<div class="wrapper">
+    <div class="page-header page-header-xs" data-parallax="true" [style.backgroundImage]="'url(' + garageImage + ')'">
+        <div class="filter "></div>
+    </div>
+    <div class="section profile-content ">
+        <div class="container ">
+            <div class="owner ">
+                <div class="avatar ">
+                    <img alt="Circle Image " class="img-circle img-no-padding img-responsive " [src]="cliente.foto || '' " />
+                </div>
+                <div class="name ">
+                    <h4 class="title ">{{cliente.nome }}
+                        <br />
+                    </h4>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-6 ml-auto mr-auto text-center ">
+                    <p>{{cliente.descricao }} </p>
+                    <br />
+                </div>
+            </div>
+
+            <h2 class="text-center">Anuncios Abertos</h2>
+            <div class="row posicao">
+                <div class="col-md-4" *ngFor="let anuncio of anuncios">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{anuncio.titulo}}</h5>
+                            <h6 class="card-title">{{anuncio.preco}}</h6>
+                            <p class="card-text">
+                                {{anuncio.descricao}}
+                            </p>
+                            <a href="#" class="btn btn-primary">Informações</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

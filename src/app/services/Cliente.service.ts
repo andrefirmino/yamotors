@@ -25,8 +25,8 @@ export class ClienteService {
 
             this.collection.doc(Auth.getCurrentUserHash())
                 .get()
-                .then((result) => {
-                    let cli = result.data()
+                .then((snapshot: any) => {
+                    let cli = snapshot.data()
                     this.firestoreService.getClienteFoto(cli.foto)
                         .then((url) => {
                             cli.foto = url
@@ -39,5 +39,22 @@ export class ClienteService {
     public persistCliente(cli: Cliente): void {
         this.collection.doc(Auth.getCurrentUserHash())
             .set(JSON.parse(JSON.stringify(cli)))
+    }
+
+    public getClienteById(id: string): any {
+        return new Promise((resolve, reject) => {
+            
+              this.collection.doc(id)
+                .get()
+                .then((snapshot: any) => {
+                    let cli = snapshot.data()
+                    this.firestoreService.getClienteFoto(cli.foto)
+                        .then((url) => {
+                            cli.foto = url
+                            resolve(cli)
+                        })
+
+                })
+        })
     }
 }

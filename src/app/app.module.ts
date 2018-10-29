@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { HttpModule } from '@angular/http';
 import localePt from '@angular/common/locales/pt';
-import { Ng5SliderModule } from  'ng5-slider' ;
+import { Ng5SliderModule } from 'ng5-slider';
 
 //registerLocaleData(localePt);
 
@@ -29,6 +29,9 @@ import { FirestoreService } from './services/Firestore.service';
 import { AnuncioAbertoService } from './services/AnuncioAberto.service';
 import { ConfigService } from "./services/Config.service";
 import { FipeRealService } from './services/FIpeReal.service';
+import { PerfilComponent } from './perfil/perfil.component';
+import { AnuncioComponent } from './anuncio/anuncio.component';
+import { FipeService } from './services/fipe.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { FipeRealService } from './services/FIpeReal.service';
     LoginComponent,
     SuporteComponent,
     DashboardComponent,
-    CadastroComponent
+    CadastroComponent,
+    PerfilComponent,
+    AnuncioComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,7 @@ import { FipeRealService } from './services/FIpeReal.service';
     ReactiveFormsModule,
     Ng5SliderModule
   ],
-  providers: [Auth, ClienteService, AnuncioService, FirestoreService, AnuncioAbertoService, ConfigService, FipeRealService],
+  providers: [Auth, ClienteService, AnuncioService, FirestoreService, AnuncioAbertoService, ConfigService, FipeRealService, FipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
