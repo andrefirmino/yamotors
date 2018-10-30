@@ -20,12 +20,13 @@ import { Container } from '@angular/compiler/src/i18n/i18n_ast';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  
 
   private opcionais = [
     { tipo: 'Carro', info: 'Freio ABS' },
     { tipo: 'Carro', info: 'Vidro Eletrico' },
     { tipo: 'Moto', info: 'Roda LigaLeve' },
-    { tipo: 'Caminhão', info: 'Alguma coisa' }
+    { tipo: 'Caminhï¿½o', info: 'Alguma coisa' }
   ]
   private selectedOpcionais = []
 
