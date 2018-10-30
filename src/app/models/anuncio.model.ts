@@ -51,8 +51,8 @@ export class Anuncio {
         this.anoComposto = null
         this.ano = NaN
         this.combustivel = null
-        this.opcionais = [new Opcional()]
-        this.fotos = [null]
+        this.opcionais = []
+        this.fotos = []
     }
 
 }

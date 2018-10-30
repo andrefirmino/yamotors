@@ -11,7 +11,9 @@ import { ClienteService } from "./Cliente.service";
     public token_id: string
 
     private cliente: Cliente
-    constructor() { }
+    constructor(
+        private clienteService: ClienteService
+    ) { }
 
     public cadastrarUsuario(usuario: Usuario): Promise<any> {
 
@@ -32,7 +34,7 @@ import { ClienteService } from "./Cliente.service";
                 this.cliente.nome = 'Aqui ficara o seu nome'
                 this.cliente.descricao = 'Assim que possivel entre na area do perfil e edite seu perfil'
 
-                new ClienteService().persistCliente(this.cliente)
+                this.clienteService.persistCliente(this.cliente)
 
             })
             .catch((error: Error) => {

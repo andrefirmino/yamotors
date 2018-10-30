@@ -37,13 +37,12 @@
                                                 </div>
                                                 <div class="col-md-6 col-sm-2 ml-auto mr-auto ">
                                                     <button class="btn btn-success btn-round " data-toggle="modal" data-target=".bd-example-modal-lg" (click)='novoAnuncio()'>Inserir Veiculo</button>
-                                                    <button class="btn btn-success btn-round " (click)="mock() ">Mock Veiculo</button>
                                                 </div>
                                             </div>
                                             <li *ngFor="let anuncio of anuncios ">
                                                 <div class="row ">
                                                     <div class="col-md-2 col-sm-2 ml-auto mr-auto ">
-                                                        <img [src]="anuncio.fotos[0] || '' " alt="Circle Image " class="img-thumbnail img-no-padding img-responsive ">
+                                                        <img [src]="anuncio.fotos[0] || ''" alt="Circle Image " class="img-thumbnail img-no-padding img-responsive ">
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 ml-auto ">
                                                         <h5>{{anuncio.titulo}}
@@ -67,7 +66,7 @@
                         <ngb-tab title="Cadastro ">
                             <ng-template ngbTabContent>
                                 <div class="row ">
-                                    <button class="btn btn-info btn-round ">Editar</button>
+                                    <button class="btn btn-info btn-round" (click)="getCEPData()">Editar</button>
                                 </div>
                                 <br />
                                 <!--
@@ -124,7 +123,7 @@
     </div>
     <div class="modal fade bd-example-modal-lg " tabindex="-1 " role="dialog " aria-labelledby="myLargeModalLabel " aria-hidden="true ">
         <div class="modal-dialog modal-lg ">
-            <div class="modal-content ">
+            <div class="modal-content " *ngIf="progressoPublicacao === 'pendente'">
                 <div class="container topo ">
                     <div class="modal-header ">
                         <h4 class="modal-title ">Cadastro do Anúncio</h4>
@@ -150,8 +149,8 @@
                             <div class="row ">
                                 <div class="col-md-3">
                                     <div class="form-group ">
+                                        <label for="Tipo">Tipo</label>
                                         <select name="Tipo" class="btn btn-outline-primary " [(ngModel)]='selectedTipo' (change)='getMarcas()'>
-                                                    <option value=" ">Tipo</option>
                                                     <option value="carros">Carros</option>
                                                     <option value="motos">Motos</option>
                                                     <option value="caminhoes">Caminhoes</option>
@@ -160,32 +159,32 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <select name=" Escolha a Marca " class="btn btn-outline-primary " [(ngModel)]="selectedMarca " (change)='getModelos()'>
-                                                    <option value="0 ">Escolha a Marca</option>
+                                        <label for="marca">Marca</label>
+                                        <select name="marca" class="btn btn-outline-primary " [(ngModel)]="selectedMarca " (change)='getModelos()'>
                                             <option [ngValue]="marca " *ngFor="let marca of marcas " >{{marca.nome}}</option>
                                           </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4 ">
                                     <div class="form-group has-success ">
-                                        <select name="Escolha o Modelo " class="btn btn-outline-primary " [(ngModel)]="selectedModelo " (change)='getAnos()'>
-                                                    <option value="0 ">Escolha o Modelo</option>
+                                        <label for="modelo">Modelo</label>
+                                        <select name="modelo" class="btn btn-outline-primary " [(ngModel)]="selectedModelo " (change)='getAnos()'>
                                             <option *ngFor="let modelo of modelos " [ngValue]="modelo ">{{modelo.nome}}</option>
                                           </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2 ">
                                     <div class="form-group has-success ">
-                                        <select name="Escolha o Ano " class="btn btn-outline-primary " [(ngModel)]="selectedAno " (change)="getFipe() ">
-                                                    <option value="0 ">Escolha o Ano</option>
+                                        <label for="ano">Ano</label>
+                                        <select name="Ano" class="btn btn-outline-primary " [(ngModel)]="selectedAno " (change)="getFipe() ">
                                             <option *ngFor="let ano of anos " [ngValue]="ano ">{{ano.nome}}</option>
                                           </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ">
                                     <div class="form-group has-success ">
-                                        <select name="Combustivel" class="btn btn-primary " [(ngModel)]="anuncio.combustivel ">
-                                            <option value=" ">Combustivel</option>
+                                        <label for="combustivel">Combustivel</label>
+                                        <select name="combustivel" class="btn btn-primary " [(ngModel)]="anuncio.combustivel ">
                                             <option value="Gasolina">Gasolina</option>
                                             <option value="Alcool">Alcool</option>
                                             <option value="Diesel">Diesel</option>
@@ -208,6 +207,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!--
                             <div class="row ">
                                 <div class="col-md-3 ">
@@ -248,12 +248,38 @@
                             <br>
                             <input class="form-control-file " name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
                             <br>
+
                             <div class="modal-footer ">
                                 <button type="button " class="btn btn-success center " (click)='postAnuncio()'>Cadastrar Anuncio</button>
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="modal-content" *ngIf="progressoPublicacao === 'andamento'">
 
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Publicação em andamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                </div>
+                <div class="modal-body">
+                    Progresso: {{ porcentagemUpload }}%
+                </div>
+            </div>
+
+
+            <div class="modal-content" *ngIf="progressoPublicacao === 'concluido'">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Publicação realizada com sucesso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="getAnuncios()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Sua publicação foi realizada com sucesso!
                 </div>
             </div>
         </div>

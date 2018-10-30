@@ -20,9 +20,6 @@ export class AnuncioService {
 
     public getAnuncioById(id: string): any {
         return new Promise((resolve, reject) => {
-
-            //FALTA TESTAR
-
             this.collection.doc(id).get()
                 .then((result) => {
                     let anuncio = result.data()
@@ -38,17 +35,19 @@ export class AnuncioService {
         })
     }
 
-    public persistAnuncio(anuncio: Anuncio): void {
+    public persistAnuncio(anuncio: Anuncio): any {
+        return new Promise((resolve, reject) => {
+            //se não tive id, pega um novo, e persiste
+            if (anuncio.id == null || anuncio.id == undefined) {
+                anuncio.id = this.collection.doc().id
+            }
 
-        //se não tive id, pega um novo, e persiste
-        if (anuncio.id == null || anuncio.id == undefined) {
-            anuncio.id = this.collection.doc().id
-        }
-
-        this.collection.doc(anuncio.id).set(JSON.parse(JSON.stringify(anuncio)))
-
-        this.anuncioAbertoService.persistAnuncio(anuncio)
-
+            this.collection.doc(anuncio.id).set(JSON.parse(JSON.stringify(anuncio)))
+                .then(() => {
+                    this.anuncioAbertoService.persistAnuncio(anuncio)
+                        .then(() => resolve(true))                    
+                })  
+        })
     }
 
     public getAnuncios(): any {
@@ -67,10 +66,14 @@ export class AnuncioService {
 
                     anuncios.forEach((anuncio) => {
                         anuncio.fotos.forEach((foto, idx) => {
+                            if(!foto) {
+                                foto = 'padrao.jpg'
+                            }
                             this.firestoreService.getAnuncioFoto(foto)
                                 .then((url) => {
                                     anuncio.fotos[idx] = url
                                 })
+                            
                         })
                     })
                     resolve(anuncios)
@@ -84,37 +87,14 @@ export class AnuncioService {
             this.getAnuncioById(id)
                 .then((anuncio) => {
                     this.collection.doc(id).delete()
-                    this.anuncioAbertoService.deleteAnuncio(anuncio)
+                        .then(() => {
+                            this.anuncioAbertoService.deleteAnuncio(anuncio)
+                            this.firestoreService.deleteFotos(anuncio.fotos)
+                            resolve(true)
+                        })
 
-                    resolve(true)
                 })
         })
-
-    }
-
-    public mockAnuncio(): void {
-        let anuncio = new Anuncio()
-        anuncio.anuncianteId = 'eXVyaW9kcEBnbWFpbC5jb20='
-        anuncio.anuncianteNome = 'Yuri Oliveira de Paula'
-        anuncio.titulo = 'Kawasaki Ninja 250R Preta'
-        anuncio.descricao = 'Vendo moto bem conservada, revisada, e blablabla'
-        anuncio.fotos = []
-
-        anuncio.fotos.push('1.jpg')
-        anuncio.preco = Math.ceil(Math.random() * 100000)
-
-        anuncio.aberto = true
-
-        anuncio.idMarca = 85
-        anuncio.idModelo = 4880
-        anuncio.nomeMarca = 'KAWASAKI'
-        anuncio.nomeModelo = 'NINJA 250R'
-        anuncio.ano = 2012
-        anuncio.anoComposto = '2012-1'
-        anuncio.combustivel = 'gasolina'
-        anuncio.tipo = 'motos'
-
-        this.persistAnuncio(anuncio);
 
     }
 }

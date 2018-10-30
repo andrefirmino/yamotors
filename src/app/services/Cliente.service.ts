@@ -10,13 +10,12 @@ import { FirestoreService } from "./Firestore.service";
 export class ClienteService {
 
     private collection: firebase.firestore.CollectionReference
-    private firestoreService: FirestoreService
+    
 
     constructor(
-        
+        private firestoreService: FirestoreService
     ) {
         this.collection = firebase.firestore().collection('cliente')
-        this.firestoreService = new FirestoreService()
     }
 
     public getCurrentClient(): any {

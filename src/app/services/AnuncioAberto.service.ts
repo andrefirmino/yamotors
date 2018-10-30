@@ -47,15 +47,19 @@ export class AnuncioAbertoService {
         })
     }
 
-    public persistAnuncio(anuncio: Anuncio): void {
-
-        if (anuncio.aberto) {
-            this.collection.doc(anuncio.id).set(JSON.parse(JSON.stringify(anuncio)))
-            this.fipeRealService.increment(anuncio)
-        } else {
-            this.collection.doc(anuncio.id).delete()
-            this.fipeRealService.decrement(anuncio)
-        }
+    public persistAnuncio(anuncio: Anuncio): any {
+        return new Promise((resolve) => {
+            if (anuncio.aberto) {
+                this.fipeRealService.increment(anuncio)
+                this.collection.doc(anuncio.id).set(JSON.parse(JSON.stringify(anuncio)))
+                    .then(() => resolve(true))
+            } else {
+                this.fipeRealService.decrement(anuncio)
+                this.collection.doc(anuncio.id).delete()
+                    .then(() => resolve(true))
+            }
+        })
+        
     }
 
     public deleteAnuncio(anuncio: Anuncio): any {

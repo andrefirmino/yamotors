@@ -4,16 +4,29 @@ import { Cliente } from '../models/cliente.model';
 import { Anuncio } from '../models/anuncio.model';
 import { AnuncioService } from '../services/Anuncio.service';
 import { ConfigService } from "../services/Config.service";
-import { FipeService } from 'app/services/fipe.service';
-import { Filter, FilterType } from 'app/models/filter.model';
-import { jsonFilter } from 'app/utils';
-
+import { FipeService } from '../services/fipe.service';
+import { Filter, FilterType } from '../models/filter.model';
+import { jsonFilter } from '../utils';
+import { UtilsService } from "../services/utils.service";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Rx';
+import { Progresso } from 'app/services/Progresso.service';
+import { FirestoreService } from 'app/services/Firestore.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  private opcionais = [
+    { tipo: 'Carro', info: 'Freio ABS' },
+    { tipo: 'Carro', info: 'Vidro Eletrico' },
+    { tipo: 'Moto', info: 'Roda LigaLeve' },
+    { tipo: 'Caminhão', info: 'Alguma coisa' }
+  ]
+  private selectedOpcionais = []
 
   private cliente: Cliente;
   private url_imagem: string;
@@ -30,14 +43,19 @@ export class DashboardComponent implements OnInit {
   private selectedAno
   private anuncio: Anuncio = new Anuncio()
 
-  private arquivos: Array<any> = []
   private files: any
+  public progressoPublicacao: string = 'pendente'
+  public porcentagemUpload: number
 
   constructor(
     private clienteService: ClienteService,
     private anuncioService: AnuncioService,
     private configService: ConfigService,
-    private fipeService: FipeService
+    private fipeService: FipeService,
+    private utilsService: UtilsService,
+    private firestoreService: FirestoreService,
+    private progresso: Progresso,
+    private anuncService: AnuncioService
   ) { }
 
   ngOnInit() {
@@ -46,7 +64,6 @@ export class DashboardComponent implements OnInit {
     this.getAnuncios()
     this.getImage()
     this.getMarcas()
-
   }
 
   private getUserData(): void {
@@ -60,14 +77,12 @@ export class DashboardComponent implements OnInit {
   private getAnuncios(): void {
 
     this.anuncios = []
+
     //carrega os anuncios do cliente especifico
     this.anuncioService.getAnuncios().then((result) => {
       result.forEach((an) => {
         this.anuncios.push(an as Anuncio)
       })
-
-    }).catch((err) => {
-      console.log(err)
     })
   }
 
@@ -78,11 +93,6 @@ export class DashboardComponent implements OnInit {
       })
 
 
-  }
-
-  private mock(): void {
-    this.anuncioService.mockAnuncio()
-    this.getAnuncios()
   }
 
   private getImage(): void {
@@ -112,7 +122,7 @@ export class DashboardComponent implements OnInit {
 
   private getModelos(): any {
     return new Promise((resolve, reject) => {
-      if (this.anuncio.id == '') {
+      if (this.anuncio.id == undefined) {
         this.anuncio.idMarca = this.selectedMarca.codigo
         this.anuncio.nomeMarca = this.selectedMarca.nome
       }
@@ -133,7 +143,7 @@ export class DashboardComponent implements OnInit {
 
   private getAnos(): any {
     return new Promise((resolve, reject) => {
-      if (this.anuncio.id == '') {
+      if (this.anuncio.id == undefined) {
         this.anuncio.idModelo = this.selectedModelo.codigo
         this.anuncio.nomeModelo = this.selectedModelo.nome
       }
@@ -153,9 +163,10 @@ export class DashboardComponent implements OnInit {
   }
 
   private getFipe(): void {
-    this.anuncio.ano = this.selectedAno.nome
-    this.anuncio.anoComposto = this.selectedAno.codigo
-
+    if (this.anuncio.id == undefined) {
+      this.anuncio.ano = this.selectedAno.nome
+      this.anuncio.anoComposto = this.selectedAno.codigo
+    }
     //aqui vai buscar os dados da fipe
   }
 
@@ -164,11 +175,6 @@ export class DashboardComponent implements OnInit {
     this.anuncio.anuncianteId = btoa(this.cliente.email)
     this.anuncio.anuncianteNome = this.cliente.nome
     this.anuncio.aberto = true
-  }
-
-  private postAnuncio(): void {
-    console.log(this.anuncio)
-    console.log(this.arquivos)
   }
 
   private editarAnuncio(anuncio): void {
@@ -204,8 +210,49 @@ export class DashboardComponent implements OnInit {
 
   private prepareUpload(event): void {
     this.files = (<HTMLInputElement>event.target).files;
-
-    console.log(this.files)
   }
 
+  private getCEPData(): void {
+    this.utilsService.getCEPData('144065088')
+      .then((snapshot: any) => {
+        console.log(snapshot)
+      })
+  }
+
+  private postAnuncio(): void {
+    this.firestoreService.postAnuncioFotos(this.files)
+      .then((snapshot: any) => {
+         snapshot.forEach(childsnapshot => {
+          this.anuncio.fotos.push(childsnapshot)
+         })
+        
+      })
+      .then(() => {
+
+        this.anuncService.persistAnuncio(this.anuncio)
+          .then(() => {
+            this.progresso.status = 'concluido'
+          })
+      
+      })
+
+    let acompanhamentoUpload = Observable.interval(100);
+
+    let continua = new Subject();
+
+    continua.next(true)
+
+    acompanhamentoUpload
+      .takeUntil(continua)
+      .subscribe(() => {
+        this.progressoPublicacao = 'andamento'
+
+        this.porcentagemUpload = Math.round((this.progresso.estado.bytesTransferred / this.progresso.estado.totalBytes) * 100)
+        if (this.progresso.status === 'concluido') {
+          this.progressoPublicacao = 'concluido'
+          continua.next(false)
+        }
+      })
+
+  }
 }
