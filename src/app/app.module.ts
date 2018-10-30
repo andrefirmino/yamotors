@@ -31,6 +31,7 @@ import { FipeService } from './services/fipe.service';
 import { UtilsService } from './services/utils.service';
 import { HttpClientModule } from '@angular/common/http'; 
 import { Progresso } from './services/Progresso.service';
+import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
   declarations: [

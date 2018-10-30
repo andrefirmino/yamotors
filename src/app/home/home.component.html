@@ -7,7 +7,7 @@
                     <h1 class="presentation-title">YA - Motors</h1>
                 </div>
 
-                <h2 class="presentation-subtitle text-center">Plataforma venda de veiculos</h2>
+                <h2 class="presentation-subtitle text-center">Plataforma de venda de veiculos</h2>
             </div>
         </div>
         <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
@@ -22,7 +22,7 @@
                     <img class="card-img-top" [src]="barato.fotos[0] || ''" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{barato.titulo}}</h5>
-                        <h6 class="card-title">{{barato.preco}}</h6>
+                        <h6 class="card-title">{{barato.preco | currency: 'BRL': true }}</h6>
                         <p class="card-text">
                             {{barato.descricao}}
                         </p>
