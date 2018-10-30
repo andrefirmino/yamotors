@@ -1,7 +1,6 @@
 import * as firebase from "firebase";
 import { Injectable } from "@Angular/core";
 import { Usuario } from "../models/usuario.model";
-import { Router } from "@angular/router";
 import { Cliente } from "../models/cliente.model";
 import { ClienteService } from "./Cliente.service";
 
@@ -22,7 +21,7 @@ import { ClienteService } from "./Cliente.service";
                 //envia o email de confirma��o
 
                 firebase.auth().currentUser
-                    .sendEmailVerification().then(function () {
+                    .sendEmailVerification().then(() => {
                         console.log("email enviado!")
                     }).catch(function (error) {
                         console.log("email nao enviado!" + error)
@@ -79,8 +78,5 @@ import { ClienteService } from "./Cliente.service";
             })
     }
 
-    public static getCurrentUserHash(): string {
-        return btoa(firebase.auth().currentUser.email);
-    }
 
 }

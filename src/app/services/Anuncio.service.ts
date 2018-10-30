@@ -4,6 +4,7 @@ import { Anuncio } from "../models/anuncio.model";
 import { Auth } from "./Auth.service";
 import { FirestoreService } from "./Firestore.service";
 import { AnuncioAbertoService } from "./AnuncioAberto.service";
+import { ClienteService } from "./Cliente.service";
 
 @Injectable()
 export class AnuncioService {
@@ -12,9 +13,10 @@ export class AnuncioService {
 
     constructor(
         private firestoreService: FirestoreService,
-        private anuncioAbertoService: AnuncioAbertoService
+        private anuncioAbertoService: AnuncioAbertoService,
+        private clienteService: ClienteService
     ) {
-        this.collection = firebase.firestore().collection('cliente').doc(Auth.getCurrentUserHash())
+        this.collection = firebase.firestore().collection('cliente').doc(this.clienteService.getCurrentUserHash())
             .collection('anuncios')
     }
 

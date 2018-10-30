@@ -7,10 +7,9 @@ import { Progresso } from './Progresso.service';
 export class FirestoreService {
 
     constructor(
-        private utilsService: UtilsService,
-        private progresso: Progresso
+        private progresso: Progresso,
+        private utilsService: UtilsService
     ) {
-
     }
 
     public getClienteFoto(foto: string): Promise<string> {
