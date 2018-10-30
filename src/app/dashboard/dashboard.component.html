@@ -65,60 +65,89 @@
                         </ngb-tab>
                         <ngb-tab title="Cadastro ">
                             <ng-template ngbTabContent>
-                                <div class="row ">
-                                    <button class="btn btn-info btn-round" (click)="getCEPData()">Editar</button>
-                                </div>
                                 <br />
-                                <form>
-                                    <h5>Dados da Empresa</h5>
+                                <form (ngSubmit)="postCliente()">
+                                    <h5>Dados do Anunciante</h5>
                                     <br />
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
                                             <label> CPF/CNPJ</label>
-                                            <input type="text" class='form-control' placeholder="CPF/CNPJ" name="cpf_cnpj">
+                                            <input type="text" class='form-control' placeholder="CPF/CNPJ" name="cpf_cnpj" [(ngModel)]="cliente.cpf_cnpj">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label> Nome </label>
-                                            <input type="text" class="form-control" placeholder="nome" name="nome">
+                                            <input type="text" class="form-control" placeholder="nome" name="nome" [(ngModel)]="cliente.nome">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label> Foto ou Logo </label>
-                                            <input class="form-control-file " name="foto_logo" type=file/>
+                                            <input class="form-control-file " name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-2">
                                             <label>CEP</label>
-                                            <input type="text" class="form-control" placeholder="CEP" name="cep">
+                                            <input type="text" class="form-control" placeholder="CEP" name="cep" [(ngModel)]="cliente.endereco.cep" (blur)="getCEPData()">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Endereço</label>
-                                            <input type="text" class="form-control" placerholder="Endereço" name="endereco">
+                                            <input type="text" class="form-control" placerholder="Endereço" name="endereco" [(ngModel)]="cliente.endereco.rua">
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label>Número</label>
-                                            <input type="text" class="form-control" placeholder="Número" name="numero">
+                                            <input type="text" class="form-control" placeholder="Número" name="numero" [(ngModel)]="cliente.endereco.numero">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label>Complemento</label>
-                                            <input type="text" class="form-control" placeholder="Complemento" name="complento">
+                                            <input type="text" class="form-control" placeholder="Complemento" name="complento" [(ngModel)]="cliente.endereco.complemento">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label>Bairro</label>
-                                            <input type="text" class="form-control" placerholder="Bairro" name="bairro">
+                                            <input type="text" class="form-control" placerholder="Bairro" name="bairro" [(ngModel)]="cliente.endereco.bairro">
                                         </div>
                                         <div class="form-group col-md-5">
                                             <label>Cidade</label>
-                                            <input type="text" class="form-control" placeholder="Cidade" name="cidade">
+                                            <input type="text" class="form-control" placeholder="Cidade" name="cidade" [(ngModel)]="cliente.endereco.cidade">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label>Estado</label>
-                                            <input type="text" class="form-control" placeholder="Estado" name="estado">
+                                            <input type="text" class="form-control" placeholder="Estado" name="estado" [(ngModel)]="cliente.endereco.uf">
                                         </div>
                                     </div>
                                     <div class="form-row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="tipoContato">Contato</label>
+                                                <select name="tipoContato" class="btn btn-outline-primary " [(ngModel)]="contato.tipo">
+                                                            <option [ngValue]="contato " *ngFor="let contato of tiposContato " >{{contato}}</option>
+                                                          </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="descricaoContato">Descricao</label>
+                                                <input type="text" name="descricaoContato" [(ngModel)]="contato.info">
+                                            </div>
+                                        </div>
+                                        <div class="btn btn-outline-primary" (click)="addContato()">Adicionar</div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <ul>
+                                                <li *ngFor="let contato of cliente.contatos">
+                                                    <a>
+                                                        <span>{{contato.tipo}}</span> {{contato.info}}
+                                                    </a>
+                                                    <div class="btn btn-outline-danger" title="Deletar Contato" (click)="deleteContato(contato)">x</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!--    
+                                        <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label>Email - 1</label>
                                             <input type="text" class="form-control" placeholder="E-mail 1" name="email1">
@@ -175,16 +204,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        </div>
+                                    -->
+
                                     <div class="row ">
                                         <div class="col-md-12">
                                             <div class="form-group ">
-                                                <label>Descrição Empresa</label>
-                                                <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição da Empresa"></textarea>
+                                                <label>Descrição Anunciante</label>
+                                                <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição da Empresa" [(ngModel)]="cliente.descricao"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit " class="btn btn-info btn-lg ">Cofirmar</button>
+                                    <button type="submit" class="btn btn-info btn-lg ">Confirmar</button>
                                 </form>
                             </ng-template>
                         </ngb-tab>

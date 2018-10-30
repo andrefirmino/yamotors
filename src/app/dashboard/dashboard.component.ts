@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../services/Cliente.service';
-import { Cliente } from '../models/cliente.model';
+import { Cliente, Contato } from '../models/cliente.model';
 import { Anuncio } from '../models/anuncio.model';
 import { AnuncioService } from '../services/Anuncio.service';
 import { ConfigService } from "../services/Config.service";
@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Rx';
 import { Progresso } from 'app/services/Progresso.service';
 import { FirestoreService } from 'app/services/Firestore.service';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -47,6 +48,11 @@ export class DashboardComponent implements OnInit {
   public progressoPublicacao: string = 'pendente'
   public porcentagemUpload: number
 
+  private tiposContato: Array<any> = []
+  private selectedContato
+  private descricaoContato
+  private contato = new Contato()
+
   constructor(
     private clienteService: ClienteService,
     private anuncioService: AnuncioService,
@@ -64,6 +70,8 @@ export class DashboardComponent implements OnInit {
     this.getAnuncios()
     this.getImage()
     this.getMarcas()
+
+    this.getTiposContato()
   }
 
   private getUserData(): void {
@@ -212,13 +220,6 @@ export class DashboardComponent implements OnInit {
     this.files = (<HTMLInputElement>event.target).files;
   }
 
-  private getCEPData(): void {
-    this.utilsService.getCEPData('144065088')
-      .then((snapshot: any) => {
-        console.log(snapshot)
-      })
-  }
-
   private postAnuncio(): void {
     this.firestoreService.postAnuncioFotos(this.files)
       .then((snapshot: any) => {
@@ -232,6 +233,7 @@ export class DashboardComponent implements OnInit {
         this.anuncService.persistAnuncio(this.anuncio)
           .then(() => {
             this.progresso.status = 'concluido'
+            this.files = null
           })
       
       })
@@ -253,6 +255,63 @@ export class DashboardComponent implements OnInit {
           continua.next(false)
         }
       })
-
   }
+
+  private postCliente(): void {
+    console.log(this.cliente)
+
+    let path = btoa(this.cliente.email)
+
+    this.cliente.foto = path
+
+    if(this.files) {
+      this.firestoreService.postClienteFoto(this.files[0], path)
+      .then((data) => {
+        this.clienteService.persistCliente(this.cliente)
+          .then(() => {
+            this.getUserData()
+            this.files = null
+          })
+      })
+    } else {
+      this.clienteService.persistCliente(this.cliente)
+      .then(() => {
+        this.getUserData()
+        this.files = null
+      })
+    }
+  }
+
+  private getCEPData(): void {
+    this.utilsService.getCEPData(this.cliente.endereco.cep)
+      .then((snapshot: any) => {
+        this.cliente.endereco.bairro = snapshot.bairro
+        this.cliente.endereco.cidade = snapshot.cidade
+        this.cliente.endereco.rua = snapshot.logradouro
+        this.cliente.endereco.uf = snapshot.estado_info.nome
+      })
+  }
+
+  private prepareUploadLogo(event): void {
+    this.files = (<HTMLInputElement>event.target).files;
+  }
+
+  private getTiposContato(): void {
+    this.configService.getConfig('contatos')
+      .then((snapshot) => {
+        this.tiposContato = snapshot
+      })
+  } 
+
+  private addContato(): void {
+    this.cliente.contatos.push(this.contato)
+
+    this.contato = new Contato()
+    console.log(this.cliente)
+  }
+
+  private deleteContato(contato): void {
+    this.cliente.contatos = this.cliente.contatos.filter(f => f !== contato)
+  }
+  
 }

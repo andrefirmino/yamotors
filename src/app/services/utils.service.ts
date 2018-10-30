@@ -12,7 +12,6 @@ export class UtilsService {
     return new Promise((resolve, reject) => {
         this.http.get('http://api.postmon.com.br/v1/cep/' + cep)
         .subscribe((data) => {
-          console.log('dentro do subscribe')
           resolve(data)
         })       
     })    

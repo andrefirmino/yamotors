@@ -95,4 +95,16 @@ export class FirestoreService {
               .delete()
         })
     }
+
+    public postClienteFoto(file: any, path: any): any {
+        return new Promise((resolve, reject) => {
+
+                firebase.storage().ref()
+                    .child(`cliente/${path}`)
+                    .put(file)
+                    .then((data) => {
+                        resolve(data)
+                    })
+            })
+    }
 }
