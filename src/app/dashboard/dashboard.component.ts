@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../services/Cliente.service';
 import { Cliente, Contato } from '../models/cliente.model';
-import { Anuncio } from '../models/anuncio.model';
+import { Anuncio, Opcional } from '../models/anuncio.model';
 import { AnuncioService } from '../services/Anuncio.service';
 import { ConfigService } from "../services/Config.service";
 import { FipeService } from '../services/fipe.service';
@@ -21,13 +21,6 @@ import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class DashboardComponent implements OnInit {
   
-
-  private opcionais = [
-    { tipo: 'Carro', info: 'Freio ABS' },
-    { tipo: 'Carro', info: 'Vidro Eletrico' },
-    { tipo: 'Moto', info: 'Roda LigaLeve' },
-    { tipo: 'Caminh�o', info: 'Alguma coisa' }
-  ]
   private selectedOpcionais = []
 
   private cliente: Cliente;
@@ -50,9 +43,10 @@ export class DashboardComponent implements OnInit {
   public porcentagemUpload: number
 
   private tiposContato: Array<any> = []
-  private selectedContato
-  private descricaoContato
   private contato = new Contato()
+
+  private opcionais: Array<any> = []
+  private opcional = new Opcional()
 
   constructor(
     private clienteService: ClienteService,
@@ -73,6 +67,7 @@ export class DashboardComponent implements OnInit {
     this.getMarcas()
 
     this.getTiposContato()
+    this.getOpcionais()
   }
 
   private getUserData(): void {
@@ -313,6 +308,24 @@ export class DashboardComponent implements OnInit {
 
   private deleteContato(contato): void {
     this.cliente.contatos = this.cliente.contatos.filter(f => f !== contato)
+  }
+
+  private getOpcionais(): void {
+    this.configService.getConfig('opcionais')
+      .then((snapshot) => {
+        this.opcionais = snapshot
+      })
+  }
+
+  private adicionarOpcional(): void {
+    this.anuncio.opcionais.push(this.opcional)
+    this.opcional = new Opcional()
+    console.log(this.anuncio.opcionais)
+  }
+
+  private deleteOpcional(opcional): any {
+    this.anuncio.opcionais = this.anuncio.opcionais.filter(f => f !== opcional)
+    console.log(this.anuncio.opcionais)
   }
   
 }
