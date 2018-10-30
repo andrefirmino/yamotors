@@ -316,6 +316,34 @@
                                 </div>
                             </div>
                             -->
+                            <div class="row">
+                                <div>
+                                    <label>Inserir Opcional
+                                      <select #opcional type="file" class="btn btn-outline-primary">
+                                        <option value="Gasolina">Ar - Condicionado</option>
+                                        <option value="Alcool">Desembasador</option>
+                                        <option value="Diesel">Freio - ABS</option>
+                                        <option value="Flex">Direção Hidraulica</option>
+                                      </select>
+                                    </label>
+                                    <!-- (click) passes input value to add() and then clears the input -->
+                                    <button class="btn btn-success" (click)="add(opcional.value); opcional.value=''">
+                                      add
+                                    </button>
+                                  </div>
+                            </div>
+                            <ul class="heroes">
+                                <li>
+                                    Desembasador<button class="btn btn-danger">X</button>
+                                </li>
+                                <li *ngFor="let hero of heroes">
+                                  <a routerLink="/detail/{{hero.id}}">
+                                    <span class="badge">{{hero.id}}</span> {{hero.name}}
+                                  </a>
+                                  <button class="delete" title="delete hero"
+                                    (click)="delete(hero)">x</button>
+                                </li>
+                              </ul>
                             <br>
                             <br>
                             <input class="form-control-file " name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />

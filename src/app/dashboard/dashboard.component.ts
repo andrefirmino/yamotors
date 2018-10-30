@@ -19,12 +19,13 @@ import { FirestoreService } from 'app/services/Firestore.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  
 
   private opcionais = [
     { tipo: 'Carro', info: 'Freio ABS' },
     { tipo: 'Carro', info: 'Vidro Eletrico' },
     { tipo: 'Moto', info: 'Roda LigaLeve' },
-    { tipo: 'Caminhão', info: 'Alguma coisa' }
+    { tipo: 'Caminhï¿½o', info: 'Alguma coisa' }
   ]
   private selectedOpcionais = []
 

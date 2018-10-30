@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { Ng5SliderModule } from 'ng5-slider';
-import { NgSelectModule } from '@ng-select/ng-select';
 //registerLocaleData(localePt);
 
 import { AppComponent } from './app.component';
@@ -56,8 +55,7 @@ import { Progresso } from './services/Progresso.service';
     HomeModule,
     ReactiveFormsModule,
     Ng5SliderModule,
-    HttpClientModule,
-    NgSelectModule
+    HttpClientModule
   ],
   providers: [
     Auth,
