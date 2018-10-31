@@ -15,9 +15,10 @@
     <div class="container">
         <h2 class="text-center">Vitrine</h2>
         <h3 class="text-center">Melhores Preços</h3>
+        <br />
         <div class="row posicao">
-            <div class="col-md-4" *ngFor="let barato of baratos">
-                <div class="card" style="width: 18rem;">
+            <div class="col-md-3" *ngFor="let barato of baratos">
+                <div class="card" style="width: 14rem;">
                     <a [routerLink]="['/anuncio', barato.id]">
                         <img class="card-img-top" [src]="barato?.fotos[0] || ''" alt="Card image cap">
                         <div class="card-body">
@@ -27,6 +28,7 @@
                             </h5>
                         </div>
                     </a>
+                    <hr size="20px" style="border: 1px solid #cccccc;">
                     <div class="card-header">
                         <a [routerLink]="['/perfil', barato.anuncianteId]">
                             <div class="row">
@@ -43,9 +45,10 @@
             </div>
         </div>
         <h3 class="text-center">Ultimos Adicionados</h3>
+        <br />
         <div class="row posicao">
-            <div class="col-md-4" *ngFor="let recente of recentes">
-                <div class="card" style="width: 18rem;">
+            <div class="col-md-3" *ngFor="let recente of recentes">
+                <div class="card" style="width: 14rem;">
                     <a [routerLink]="['/anuncio', recente.id]">
                         <img class="card-img-top" [src]="recente?.fotos[0] || ''" alt="Card image cap">
                         <div class="card-body">
@@ -55,6 +58,7 @@
                             </h5>
                         </div>
                     </a>
+                    <hr size="20px" style="border: 1px solid #cccccc;">
                     <div class="card-header">
                         <a [routerLink]="['/perfil', recente.anuncianteId]">
                             <div class="row">

@@ -43,7 +43,6 @@
                 </div>
             </form>
             <h2 class="text-center">Anuncios</h2>
-            <h2 class="text-center">Anuncios</h2>
             <div class="row posicao">
                 <div class="col-md-4" *ngFor="let anuncio of anuncios">
                     <a [routerLink]="['/anuncio', anuncio.id]">
@@ -55,7 +54,7 @@
                                 <p class="card-text">
                                     {{anuncio.descricao}}
                                 </p>
-                                <a [routerLink]="['/anuncio', anuncio.id]" class="btn btn-primary">InformaÃ§Ãµes</a>
+                                <a [routerLink]="['/anuncio', anuncio.id]" class="btn btn-primary">Informações</a>
                                 <a [routerLink]="['/perfil', anuncio.anuncianteId]" class="btn btn-primary">perfil anunciante</a>
                             </div>
                         </div>
