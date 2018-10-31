@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { Injectable } from '@Angular/core';
 import { Anuncio } from '../models/anuncio.model';
 import { promise } from 'selenium-webdriver';
@@ -53,6 +53,7 @@ export class FipeRealService {
             })
     }
 
+    //conferido
     public getMarcas(idMarca: number, idModelo: number, ano: number): any {
         return new Promise((resolve, reject) => {
             this.collection.get()
@@ -61,6 +62,10 @@ export class FipeRealService {
 
                     snapshot.forEach((child) => {
                         let data = child.data()
+
+                        if (typeof data.ano === 'string') {
+                            data.ano = data.ano.substring(0, 4)
+                        }
 
                         if (data.idMarca == idMarca || idMarca == 0) {
                             if (data.idModelo == idModelo || idModelo == 0) {
@@ -77,6 +82,7 @@ export class FipeRealService {
         })
     }
 
+    //conferido
     public getModelos(idMarca: number, idModelo: number, ano: number): any {
         return new Promise((resolve, reject) => {
             let modelos = []
@@ -84,6 +90,10 @@ export class FipeRealService {
                 .then((snapshot) => {
                     snapshot.forEach((child) => {
                         let data = child.data()
+
+                        if (typeof data.ano === 'string') {
+                            data.ano = data.ano.substring(0, 4)
+                        }
 
                         if (data.idMarca == idMarca || idMarca == 0) {
                             if (data.idModelo == idModelo || idModelo == 0) {
@@ -98,6 +108,7 @@ export class FipeRealService {
         })
     }
 
+    //conferido
     public getAnos(idMarca: number, idModelo: number, ano: number): any {
         return new Promise((resolve, reject) => {
             let anos = []
@@ -105,6 +116,9 @@ export class FipeRealService {
                 .then((snapshot) => {
                     snapshot.forEach((child) => {
                         let data = child.data()
+                        if (typeof data.ano === 'string') {
+                            data.ano = data.ano.substring(0, 4)
+                        }
 
                         if (data.idMarca == idMarca || idMarca == 0) {
                             if (data.idModelo == idModelo || idModelo == 0) {

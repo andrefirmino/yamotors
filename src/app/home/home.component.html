@@ -19,7 +19,7 @@
             <div class="col-md-4" *ngFor="let barato of baratos">
                 <div class="card" style="width: 18rem;">
                     <a [routerLink]="['/anuncio', barato.id]">
-                        <img class="card-img-top" [src]="barato.fotos[0] || ''" alt="Card image cap">
+                        <img class="card-img-top" [src]="barato?.fotos[0] || ''" alt="Card image cap">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">
@@ -84,88 +84,89 @@
                                     </div>
         
                                 </div>
+
                             </div>
-                        </div>
-                    </div>
-        </div>
-    </div>
-    <div class="section section-dark text-center">
-        <div class="container">
-            <h2 class="title">YA Motors - Como utilizar nossos serviços?</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card card-profile card-plain">
-                        <div class="card-avatar">
-                            <a href="#avatar">
-                                <img [src]="images.cadastrar || ''" alt="...">
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <a href="#paper-kit">
-                                <div class="author">
-                                    <h4 class="card-title">Cadastre-se</h4>
-                                    <h6 class="card-category">Botão Superior / Cadastrar</h6>
-                                </div>
-                            </a>
-                            <p class="card-description text-center">
-                                No canto superior direito, só clicar sobre o ìcone de login e em seguida clicar na opção cadastrar.
-                            </p>
-                        </div>
-                        <div class="card-footer text-center">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card card-profile card-plain">
-                        <div class="card-avatar">
-                            <a href="#avatar">
-                                <img [src]="images.acesso_dash || ''" alt="...">
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <a href="#paper-kit">
-                                <div class="author">
-                                    <h4 class="card-title">Acessar Dashboard</h4>
-                                    <h6 class="card-category">Ícone Dashboard</h6>
-                                </div>
-                            </a>
-                            <p class="card-description text-center">
-                                Após login, você habilita o seu dashboard para cadastro de veículos.
-                            </p>
-                        </div>
-                        <div class="card-footer text-center">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card card-profile card-plain">
-                        <div class="card-avatar">
-                            <a href="#avatar">
-                                <img [src]="images.dashboard || ''" alt="...">
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <a href="#paper-kit">
-                                <div class="author">
-                                    <h4 class="card-title">Dashboard</h4>
-                                    <h6 class="card-category">Cadastro de Veículos</h6>
-                                </div>
-                            </a>
-                            <p class="card-description text-center">
-                                Dentro do dashboard, você ja pode Inserir um novo veiculo para venda, editar seus veiculos, ou até mesmo excluir um registro,
-                                além de mudar dados do seu cadastro para os clientes entrarem em contato.
-                            </p>
-                        </div>
-                        <div class="card-footer text-center">
                         </div>
                     </div>
                 </div>
             </div>
-            <h4>Clique abaixo e se cadastre!</h4>
-            <br />
-            <button class="btn btn-sucess btn-rounded" [routerLink]="['/cadastro']">Cadastrar</button>
         </div>
+        <div class="section section-dark text-center">
+            <div class="container">
+                <h2 class="title">YA Motors - Como utilizar nossos serviços?</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar">
+                                    <img [src]="images.cadastrar || ''" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Cadastre-se</h4>
+                                        <h6 class="card-category">Botão Superior / Cadastrar</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                    No canto superior direito, só clicar sobre o ìcone de login e em seguida clicar na opção cadastrar.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
 
-    </div>
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar">
+                                    <img [src]="images.acesso_dash || ''" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Acessar Dashboard</h4>
+                                        <h6 class="card-category">Ícone Dashboard</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                    Após login, você habilita o seu dashboard para cadastro de veículos.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar">
+                                    <img [src]="images.dashboard || ''" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Dashboard</h4>
+                                        <h6 class="card-category">Cadastro de Veículos</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                    Dentro do dashboard, você ja pode Inserir um novo veiculo para venda, editar seus veiculos, ou até mesmo excluir um registro, além de mudar dados do seu cadastro para os clientes entrarem em contato.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Clique abaixo e se cadastre!</h4>
+                <br />
+                <button class="btn btn-sucess btn-rounded" [routerLink]="['/cadastro']">Cadastrar</button>
+            </div>
+
+        </div>

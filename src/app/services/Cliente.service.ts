@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import { Injectable } from "@Angular/core";
 import { Cliente } from "../models/cliente.model";
 import { FirestoreService } from "./Firestore.service";
