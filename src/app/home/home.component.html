@@ -14,8 +14,7 @@
     </div>
     <div class="container">
         <h2 class="text-center">Vitrine</h2>
-        <h3 class="text-center">Destaques</h3>
-        <h4>Melhores Preços</h4>
+        <h3 class="text-center">Melhores Preços</h3>
         <div class="row posicao">
             <div class="col-md-4" *ngFor="let barato of baratos">
                 <div class="card" style="width: 18rem;">
@@ -28,11 +27,11 @@
                         </h5>
                         <h5 class="card-title">
                             <b>
-                                <a [routerLink]="['/anuncio', barato.id]">{{barato.preco | currency: 'BRL': true }}</a>
+                                {{barato.preco | currency: 'BRL': true }}
                             </b>
                         </h5>
                         <p class="card-title">
-                            <a [routerLink]="['/anuncio', barato.id]">{{barato.descricao}}</a>
+                            {{barato.descricao}}
                         </p>
                         <!--<a [routerLink]="['/anuncio', barato.id]" class="btn btn-primary">Informações</a>-->
                         <div class="row borda">
@@ -51,7 +50,8 @@
                     </div>
                 </div>
             </div>
-            <h4>Ultimos Adicionados</h4>
+        </div>
+        <h3 class="text-center">Ultimos Adicionados</h3>
             <div class="row posicao">
                     <div class="col-md-4" *ngFor="let recente of recentes">
                         <div class="card" style="width: 18rem;">
@@ -64,11 +64,11 @@
                                 </h5>
                                 <h5 class="card-title">
                                     <b>
-                                        <a [routerLink]="['/anuncio', recente.id]">{{recente.preco | currency: 'BRL': true }}</a>
+                                        {{recente.preco | currency: 'BRL': true }}
                                     </b>
                                 </h5>
                                 <p class="card-title">
-                                    <a [routerLink]="['/anuncio', recente.id]">{{recente.descricao}}</a>
+                                    {{recente.descricao}}
                                 </p>
                                 <!--<a [routerLink]="['/anuncio', recente.id]" class="btn btn-primary">Informações</a>-->
                                 <div class="row borda">
