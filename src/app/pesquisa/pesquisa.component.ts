@@ -14,24 +14,12 @@ import { log } from 'util';
   styleUrls: ['./pesquisa.component.scss']
 })
 export class PesquisaComponent implements OnInit {
-  private marcas: any[];
-  private modelos: any[];
-  private anos: any[];
-  private anuncios: Anuncio[]
-  private filters: Filter[]
-
-  private selectedMarca = 0;
-  private selectedModelo = 0;
-  private selectedAno = 0;
-
-  private minValue: number = 0;
-  private maxValue: number = 0;
-  private options: Options
-
+  
   constructor(
     private fipeRealService: FipeRealService,
     private anuncioAbertoService: AnuncioAbertoService
   ) { }
+
 
   ngOnInit() {
     this.getFipeData()
@@ -45,7 +33,7 @@ export class PesquisaComponent implements OnInit {
               floor: this.minValue
             }
 
-            this.getAnuncios()
+            this.getAll()
 
           })
       })
@@ -54,12 +42,26 @@ export class PesquisaComponent implements OnInit {
 
   }
 
+  /******************************* CONTROLE DOS FILTROS DE PESQUISA *******************************/
+  private minValue: number = 0
+  private maxValue: number = 0
+  private selectedMarca = 0
+  private selectedModelo = 0
+  private selectedAno = 0
+  private marcas: any[]
+  private modelos: any[]
+  private anos: any[]
+  private filters: Filter[]
+  private options: Options
+  
+  //conferido
   private getFipeData(): void {
     this.getMarcas()
     this.getModelos()
     this.getAnos()
   }
 
+  //conferido
   private getMarcas(): void {
     let aux = []
 
@@ -73,6 +75,7 @@ export class PesquisaComponent implements OnInit {
       })
   }
 
+  //conferido
   private getModelos(): void {
     let aux = []
 
@@ -85,6 +88,8 @@ export class PesquisaComponent implements OnInit {
         this.modelos = aux
       })
   }
+
+  //conferido
   private getAnos(): void {
     let aux = []
 
@@ -98,6 +103,49 @@ export class PesquisaComponent implements OnInit {
       })
   }
 
+  //conferido
+  private getMin(): any {
+    return new Promise((resolve, reject) => {
+      this.anuncioAbertoService.minValue()
+      .then((snapshot: any) => {
+        this.minValue = snapshot
+
+        resolve(true)
+      })
+    })
+    
+  }
+
+  //conferido
+  private getMax(): any {
+    return new Promise((resolve, reject) => {
+      this.anuncioAbertoService.maxValue()
+        .then((snapshot: any) => {
+          this.maxValue = snapshot
+
+          resolve(true)
+        })
+      })
+  }
+
+  //conferido
+  private limparFiltros(): void {
+    this.selectedAno = 0
+    this.selectedMarca = 0
+    this.selectedModelo = 0
+
+    this.minValue = this.options.floor
+    this.maxValue = this.options.ceil
+    
+    this.getFipeData()
+  }
+
+  /******************************* FIM CONTROLE DOS FILTROS DE PESQUISA *******************************/
+  
+  /******************************* CONTROLE DOS ANUNCIOS *******************************/
+  private anuncios: Anuncio[]
+
+  // conferido
   private getAnuncios(): void {
     let aux = []
     this.filters = []
@@ -114,7 +162,6 @@ export class PesquisaComponent implements OnInit {
       this.filters.push(new Filter('ano', FilterType.IGUAL, this.selectedAno))
     }
 
-    //aqui entra os demais filtros antes de buscar
     this.filters.push(new Filter('preco', FilterType.MAIORIGUAL, this.minValue))
     this.filters.push(new Filter('preco', FilterType.MENORIGUAL, this.maxValue))
         
@@ -130,29 +177,7 @@ export class PesquisaComponent implements OnInit {
       })
   }
 
-  private getMin(): any {
-    return new Promise((resolve, reject) => {
-      this.anuncioAbertoService.minValue()
-      .then((snapshot: any) => {
-        this.minValue = (snapshot as Anuncio).preco
-
-        resolve(true)
-      })
-    })
-    
-  }
-
-  private getMax(): any {
-    return new Promise((resolve, reject) => {
-      this.anuncioAbertoService.maxValue()
-        .then((snapshot: any) => {
-          this.maxValue = (snapshot as Anuncio).preco
-
-          resolve(true)
-        })
-      })
-  }
-
+  //conferido
   private getAll(): void {
     let aux = []
     this.filters = []
@@ -167,4 +192,6 @@ export class PesquisaComponent implements OnInit {
         this.anuncios = aux
       })
   }
+
+  /******************************* CONTROLE DOS ANUNCIOS *******************************/
 }

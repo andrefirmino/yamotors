@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="page-header section-dark" [style.backgroundImage]="'url(' + images.fundo_principal + ')'">
+    <div class="page-header section-dark" [style.backgroundImage]="'url(' + images?.fundo_principal + ')'">
         <div class="filter"></div>
         <div class="content-center">
             <div class="container">
@@ -19,7 +19,7 @@
         <div class="row posicao">
             <div class="col-md-4" *ngFor="let barato of baratos">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="barato.fotos[0] || ''" alt="Card image cap">
+                    <img class="card-img-top" [src]="barato?.fotos[0] || ''" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{barato.titulo}}</h5>
                         <h6 class="card-title">{{barato.preco}}</h6>
@@ -78,7 +78,7 @@
         <div class="row posicao">
             <div class="col-md-4" *ngFor="let recente of recentes">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="recente.fotos[0] || ''" alt="Card image cap">
+                    <img class="card-img-top" [src]="recente?.fotos[0] || ''" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{recente.titulo}}</h5>
                         <h6 class="card-title">{{recente.preco}}</h6>
@@ -185,7 +185,7 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img [src]="images.cadastrar || ''" alt="..."></a>
+                        <a href="#avatar"><img [src]="images?.cadastrar || ''" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">
@@ -206,7 +206,7 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img [src]="images.acesso_dash || ''" alt="..."></a>
+                        <a href="#avatar"><img [src]="images?.acesso_dash || ''" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">
@@ -227,7 +227,7 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img [src]="images.dashboard || ''" alt="..."></a>
+                        <a href="#avatar"><img [src]="images?.dashboard || ''" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">

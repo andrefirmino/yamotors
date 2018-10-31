@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import { Filter } from "app/models/filter.model";
 import { jsonFilter } from "app/utils";
 
@@ -59,7 +59,11 @@ export class FipeService {
                 .get()
                 .then((snapshot: any) => {
                     let anos: Array<any> = []
-
+                    
+                    if(typeof snapshot.ano === 'string'){
+                        snapshot.ano = snapshot.ano.substring(0, 4)
+                    } 
+                    
                     snapshot.forEach(childsnapshot => {
                         anos.push(childsnapshot.data())
                     })

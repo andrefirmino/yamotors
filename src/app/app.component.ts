@@ -58,6 +58,7 @@ export class AppComponent implements OnInit {
 
         //Yuri - inicialização do firebase
         firebase.initializeApp(environment.firebase);
+        firebase.firestore().settings({timestampsInSnapshots: true})
         
     }
     removeFooter() {

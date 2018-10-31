@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { Injectable } from "@Angular/core";
 import { Anuncio } from "../models/anuncio.model";
 import { FirestoreService } from "./Firestore.service";
@@ -18,6 +18,7 @@ export class AnuncioAbertoService {
         this.collection = firebase.firestore().collection('anuncioAberto')
     }
 
+    //conferido
     public getAnunciosAbertos(filter: Filter[]): any {
         return new Promise((resolve, reject) => {
 
@@ -29,7 +30,7 @@ export class AnuncioAbertoService {
                         anuncios.push(childSnapshot.data())
                     })
 
-                    return jsonFilter(anuncios, filter).reverse()
+                    return jsonFilter(anuncios, filter)
 
                 })
                 .then((anuncios: any) => {
@@ -59,7 +60,7 @@ export class AnuncioAbertoService {
                     .then(() => resolve(true))
             }
         })
-        
+
     }
 
     public deleteAnuncio(anuncio: Anuncio): any {
@@ -130,24 +131,39 @@ export class AnuncioAbertoService {
 
     }
 
+    // conferido
     public minValue(): any {
-        return this.getValue('asc')
-    }
-
-    public maxValue(): any {
-        return this.getValue('desc')
-    }
-
-    private getValue(type: firebase.firestore.OrderByDirection): any {
-        return new Promise((resolve, reject) => {
-
-            this.collection.orderBy('preco', type)
-                .limit(1)
-                .get()
+        //return this.getValue('asc')
+        return new Promise((resolve) => {
+            this.collection.get()
                 .then((snapshot: any) => {
+                    let data = []
+
                     snapshot.forEach(childSnapshot => {
-                        resolve(childSnapshot.data())
+                        data.push(childSnapshot.data())
                     })
+
+                    resolve(Math.min.apply(Math, data.map((o) => {
+                        return o.preco
+                    })))
+                })
+        })
+    }
+
+    //conferido
+    public maxValue(): any {
+        return new Promise((resolve) => {
+            this.collection.get()
+                .then((snapshot: any) => {
+                    let data = []
+
+                    snapshot.forEach(childSnapshot => {
+                        data.push(childSnapshot.data())
+                    })
+
+                    resolve(Math.max.apply(Math, data.map((o) => {
+                        return o.preco
+                    })))
                 })
         })
     }
