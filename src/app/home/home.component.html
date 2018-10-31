@@ -31,7 +31,7 @@
                         <a [routerLink]="['/perfil', barato.anuncianteId]">
                             <div class="row">
                                 <div class="col-md-4 col-sm-2 ml-auto mr-auto margem-dentro">
-                                    <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" src="./assets/img/daniel-olahh.jpg">
+                                    <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" [src]="barato?.anuncianteFoto || ''">
                                 </div>
                                 <div class="col-md-8 col-sm-4 ml-auto margem-dentro align-self-center">
                                     <h6 class="card-title"><small>{{barato.anuncianteNome}}</small></h6>
@@ -59,7 +59,7 @@
                         <a [routerLink]="['/perfil', recente.anuncianteId]">
                             <div class="row">
                                 <div class="col-md-4 col-sm-2 ml-auto mr-auto margem-dentro">
-                                    <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" src="./assets/img/daniel-olahh.jpg">
+                                    <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" [src]="recente?.anuncianteFoto || ''">
                                 </div>
                                 <div class="col-md-8 col-sm-4 ml-auto margem-dentro align-self-center">
                                     <h6 class="card-title"><small>{{recente.anuncianteNome}}</small></h6>

@@ -10,61 +10,58 @@ import { ConfigService } from "../services/Config.service";
 })
 
 export class HomeComponent implements OnInit {
-    //constante de limite para busca de anuncios
-    LIMIT: number = 3;
-    private recentes: Anuncio[]
-    private baratos: Anuncio[]
-    private images: {}
-
-    model = {
-        left: true,
-        middle: false,
-        right: false
-    };
     constructor(
         private anuncioAbertoService: AnuncioAbertoService,
         private configService: ConfigService
     ) { }
 
     ngOnInit() {
+        this.getImages()
         this.getMostRecently()
         this.getCheaper()
-        this.getImages()
     }
-
+    
+    /*********************************** CONTROLE ANUNCIOS ***********************************/    
+    private recentes: Anuncio[]
+    private baratos: Anuncio[]
+    
+    //conferido
     private getMostRecently(): void {
         this.recentes = []
         //carrega os anuncios do cliente especifico
-        this.anuncioAbertoService.getMostRecently(this.LIMIT).then((result) => {
-            result.forEach((an) => {
-                this.recentes.push(an as Anuncio)
+        this.anuncioAbertoService.getMostRecently()
+            .then((result) => {
+                result.forEach((an) => {
+                    this.recentes.push(an as Anuncio)
+                })
             })
-
-        }).catch((err) => {
-            console.log(err)
-        })
-
     }
 
+    //conferido
     private getCheaper(): void {
         this.baratos = []
         //carrega os anuncios do cliente especifico
-        this.anuncioAbertoService.getCheaper(this.LIMIT).then((result) => {
-            result.forEach((an) => {
-                this.baratos.push(an as Anuncio)
+        this.anuncioAbertoService.getCheaper()
+            .then((result) => {
+                result.forEach((an) => {
+                    this.baratos.push(an as Anuncio)
+                    console.log(an)
+                })
             })
-
-        }).catch((err) => {
-            console.log(err)
-        })
-
     }
 
+    /*********************************** FIM CONTROLE ANUNCIOS ***********************************/   
+
+    /*********************************** CONTROLE IMAGENS FIXAS ***********************************/   
+    private images: {}
+
+    //conferido
     private getImages(): void {
         this.configService.getAllConfig()
             .then((config) => {
                 this.images = config.data()
             })
     }
+    /*********************************** FIM CONTROLE IMAGENS FIXAS ***********************************/   
 
 }

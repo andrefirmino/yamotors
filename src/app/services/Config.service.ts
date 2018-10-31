@@ -11,6 +11,7 @@ export class ConfigService {
         this.document = this.collection.doc('home')
     }
 
+    //conferido
     public getConfig(config: string): any {
         return new Promise((resolve, reject) => {
             this.document.get()
@@ -20,6 +21,7 @@ export class ConfigService {
         })
     }
 
+    //conferido
     public getAllConfig(): any {
         return new Promise((resolve, reject) => {
             this.document.get()

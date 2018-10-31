@@ -5,6 +5,7 @@ import { FirestoreService } from "./Firestore.service";
 import { FipeRealService } from './FIpeReal.service';
 import { Filter } from 'app/models/filter.model';
 import { jsonFilter } from 'app/utils';
+import { ConfigService } from './Config.service';
 
 @Injectable()
 export class AnuncioAbertoService {
@@ -13,7 +14,8 @@ export class AnuncioAbertoService {
 
     constructor(
         private firestoreService: FirestoreService,
-        private fipeRealService: FipeRealService
+        private fipeRealService: FipeRealService,
+        private configService: ConfigService
     ) {
         this.collection = firebase.firestore().collection('anuncioAberto')
     }
@@ -42,6 +44,10 @@ export class AnuncioAbertoService {
                                     anuncio.fotos[idx] = url
                                 })
                         })
+                        this.firestoreService.getClienteFoto(anuncio.anuncianteId)
+                                    .then((url) => {
+                                        anuncio.anuncianteFoto = url
+                                    })
                     })
                     resolve(anuncios)
                 })
@@ -72,100 +78,75 @@ export class AnuncioAbertoService {
     }
 
     //conferido
-    public getMostRecently(limit: number): any {
-        return new Promise((resolve, reject) => {
-            this.collection.orderBy('timestamp', 'desc')
-                .limit(limit)
-                .get()
-                .then((snapshot: any) => {
-                    let anuncios: Array<any> = []
-
-                    snapshot.forEach((childSnapshot: any) => {
-                        anuncios.push(childSnapshot.data())
-                    })
-
-                    return anuncios
-                })
-                .then((anuncios: any) => {
-
-                    anuncios.forEach((anuncio) => {
-                        anuncio.fotos.forEach((foto, idx) => {
-                            this.firestoreService.getAnuncioFoto(foto)
-                                .then((url) => {
-                                    anuncio.fotos[idx] = url
-                                })
-                        })
-                    })
-                    resolve(anuncios)
-                })
-        })
-
+    public getMostRecently(): any {
+        return this.getData('timestamp', 'desc')
     }
 
     //conferido
-    public getCheaper(limit: number): any {
-        return new Promise((resolve, reject) => {
-            this.collection.orderBy('preco', 'asc')
-                .limit(limit)
-                .get()
-                .then((snapshot: any) => {
-                    let anuncios: Array<any> = []
-
-                    snapshot.forEach((childSnapshot: any) => {
-                        anuncios.push(childSnapshot.data())
-                    })
-
-                    return anuncios
-                })
-                .then((anuncios: any) => {
-
-                    anuncios.forEach((anuncio) => {
-                        anuncio.fotos.forEach((foto, idx) => {
-                            this.firestoreService.getAnuncioFoto(foto)
-                                .then((url) => {
-                                    anuncio.fotos[idx] = url
-                                })
-                        })
-                    })
-                    resolve(anuncios)
-                })
-        })
-
+    public getCheaper(): any {
+        return this.getData('preco', 'asc')
     }
 
     // conferido
     public minValue(): any {
+        return this.getValue('preco', 'asc')
+    }
+
+    //conferido
+    public maxValue(): any {
+        return this.getValue('preco', 'desc')
+    }
+
+    //conferido
+    private getData(fieldOrder: string, typeOrer: firebase.firestore.OrderByDirection): any {
         return new Promise((resolve) => {
-            this.collection.get()
-                .then((snapshot: any) => {
-                    let data = []
+            this.configService.getConfig('limiteFotos')
+                .then((limit: number) => {
+                    this.collection.orderBy(fieldOrder, typeOrer)
+                        .limit(limit)
+                        .get()
+                        .then((snapshot: any) => {
+                            let anuncios: Array<any> = []
 
-                    snapshot.forEach(childSnapshot => {
-                        data.push(childSnapshot.data())
-                    })
+                            snapshot.forEach((childSnapshot: any) => {
+                                anuncios.push(childSnapshot.data())
+                            })
 
-                    resolve(Math.min.apply(Math, data.map((o) => {
-                        return o.preco
-                    })))
+                            return anuncios
+                        })
+                        .then((anuncios: any) => {
+
+                            anuncios.forEach((anuncio) => {
+                                anuncio.fotos.forEach((foto, idx) => {
+                                    this.firestoreService.getAnuncioFoto(foto)
+                                        .then((url) => {
+                                            anuncio.fotos[idx] = url
+                                        })
+                                })
+
+                                this.firestoreService.getClienteFoto(anuncio.anuncianteId)
+                                    .then((url) => {
+                                        anuncio.anuncianteFoto = url
+                                    })
+                            })
+                            resolve(anuncios)
+                        })
                 })
         })
     }
 
     //conferido
-    public maxValue(): any {
+    private getValue(field: string, typeOrer: firebase.firestore.OrderByDirection): any {
         return new Promise((resolve) => {
-            this.collection.get()
+            this.collection.orderBy(field, typeOrer)
+                .limit(1)
+                .get()
                 .then((snapshot: any) => {
-                    let data = []
-
                     snapshot.forEach(childSnapshot => {
-                        data.push(childSnapshot.data())
+                        resolve(childSnapshot.data().preco)
                     })
-
-                    resolve(Math.max.apply(Math, data.map((o) => {
-                        return o.preco
-                    })))
                 })
         })
     }
+
 }
