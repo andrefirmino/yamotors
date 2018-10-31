@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="page-header section-dark" [style.backgroundImage]="'url(' + images?.fundo_principal + ')'">
+    <div class="tamanho_div" style="background-image: url('./assets/img/fundo_principal.jpg');">
         <div class="filter"></div>
         <div class="content-center">
             <div class="container">
@@ -7,10 +7,10 @@
                     <h1 class="presentation-title">YA - Motors</h1>
                 </div>
 
-                <h2 class="presentation-subtitle text-center">Plataforma venda de veiculos</h2>
+                <h2 class="presentation-subtitle text-center">Plataforma de venda de veiculos</h2>
             </div>
         </div>
-        <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
+        <div class="moving-clouds" style="background-image: url('assets/img/clouds32.png'); "></div>
     </div>
     <div class="container">
         <h2 class="text-center">Vitrine</h2>
@@ -19,234 +19,152 @@
         <div class="row posicao">
             <div class="col-md-4" *ngFor="let barato of baratos">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="barato?.fotos[0] || ''" alt="Card image cap">
+                    <a [routerLink]="['/anuncio', barato.id]">
+                        <img class="card-img-top" [src]="barato?.fotos[0] || ''" alt="Card image cap">
+                    </a>
                     <div class="card-body">
-                        <h5 class="card-title">{{barato.titulo}}</h5>
-                        <h6 class="card-title">{{barato.preco}}</h6>
-                        <p class="card-text">
-                            {{barato.descricao}}
+                        <h5 class="card-title">
+                            <a [routerLink]="['/anuncio', barato.id]">{{barato.titulo}}</a>
+                        </h5>
+                        <h5 class="card-title">
+                            <b>
+                                <a [routerLink]="['/anuncio', barato.id]">{{barato.preco | currency: 'BRL': true }}</a>
+                            </b>
+                        </h5>
+                        <p class="card-title">
+                            <a [routerLink]="['/anuncio', barato.id]">{{barato.descricao}}</a>
                         </p>
-                        <a [routerLink]="['/anuncio', barato.id]" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--
-        <div class="row posicao">
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets/img/fotos/carro.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Gol 1.0</h5>
-                        <h6 class="card-title">R$ 15.000,00</h6>
-                        <p class="card-text">
-                            2013/2014 | 4 portas | ar-condicionado
-                        </p>
-                        <a href="#" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets/img/fotos/carro2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Gol 1.0</h5>
-                        <h6 class="card-title">R$ 15.000,00</h6>
-                        <p class="card-text">
-                            2013/2014 | 4 portas | ar-condicionado
-                        </p>
-                        <a href="#" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets/img/fotos/carro4.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Gol 1.0</h5>
-                        <h6 class="card-title">R$ 15.000,00</h6>
-                        <p class="card-text">
-                            2013/2014 | 4 portas | ar-condicionado
-                        </p>
-                        <a href="#" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
-        <h4>Ultimos Adicionados</h4>
-        <div class="row posicao">
-            <div class="col-md-4" *ngFor="let recente of recentes">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="recente?.fotos[0] || ''" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{recente.titulo}}</h5>
-                        <h6 class="card-title">{{recente.preco}}</h6>
-                        <p class="card-text">
-                            {{recente.descricao}}
-                        </p>
-                        <a [routerLink]="['/anuncio', recente.id]" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--
-    <div class="row posicao">
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="assets/img/fotos/carro5.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Gol 1.0</h5>
-                    <h6 class="card-title">R$ 15.000,00</h6>
-                    <p class="card-text">
-                        2013/2014 | 4 portas | ar-condicionado
-                    </p>
-                    <a href="#" class="btn btn-primary">Informações</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="assets/img/fotos/carro6.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Gol 1.0</h5>
-                    <h6 class="card-title">R$ 15.000,00</h6>
-                    <p class="card-text">
-                        2013/2014 | 4 portas | ar-condicionado
-                    </p>
-                    <a href="#" class="btn btn-primary">Informações</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="assets/img/fotos/carro7.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Gol 1.0</h5>
-                    <h6 class="card-title">R$ 15.000,00</h6>
-                    <p class="card-text">
-                        2013/2014 | 4 portas | ar-condicionado
-                    </p>
-                    <a href="#" class="btn btn-primary">Informações</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-        <h4>Fornecedores Destaques</h4>
-        <div class="row posicao">
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets/img/fotos/carro8.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Gol 1.0</h5>
-                        <h6 class="card-title">R$ 15.000,00</h6>
-                        <p class="card-text">
-                            2013/2014 | 4 portas | ar-condicionado
-                        </p>
-                        <a href="#" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets/img/fotos/carro9.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Gol 1.0</h5>
-                        <h6 class="card-title">R$ 15.000,00</h6>
-                        <p class="card-text">
-                            2013/2014 | 4 portas | ar-condicionado
-                        </p>
-                        <a href="#" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="assets/img/fotos/carro10.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Gol 1.0</h5>
-                        <h6 class="card-title">R$ 15.000,00</h6>
-                        <p class="card-text">
-                            2013/2014 | 4 portas | ar-condicionado
-                        </p>
-                        <a href="#" class="btn btn-primary">Informações</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
-    </div>
-</div>
-<div class="section section-dark text-center">
-    <div class="container">
-        <h2 class="title">YA Motors - Como utilizar nossos serviços?</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-profile card-plain">
-                    <div class="card-avatar">
-                        <a href="#avatar"><img [src]="images?.cadastrar || ''" alt="..."></a>
-                    </div>
-                    <div class="card-block">
-                        <a href="#paper-kit">
-                            <div class="author">
-                                <h4 class="card-title">Cadastre-se</h4>
-                                <h6 class="card-category">Botão Superior / Cadastrar</h6>
+                        <!--<a [routerLink]="['/anuncio', barato.id]" class="btn btn-primary">Informações</a>-->
+                        <div class="row borda">
+                            <div class="col-md-4 col-sm-2 ml-auto mr-auto margem-dentro">
+                                <a [routerLink]="['/anuncio', barato.id]">
+                                    <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" src="./assets/img/daniel-olahh.jpg">
+                                </a>
                             </div>
-                        </a>
-                        <p class="card-description text-center">
-                            No canto superior direito, só clicar sobre o ìcone de login e em seguida clicar na opção cadastrar.
-                        </p>
-                    </div>
-                    <div class="card-footer text-center">
+                            <div class="col-md-8 col-sm-4 ml-auto margem-dentro align-self-center">
+                                <h6 class="card-title">
+                                    <a [routerLink]="['/anuncio', barato.id]">Dados Vendedor</a>
+                                </h6>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+            </div>
+            <h4>Ultimos Adicionados</h4>
+            <div class="row posicao">
+                <div class="col-md-4" *ngFor="let recente of recentes">
+                    <div class="card" style="width: 18rem;">
+                        <a [routerLink]="['/anuncio', recente.id]">
+                            <img class="card-img-top" [src]="recente.fotos[0] || ''" alt="Card image cap">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a [routerLink]="['/anuncio', recente.id]">{{recente.titulo}}</a>
+                            </h5>
+                            <h5 class="card-title">
+                                <b>
+                                        <a [routerLink]="['/anuncio', recente.id]">{{recente.preco | currency: 'BRL': true }}</a>
+                                    </b>
+                            </h5>
+                            <p class="card-title">
+                                <a [routerLink]="['/anuncio', recente.id]">{{recente.descricao}}</a>
+                            </p>
+                            <!--<a [routerLink]="['/anuncio', recente.id]" class="btn btn-primary">Informações</a>-->
+                            <div class="row borda">
+                                <div class="col-md-4 col-sm-2 ml-auto mr-auto margem-dentro">
+                                    <a [routerLink]="['/anuncio', recente.id]">
+                                        <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" src="./assets/img/daniel-olahh.jpg">
+                                    </a>
+                                </div>
+                                <div class="col-md-8 col-sm-4 ml-auto margem-dentro align-self-center">
+                                    <h6 class="card-title">
+                                        <a [routerLink]="['/anuncio', recente.id]">Dados Vendedor</a>
+                                    </h6>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section section-dark text-center">
+            <div class="container">
+                <h2 class="title">YA Motors - Como utilizar nossos serviços?</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar">
+                                    <img [src]="images.cadastrar || ''" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Cadastre-se</h4>
+                                        <h6 class="card-category">Botão Superior / Cadastrar</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                    No canto superior direito, só clicar sobre o ìcone de login e em seguida clicar na opção cadastrar.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar">
+                                    <img [src]="images.acesso_dash || ''" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Acessar Dashboard</h4>
+                                        <h6 class="card-category">Ícone Dashboard</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                    Após login, você habilita o seu dashboard para cadastro de veículos.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar">
+                                    <img [src]="images.dashboard || ''" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Dashboard</h4>
+                                        <h6 class="card-category">Cadastro de Veículos</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                    Dentro do dashboard, você ja pode Inserir um novo veiculo para venda, editar seus veiculos, ou até mesmo excluir um registro, além de mudar dados do seu cadastro para os clientes entrarem em contato.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h4>Clique abaixo e se cadastre!</h4>
+                <br />
+                <button class="btn btn-sucess btn-rounded" [routerLink]="['/cadastro']">Cadastrar</button>
             </div>
 
-            <div class="col-md-4">
-                <div class="card card-profile card-plain">
-                    <div class="card-avatar">
-                        <a href="#avatar"><img [src]="images?.acesso_dash || ''" alt="..."></a>
-                    </div>
-                    <div class="card-block">
-                        <a href="#paper-kit">
-                            <div class="author">
-                                <h4 class="card-title">Acessar Dashboard</h4>
-                                <h6 class="card-category">Ícone Dashboard</h6>
-                            </div>
-                        </a>
-                        <p class="card-description text-center">
-                            Após login, você habilita o seu dashboard para cadastro de veículos.
-                        </p>
-                    </div>
-                    <div class="card-footer text-center">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card card-profile card-plain">
-                    <div class="card-avatar">
-                        <a href="#avatar"><img [src]="images?.dashboard || ''" alt="..."></a>
-                    </div>
-                    <div class="card-block">
-                        <a href="#paper-kit">
-                            <div class="author">
-                                <h4 class="card-title">Dashboard</h4>
-                                <h6 class="card-category">Cadastro de Veículos</h6>
-                            </div>
-                        </a>
-                        <p class="card-description text-center">
-                            Dentro do dashboard, você ja pode Inserir um novo veiculo para venda, editar seus veiculos, ou até mesmo excluir um registro, além de mudar dados do seu cadastro para os clientes entrarem em contato.
-                        </p>
-                    </div>
-                    <div class="card-footer text-center">
-                    </div>
-                </div>
-            </div>
         </div>
-        <h4>Clique abaixo e se cadastre!</h4><br />
-        <button class="btn btn-sucess btn-rounded">Cadastrar</button>
-    </div>
-
-</div>

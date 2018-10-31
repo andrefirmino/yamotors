@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="5">
-    <div class="container teste">
+    <div class="container">
         <div class="navbar-translate">
             <a class="navbar-brand" [routerLink]="['/home']">YA - Motors</a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
@@ -14,14 +14,8 @@
                 <li class="nav-item">
                     <a [routerLink]="['/pesquisa']" class="nav-link"><i class="fa fa-search"></i> Pesquisar</a>
                 </li>
-                <!--   <li class="nav-item" *ngIf="isLogado()">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href=# target="_blank">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <p class="d-lg-none">Favoritos</p>
-                    </a>
-                </li>-->
                 <li class="nav-item" *ngIf="isLogado()">
-                    <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href=# target="_blank">
+                    <a class="nav-link" rel="tooltip" data-placement="bottom" [routerLink]="['/dashboard']">
                         <i class="fa fa-car" aria-hidden="true"></i>
                         <p class="d-lg-none">Dashboard</p>
                     </a>
@@ -35,8 +29,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div *ngIf="!isLogado()">
-                            <a class="dropdown-item" href="#">Efetuar Login</a>
-                            <a class="dropdown-item" href="#">Cadastrar</a>
+                            <a class="dropdown-item" [routerLink]="['/login']">Efetuar Login</a>
+                            <a class="dropdown-item" [routerLink]="['/cadastro']">Cadastrar</a>
                         </div>
                         <div *ngIf="isLogado()">
                             <a class="dropdown-item" href="#">Sair da Conta</a>
