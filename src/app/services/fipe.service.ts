@@ -28,8 +28,6 @@ export class FipeService {
         })
     }
 
-    //19
-
     public getModelos(idMarca: string): any {
         return new Promise((resolve, reject) => {
             

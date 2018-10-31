@@ -71,9 +71,10 @@ export class AnuncioAbertoService {
         this.fipeRealService.decrement(anuncio)
     }
 
+    //conferido
     public getMostRecently(limit: number): any {
         return new Promise((resolve, reject) => {
-            this.collection.orderBy('timestamp', 'asc')
+            this.collection.orderBy('timestamp', 'desc')
                 .limit(limit)
                 .get()
                 .then((snapshot: any) => {
@@ -101,6 +102,7 @@ export class AnuncioAbertoService {
 
     }
 
+    //conferido
     public getCheaper(limit: number): any {
         return new Promise((resolve, reject) => {
             this.collection.orderBy('preco', 'asc')
@@ -133,7 +135,6 @@ export class AnuncioAbertoService {
 
     // conferido
     public minValue(): any {
-        //return this.getValue('asc')
         return new Promise((resolve) => {
             this.collection.get()
                 .then((snapshot: any) => {
