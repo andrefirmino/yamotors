@@ -43,9 +43,13 @@ export class AnuncioComponent implements OnInit {
       .then((snapshot: any) => {
         snapshot.forEach(snapshotchild => {
           this.anuncio = snapshotchild as Anuncio
+          console.log(this.anuncio);
           this.clienteService.getClienteById(this.anuncio.anuncianteId)
             .then((snapshot) => {
+              console.log(this.cliente)
+              console.log(this.anuncio)
               this.cliente = snapshot
+              console.log(this.cliente)
             })
         })
       })
