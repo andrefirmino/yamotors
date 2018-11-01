@@ -25,7 +25,9 @@
         </div>
         <div class="section profile-content">
             <div class="container">
-                <br><br>
+                <br>
+                <h1 align="center">{{anuncio.titulo | uppercase}}</h1>
+                <br>
                 <div class="row">
                     <div class="col-md-6">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -56,54 +58,71 @@
                             </div>
                     </div>
                     <div class="col-md-6">
-                        <h4 align="center">Dados do Veiculo</h4>
-                        <h5>{{anuncio.titulo}}</h5>
+                        <h2 align="center">Dados do Veiculo</h2><br>
+                        <h3><strong>{{anuncio.titulo}}</strong></h3><br>
                         <div class="row">
-                            <div class="col-md-8">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><span>Modelo: </span><b>{{anuncio.nomeModelo}}</b></li>
-                                </ul>                               
-                            </div>
-                            <div class="col-md-4">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><span>Marca: </span><b>{{anuncio.nomeMarca}}</b></li>
-                                </ul> 
-                            </div>
+                            <div class="col-md-12">
+                                  <p> Descrição : {{anuncio.descricao}}</p>
+                            </div> 
+                        </div><br>
+                        <div>
+                            <h3 class="text-white bg-dark">Valor : {{anuncio.preco}}</h3><br>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><span>Modelo: </span><b>{{anuncio.nomeModelo}}</b></li>
+                                    <li class="list-group-item"><span>Marca: </span><b>{{anuncio.nomeMarca}}</b></li>
                                     <li class="list-group-item"><span>Ano: </span><b>{{anuncio.ano}}</b></li>
-                                    <li class="list-group-item"><span>Marca: </span><b>{{anuncio.nomeMarca}}</b></li>
+                                    <li class="list-group-item"><span>Combustivel: </span><b>{{anuncio.combustivel}}</b></li>
                                 </ul>                               
                             </div>
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><span>Combustivel: </span><b>{{anuncio.combustivel}}</b></li>
-                                    <li class="list-group-item"><span>Modelo: </span><b>{{anuncio.nomeModelo}}</b></li>
-                                </ul> 
-                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" >
+                                    <span class="label label-info">Opcionais</span><br>
+                                    {{anuncio.opcionais[0].info}}
+                            </div> 
                         </div>
                     </div>
                 </div>
-                    
-                <img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">
-                <div class="owner">
-                    <div class="name">
-                        <h4 class="title">{{anuncio.titulo}}
-                            <br />
-                        </h4>
+            </div>
+        </div>
+        <div class="section section-dark text-center landing-section">
+            <div class="container">
+                <h2 class="title center">Dados Vendedor</h2>
+                    <div class="row mx-auto" style="width: 200px;">
+                        <div>
+                            <div class="card card-profile card-plain">
+                                <div class="card-avatar">
+                                    <a href="#avatar">
+                                        <img src="./assets/img/faces/clem-onojeghuo-3.jpg">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#paper-kit">
+                                        <div class="author">
+                                            <h4 class="card-title">{{cliente.nome}}</h4>
+                                            <h6 class="card-category text-muted">{{cliente.descricao}}</h6>
+                                        </div>
+                                    </a>
+                                    <div class="card-description text-center">
+                                        <h4>Contatos</h4><br>
+                                        {{cliente.contatos[0].info}}
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-link btn-just-icon btn-twitter" href="#pablo">
+                                        <i _ngcontent-c2="" class="fa fa-twitter"></i>
+                                    </a>
+                                    <a _ngcontent-c2="" class="btn btn-link btn-just-icon btn-dribbble" href="#pablo">
+                                        <i _ngcontent-c2="" class="fa fa-dribbble"></i>
+                                    </a>
+                                    <a _ngcontent-c2="" class="btn btn-link btn-just-icon btn-linkedin" href="#pablo">
+                                        <i _ngcontent-c2="" class="fa fa-linkedin"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto text-center">
-                        <p>{{anuncio.preco}} </p>
-                        <br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto text-center">
-                        <p>{{anuncio.descricao}} </p>
-                        <br />
-                    </div>
-                </div>
+                <!--<img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">-->

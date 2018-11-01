@@ -35,7 +35,7 @@ export class AnuncioComponent implements OnInit {
   private id
   private anuncio: Anuncio = new Anuncio()
   private cliente: Cliente = new Cliente()
-  private dadpsFipe
+  private dadosFipe
 
   private getAnuncio(): void {
 
@@ -47,8 +47,11 @@ export class AnuncioComponent implements OnInit {
       .then((snapshot: any) => {
         snapshot.forEach(snapshotchild => {
           this.anuncio = snapshotchild as Anuncio
+          console.log(this.anuncio);
           this.clienteService.getClienteById(this.anuncio.anuncianteId)
             .then((snapshot) => {
+              console.log(this.cliente)
+              console.log(this.anuncio)
               this.cliente = snapshot
 
               let params = {
