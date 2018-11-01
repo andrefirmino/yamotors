@@ -43,31 +43,31 @@
             <br />
             <div class="row posicao">
                 <div class="col-md-3" *ngFor="let anuncio of anuncios">
-                        <div class="card" style="width: 14rem;">
-                            <a [routerLink]="['/anuncio', anuncio.id]">
-                                <img class="card-img-top" [src]="anuncio?.fotos[0] || ''" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{anuncio.titulo}}</h5>
-                                    <h5 class="card-title">
-                                        <b>{{anuncio.preco | currency: 'BRL': true }}</b>
-                                    </h5>
+                    <div class="card" style="width: 14rem;">
+                        <a [routerLink]="['/anuncio', anuncio.id]">
+                            <img class="card-img-top" [src]="anuncio?.fotos[0] || ''" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{anuncio.titulo}}</h5>
+                                <h5 class="card-title">
+                                    <b>{{anuncio.preco | currency: 'BRL': true }}</b>
+                                </h5>
+                            </div>
+                        </a>
+                        <hr size="20px" style="border: 1px solid #cccccc;">
+                        <div class="card-header">
+                            <a [routerLink]="['/perfil', anuncio.anuncianteId]">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-2 ml-auto mr-auto margem-dentro">
+                                        <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" [src]="anuncio?.anuncianteFoto || ''">
+                                    </div>
+                                    <div class="col-md-8 col-sm-4 ml-auto margem-dentro align-self-center">
+                                        <h6 class="card-title"><small>{{anuncio.anuncianteNome}}</small></h6>
+                                    </div>
                                 </div>
                             </a>
-                            <hr size="20px" style="border: 1px solid #cccccc;">
-                            <div class="card-header">
-                                <a [routerLink]="['/perfil', anuncio.anuncianteId]">
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-2 ml-auto mr-auto margem-dentro">
-                                            <img alt="Circle Image" class="img-circle avatar img-no-padding img-responsive" [src]="anuncio?.anuncianteFoto || ''">
-                                        </div>
-                                        <div class="col-md-8 col-sm-4 ml-auto margem-dentro align-self-center">
-                                            <h6 class="card-title"><small>{{anuncio.anuncianteNome}}</small></h6>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

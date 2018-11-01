@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
             .then((result) => {
                 result.forEach((an) => {
                     this.baratos.push(an as Anuncio)
-                    console.log(an)
                 })
             })
     }

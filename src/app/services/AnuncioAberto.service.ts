@@ -24,14 +24,8 @@ export class AnuncioAbertoService {
     public getAnunciosAbertos(filter: Filter[]): any {
         return new Promise((resolve, reject) => {
 
-            this.collection.orderBy('timestamp', "desc").get()
-                .then((snapshot: any) => {
-                    let anuncios: Array<any> = []
-
-                    snapshot.forEach((childSnapshot: any) => {
-                        anuncios.push(childSnapshot.data())
-                    })
-
+            this.getData('timestamp', 'desc')
+                .then((anuncios) => {
                     resolve(jsonFilter(anuncios, filter))
                 })
         })
@@ -98,13 +92,6 @@ export class AnuncioAbertoService {
                         .then((anuncios: any) => {
 
                             anuncios.forEach((anuncio) => {
-                                anuncio.fotos.forEach((foto, idx) => {
-                                    this.firestoreService.getAnuncioFoto(foto)
-                                        .then((url) => {
-                                            anuncio.fotos[idx] = url
-                                        })
-                                })
-
                                 this.firestoreService.getClienteFoto(anuncio.anuncianteId)
                                     .then((url) => {
                                         anuncio.anuncianteFoto = url

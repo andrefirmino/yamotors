@@ -163,7 +163,7 @@ export class DashboardComponent implements OnInit {
           .then(() => {
             this.getUserData()
             this.files = null
-            this.logoInput.nativeElement.value = "";
+            this.logoInput.nativeElement.value = ""
           })
       })
   }
