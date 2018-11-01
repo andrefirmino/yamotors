@@ -32,24 +32,7 @@ export class AnuncioAbertoService {
                         anuncios.push(childSnapshot.data())
                     })
 
-                    return jsonFilter(anuncios, filter)
-
-                })
-                .then((anuncios: any) => {
-
-                    anuncios.forEach((anuncio) => {
-                        anuncio.fotos.forEach((foto, idx) => {
-                            this.firestoreService.getAnuncioFoto(foto)
-                                .then((url) => {
-                                    anuncio.fotos[idx] = url
-                                })
-                        })
-                        this.firestoreService.getClienteFoto(anuncio.anuncianteId)
-                                    .then((url) => {
-                                        anuncio.anuncianteFoto = url
-                                    })
-                    })
-                    resolve(anuncios)
+                    resolve(jsonFilter(anuncios, filter))
                 })
         })
     }
