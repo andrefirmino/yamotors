@@ -36,13 +36,14 @@ export class FipeRealService {
 
     }
 
+    //conferido
     public decrement(anuncio: Anuncio): void {
         let id = anuncio.idMarca + '-' + anuncio.idModelo + '-' + anuncio.anoComposto
         this.collection.doc(id).get()
             .then((doc: any) => {
                 let data = doc.data()
 
-                data.quant--;
+                data.quant--
 
                 if (data.quant == 0) {
                     this.collection.doc(id).delete()

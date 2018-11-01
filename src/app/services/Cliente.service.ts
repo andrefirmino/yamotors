@@ -23,7 +23,6 @@ export class ClienteService {
                 .get()
                 .then((snapshot: any) => {
                     let cli = snapshot.data()
-                    console.log(cli)
                     this.firestoreService.getClienteFoto(cli.foto)
                         .then((url) => {
                             cli.foto = url
@@ -33,6 +32,7 @@ export class ClienteService {
         })
     }
 
+    //conferido
     public persistCliente(cli: Cliente): any {
         return new Promise((resolve) => {
             this.collection.doc(this.getCurrentUserHash())

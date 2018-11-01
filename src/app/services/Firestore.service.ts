@@ -56,7 +56,11 @@ export class FirestoreService {
     public postAnuncioFotos(imagens: any): any {
         let retornos = []
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
+            if(!imagens){
+                resolve([])
+            }
+            
             Array.prototype.forEach.call(imagens, file => {
                 let nomeImagem = this.utilsService.getNewIdFoto()
 
@@ -75,36 +79,46 @@ export class FirestoreService {
                             console.log(error)
                         },
                         () => {
-                            //finalização do processo
-                            retornos.push(nomeImagem)
+                            //finaliza??o do processo
 
-                            if(retornos.length == imagens.length){
-                                resolve(retornos)
-                            }
+                            firebase.storage().ref().child(`anuncios/${nomeImagem}`).getDownloadURL()
+                                .then((url) => {
+                                    retornos.push(url)
+                                    if (retornos.length == imagens.length) {
+                                        resolve(retornos)
+                                    }
+                                })
                         }
                     )
             })
         })
-        
+
     }
 
+    //conferido
     public deleteFotos(fotos: any): any {
         fotos.forEach(snapshot => {
-          firebase.storage().ref()
-              .child(`anuncios/${snapshot}`)
-              .delete()
+            if (snapshot !== 'padrao.jpg') {
+                firebase.storage().ref()
+                    .child(`anuncios/${snapshot}`)
+                    .delete()
+            }
         })
     }
 
+    //conferido
     public postClienteFoto(file: any, path: any): any {
         return new Promise((resolve, reject) => {
-
+            if (file) {
                 firebase.storage().ref()
                     .child(`cliente/${path}`)
-                    .put(file)
+                    .put(file[0])
                     .then((data) => {
                         resolve(data)
                     })
-            })
+            } else {
+                resolve(false)
+            }
+        })
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ClienteService } from '../services/Cliente.service';
 import { Cliente, Contato } from '../models/cliente.model';
 import { Anuncio, Opcional } from '../models/anuncio.model';
@@ -20,33 +20,6 @@ import { Container } from '@angular/compiler/src/i18n/i18n_ast';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  
-  private selectedOpcionais = []
-
-  private cliente: Cliente;
-  private url_imagem: string;
-  private anuncios: Anuncio[]
-  private garageImage: string
-
-  private marcas: Array<any> = []
-  private modelos: Array<any> = []
-  private anos: Array<any> = []
-
-  private selectedTipo
-  private selectedMarca
-  private selectedModelo
-  private selectedAno
-  private anuncio: Anuncio = new Anuncio()
-
-  private files: any
-  public progressoPublicacao: string = 'pendente'
-  public porcentagemUpload: number
-
-  private tiposContato: Array<any> = []
-  private contato = new Contato()
-
-  private opcionais: Array<any> = []
-  private opcional = new Opcional()
 
   constructor(
     private clienteService: ClienteService,
@@ -70,35 +43,33 @@ export class DashboardComponent implements OnInit {
     this.getOpcionais()
   }
 
+  /**************************** CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
+  private cliente: Cliente
+  private anuncios: Anuncio[]
+  private garageImage: string
+  private files: any
+
+  //conferido
   private getUserData(): void {
-    //carrega os dados do cliente especifico
     this.clienteService.getCurrentClient()
       .then((result) => {
         this.cliente = result as Cliente
       })
   }
 
+  //conferido
   private getAnuncios(): void {
-
-    this.anuncios = []
-
-    //carrega os anuncios do cliente especifico
+    let aux = []
     this.anuncioService.getAnuncios().then((result) => {
       result.forEach((an) => {
-        this.anuncios.push(an as Anuncio)
+        aux.push(an as Anuncio)
       })
+    }).then(() => {
+      this.anuncios = aux
     })
   }
 
-  private deleteAnuncio(id: string) {
-    this.anuncioService.deleteAnuncio(id)
-      .then(() => {
-        this.getAnuncios()
-      })
-
-
-  }
-
+  //conferido
   private getImage(): void {
     this.configService.getConfig('garagem')
       .then((url) => {
@@ -106,82 +77,19 @@ export class DashboardComponent implements OnInit {
       })
   }
 
-  private getMarcas(): any {
-    return new Promise((resolve, reject) => {
-      this.anuncio.tipo = this.selectedTipo
-
-      this.fipeService.getMarcas(this.selectedTipo)
-        .then((snapshot: any) => {
-          this.marcas = []
-          snapshot.forEach(childsnapshot => {
-            this.marcas.push(childsnapshot)
-          })
-
-          resolve(true)
-        })
-
-    })
-
+  //conferido
+  private deleteAnuncio(id: string) {
+    this.anuncioService.deleteAnuncio(id)
+      .then(() => {
+        this.getAnuncios()
+      })
   }
 
-  private getModelos(): any {
-    return new Promise((resolve, reject) => {
-      if (this.anuncio.id == undefined) {
-        this.anuncio.idMarca = this.selectedMarca.codigo
-        this.anuncio.nomeMarca = this.selectedMarca.nome
-      }
-
-      this.fipeService.getModelos(this.selectedMarca.codigo.toString())
-        .then((snapshot: any) => {
-          this.modelos = []
-          snapshot.forEach(childsnapshot => {
-            this.modelos.push(childsnapshot)
-          })
-
-          resolve(true)
-
-        })
-    })
-
-  }
-
-  private getAnos(): any {
-    return new Promise((resolve, reject) => {
-      if (this.anuncio.id == undefined) {
-        this.anuncio.idModelo = this.selectedModelo.codigo
-        this.anuncio.nomeModelo = this.selectedModelo.nome
-      }
-
-      this.fipeService.getAnos(this.selectedMarca.codigo.toString(), this.selectedModelo.codigo.toString())
-        .then((snapshot: any) => {
-          this.anos = []
-          snapshot.forEach(childsnapshot => {
-            this.anos.push(childsnapshot)
-          })
-
-          resolve(true)
-
-        })
-    })
-
-  }
-
-  private getFipe(): void {
-    if (this.anuncio.id == undefined) {
-      this.anuncio.ano = this.selectedAno.nome
-      this.anuncio.anoComposto = this.selectedAno.codigo
-    }
-    //aqui vai buscar os dados da fipe
-  }
-
-  private novoAnuncio(): void {
-    this.anuncio = new Anuncio()
-    this.anuncio.anuncianteId = btoa(this.cliente.email)
-    this.anuncio.anuncianteNome = this.cliente.nome
-    this.anuncio.aberto = true
-  }
-
+  //conferido
   private editarAnuncio(anuncio): void {
+    console.log(anuncio)
+    this.progressoPublicacao = 'pendente'
+
     this.anuncio = anuncio
 
     this.selectedTipo = this.anuncio.tipo
@@ -211,27 +119,228 @@ export class DashboardComponent implements OnInit {
       })
   }
 
+  //conferido
+  private novoAnuncio(): void {
+    this.anuncio = new Anuncio()
+    this.anuncio.anuncianteId = btoa(this.cliente.email)
+    this.anuncio.anuncianteNome = this.cliente.nome
+    this.anuncio.aberto = true
+    this.anuncio.tipo = 'carros'
+    this.selectedTipo = 'carros'
+    this.selectedMarca = null
+    this.selectedModelo = null
+    this.selectedAno = null
 
+    this.getMarcas()
+    this.modelos = []
+    this.anos = []
+
+    this.progressoPublicacao = 'pendente'
+  }
+
+  /**************************** FIM CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
+
+
+  /**************************** CONTROLE CADASTRO ANUNCIANTE ****************************/
+  // dados do cliente pegam no onInit, na variavel cliente
+
+  //referencia ao input do tipo file
+  @ViewChild('logoInput')
+  private logoInput: ElementRef
+
+  private tiposContato: Array<any> = []
+  private contato = new Contato()
+
+  //conferido
+  private postCliente(): void {
+    let path = btoa(this.cliente.email)
+
+    this.cliente.foto = path
+
+    this.clienteService.persistCliente(this.cliente)
+      .then(() => {
+        this.firestoreService.postClienteFoto(this.files, path)
+          .then(() => {
+            this.getUserData()
+            this.files = null
+            this.logoInput.nativeElement.value = "";
+          })
+      })
+  }
+
+  //conferido
+  private prepareUploadLogo(event): void {
+    this.files = (<HTMLInputElement>event.target).files;
+  }
+
+  //conferido
+  private getCEPData(): void {
+    this.cliente.endereco.bairro = null
+    this.cliente.endereco.cidade = null
+    this.cliente.endereco.rua = null
+    this.cliente.endereco.uf = null
+
+    this.utilsService.getCEPData(this.cliente.endereco.cep)
+      .then((snapshot: any) => {
+        this.cliente.endereco.bairro = snapshot.bairro
+        this.cliente.endereco.cidade = snapshot.cidade
+        this.cliente.endereco.rua = snapshot.logradouro
+        this.cliente.endereco.uf = snapshot.estado_info.nome
+      })
+  }
+
+  //conferido
+  private getTiposContato(): void {
+    this.configService.getConfig('contatos')
+      .then((snapshot) => {
+        this.tiposContato = snapshot
+      })
+  }
+
+  //conferido
+  private addContato(): void {
+    this.cliente.contatos.push(this.contato)
+
+    this.contato = new Contato()
+  }
+
+  //conferido
+  private deleteContato(contato): void {
+    this.cliente.contatos = this.cliente.contatos.filter(f => f !== contato)
+  }
+
+  /**************************** FIM CONTROLE CADASTRO ANUNCIANTE ****************************/
+
+  /**************************** CONTROLE CADASTRO ANUNCIO ****************************/
+  private marcas: Array<any> = []
+  private modelos: Array<any> = []
+  private anos: Array<any> = []
+  private selectedTipo = 'carros'
+  private selectedMarca
+  private selectedModelo
+  private selectedAno
+  private anuncio: Anuncio = new Anuncio()
+  private dadosFipe
+  private opcionais: Array<any> = []
+  private opcional = new Opcional()
+  private progressoPublicacao: string = 'pendente'
+  private porcentagemUpload: number
+
+  //referencia ao input do tipo file
+  @ViewChild('anuncioFiles')
+  private anuncioFiles: ElementRef;
+
+  //conferido
+  private getMarcas(): any {
+    return new Promise((resolve) => {
+      this.anuncio.tipo = this.selectedTipo
+      this.fipeService.getMarcas(this.selectedTipo)
+        .then((snapshot: any) => {
+          this.marcas = []
+          snapshot.forEach(childsnapshot => {
+            this.marcas.push(childsnapshot)
+          })
+          resolve(true)
+        })
+    })
+  }
+
+  //conferido
+  private getModelos(): any {
+    return new Promise((resolve) => {
+      if (this.anuncio.id == undefined) {
+        this.anuncio.idMarca = this.selectedMarca.codigo
+        this.anuncio.nomeMarca = this.selectedMarca.nome
+      }
+      this.fipeService.getModelos(this.selectedMarca.codigo.toString())
+        .then((snapshot: any) => {
+          this.modelos = []
+          snapshot.forEach(childsnapshot => {
+            this.modelos.push(childsnapshot)
+          })
+          resolve(true)
+        })
+    })
+  }
+
+  //conferido
+  private getAnos(): any {
+    return new Promise((resolve) => {
+      if (this.anuncio.id == undefined) {
+        this.anuncio.idModelo = this.selectedModelo.codigo
+        this.anuncio.nomeModelo = this.selectedModelo.nome
+      }
+      this.fipeService.getAnos(this.selectedMarca.codigo.toString(), this.selectedModelo.codigo.toString())
+        .then((snapshot: any) => {
+          this.anos = []
+          snapshot.forEach(childsnapshot => {
+            this.anos.push(childsnapshot)
+          })
+          resolve(true)
+        })
+    })
+  }
+
+  //conferido
   private prepareUpload(event): void {
     this.files = (<HTMLInputElement>event.target).files;
   }
 
+  //conferido
+  private getFipe(): void {
+    if (this.anuncio.id == undefined) {
+      this.anuncio.ano = this.selectedAno.nome
+      this.anuncio.anoComposto = this.selectedAno.codigo
+    }
+    let params = {
+      tipo: this.anuncio.tipo,
+      marca: this.anuncio.idMarca,
+      modelo: this.anuncio.idModelo,
+      ano: this.anuncio.anoComposto
+    }
+
+    this.utilsService.getFipeData(params)
+      .then((data) => {
+        this.dadosFipe = data
+        console.log(this.dadosFipe)
+      })
+  }
+
+  //conferido
+  private getOpcionais(): void {
+    this.configService.getConfig('opcionais')
+      .then((snapshot) => {
+        this.opcionais = snapshot
+      })
+  }
+
+  //conferido
+  private adicionarOpcional(): void {
+    this.anuncio.opcionais.push(this.opcional)
+    this.opcional = new Opcional()
+  }
+
+  //conferido
+  private deleteOpcional(opcional): any {
+    this.anuncio.opcionais = this.anuncio.opcionais.filter(f => f !== opcional)
+  }
+
+
   private postAnuncio(): void {
     this.firestoreService.postAnuncioFotos(this.files)
       .then((snapshot: any) => {
-         snapshot.forEach(childsnapshot => {
+        snapshot.forEach(childsnapshot => {
           this.anuncio.fotos.push(childsnapshot)
-         })
-        
+        })
+
       })
       .then(() => {
-
         this.anuncService.persistAnuncio(this.anuncio)
           .then(() => {
             this.progresso.status = 'concluido'
             this.files = null
           })
-      
+
       })
 
     let acompanhamentoUpload = Observable.interval(100);
@@ -245,7 +354,9 @@ export class DashboardComponent implements OnInit {
       .subscribe(() => {
         this.progressoPublicacao = 'andamento'
 
-        this.porcentagemUpload = Math.round((this.progresso.estado.bytesTransferred / this.progresso.estado.totalBytes) * 100)
+        if(this.progresso.estado){
+          this.porcentagemUpload = Math.round((this.progresso.estado.bytesTransferred / this.progresso.estado.totalBytes) * 100)
+        }
         if (this.progresso.status === 'concluido') {
           this.progressoPublicacao = 'concluido'
           continua.next(false)
@@ -253,79 +364,6 @@ export class DashboardComponent implements OnInit {
       })
   }
 
-  private postCliente(): void {
-    console.log(this.cliente)
+  /**************************** CONTROLE CADASTRO ANUNCIO ****************************/
 
-    let path = btoa(this.cliente.email)
-
-    this.cliente.foto = path
-
-    if(this.files) {
-      this.firestoreService.postClienteFoto(this.files[0], path)
-      .then((data) => {
-        this.clienteService.persistCliente(this.cliente)
-          .then(() => {
-            this.getUserData()
-            this.files = null
-          })
-      })
-    } else {
-      this.clienteService.persistCliente(this.cliente)
-      .then(() => {
-        this.getUserData()
-        this.files = null
-      })
-    }
-  }
-
-  private getCEPData(): void {
-    this.utilsService.getCEPData(this.cliente.endereco.cep)
-      .then((snapshot: any) => {
-        this.cliente.endereco.bairro = snapshot.bairro
-        this.cliente.endereco.cidade = snapshot.cidade
-        this.cliente.endereco.rua = snapshot.logradouro
-        this.cliente.endereco.uf = snapshot.estado_info.nome
-      })
-  }
-
-  private prepareUploadLogo(event): void {
-    this.files = (<HTMLInputElement>event.target).files;
-  }
-
-  private getTiposContato(): void {
-    this.configService.getConfig('contatos')
-      .then((snapshot) => {
-        this.tiposContato = snapshot
-      })
-  } 
-
-  private addContato(): void {
-    this.cliente.contatos.push(this.contato)
-
-    this.contato = new Contato()
-    console.log(this.cliente)
-  }
-
-  private deleteContato(contato): void {
-    this.cliente.contatos = this.cliente.contatos.filter(f => f !== contato)
-  }
-
-  private getOpcionais(): void {
-    this.configService.getConfig('opcionais')
-      .then((snapshot) => {
-        this.opcionais = snapshot
-      })
-  }
-
-  private adicionarOpcional(): void {
-    this.anuncio.opcionais.push(this.opcional)
-    this.opcional = new Opcional()
-    console.log(this.anuncio.opcionais)
-  }
-
-  private deleteOpcional(opcional): any {
-    this.anuncio.opcionais = this.anuncio.opcionais.filter(f => f !== opcional)
-    console.log(this.anuncio.opcionais)
-  }
-  
 }

@@ -25,13 +25,6 @@ export class AnuncioService {
             this.collection.doc(id).get()
                 .then((result) => {
                     let anuncio = result.data()
-                    anuncio.fotos.forEach((foto, idx) => {
-                        this.firestoreService.getAnuncioFoto(foto)
-                            .then((url) => {
-                                anuncio.fotos[idx] = url
-                            })
-                    })
-
                     resolve(anuncio)
                 })
         })
@@ -62,30 +55,15 @@ export class AnuncioService {
                         anuncios.push(childSnapshot.data())
                     })
 
-                    return anuncios
-                })
-                .then((anuncios: any) => {
-
-                    anuncios.forEach((anuncio) => {
-                        anuncio.fotos.forEach((foto, idx) => {
-                            if(!foto) {
-                                foto = 'padrao.jpg'
-                            }
-                            this.firestoreService.getAnuncioFoto(foto)
-                                .then((url) => {
-                                    anuncio.fotos[idx] = url
-                                })
-                            
-                        })
-                    })
                     resolve(anuncios)
                 })
         })
 
     }
 
+    //conferido
     public deleteAnuncio(id: string): any {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.getAnuncioById(id)
                 .then((anuncio) => {
                     this.collection.doc(id).delete()
@@ -94,7 +72,6 @@ export class AnuncioService {
                             this.firestoreService.deleteFotos(anuncio.fotos)
                             resolve(true)
                         })
-
                 })
         })
 

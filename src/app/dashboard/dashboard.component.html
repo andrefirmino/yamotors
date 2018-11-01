@@ -6,17 +6,17 @@
         <div class="container ">
             <div class="owner ">
                 <div class="avatar ">
-                    <img alt="Circle Image " class="img-circle img-no-padding img-responsive " [src]="cliente.foto || '' " />
+                    <img alt="Circle Image " class="img-circle img-no-padding img-responsive " [src]="cliente?.foto || '' " />
                 </div>
                 <div class="name ">
-                    <h4 class="title ">{{cliente.nome }}
+                    <h4 class="title ">{{cliente?.nome }}
                         <br />
                     </h4>
                 </div>
             </div>
             <div class="row ">
                 <div class="col-md-6 ml-auto mr-auto text-center ">
-                    <p>{{cliente.descricao }} </p>
+                    <p>{{cliente?.descricao }} </p>
                     <br />
                 </div>
             </div>
@@ -42,13 +42,13 @@
                                             <li *ngFor="let anuncio of anuncios ">
                                                 <div class="row ">
                                                     <div class="col-md-2 col-sm-2 ml-auto mr-auto ">
-                                                        <img [src]="anuncio.fotos[0] || ''" alt="Circle Image " class="img-thumbnail img-no-padding img-responsive ">
+                                                        <img [src]="anuncio?.fotos[0] || ''" alt="Circle Image " class="img-thumbnail img-no-padding img-responsive ">
                                                     </div>
                                                     <div class="col-md-4 col-sm-4 ml-auto ">
-                                                        <h5>{{anuncio.titulo}}
+                                                        <h5>{{anuncio?.titulo}}
                                                             <br/>
-                                                            <small>Aberto: {{anuncio.aberto}} |
-                                                                <b> {{anuncio.preco}} </b>
+                                                            <small>Aberto: {{anuncio?.aberto}} |
+                                                                <b> {{anuncio?.preco}} </b>
                                                             </small>
                                                         </h5>
                                                     </div>
@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label> Foto ou Logo </label>
-                                            <input class="form-control-file " name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
+                                            <input class="form-control-file " #logoInput name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -300,13 +300,13 @@
                                 <div class="col-md-6 ">
                                     <div class="form-group ">
                                         <label>Valor do Veiculo</label>
-                                        <input type="number " class="form-control " name="preco " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 " [(ngModel)]='anuncio.preco'>
+                                        <input type="number" class="form-control " name="preco " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 " [(ngModel)]='anuncio.preco'>
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="form-group ">
                                         <label>Valor Tabela Fipe</label>
-                                        <input type="number " class="form-control " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 ">
+                                        <input type="number" class="form-control " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 ">
                                     </div>
                                 </div>
                             </div>
@@ -367,7 +367,7 @@
                             </ul>
                             <br>
                             <br>
-                            <input class="form-control-file " name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
+                            <input #anuncioFiles class="form-control-file " name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
                             <br>
 
                             <div class="modal-footer ">
