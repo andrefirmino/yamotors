@@ -45,7 +45,6 @@ export class ClienteService {
 
     public getClienteById(id: string): any {
         return new Promise((resolve, reject) => {
-            
               this.collection.doc(id)
                 .get()
                 .then((snapshot: any) => {

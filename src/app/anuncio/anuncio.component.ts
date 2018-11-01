@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AnuncioService } from 'app/services/Anuncio.service';
 import { Anuncio } from 'app/models/anuncio.model';
 import { Filter, FilterType } from 'app/models/filter.model';
+import { Cliente } from 'app/models/cliente.model';
+import { ClienteService } from 'app/services/Cliente.service';
 
 @Component({
   selector: 'app-anuncio',
@@ -12,11 +14,9 @@ import { Filter, FilterType } from 'app/models/filter.model';
 })
 export class AnuncioComponent implements OnInit {
 
-  private id: string
-  private anuncio: Anuncio = new Anuncio()
-
   constructor(
     private anuncioAbertoService: AnuncioAbertoService,
+    private clienteService: ClienteService,
     private route: ActivatedRoute
   ) { }
 
@@ -29,6 +29,10 @@ export class AnuncioComponent implements OnInit {
     })
   }
 
+  /************************************ CONTROLE DOS DADOS ************************************/
+  private id
+  private anuncio: Anuncio = new Anuncio()
+  private cliente: Cliente = new Cliente()
   private getAnuncio(): void {
 
     let filters: Filter[] = []
@@ -39,8 +43,13 @@ export class AnuncioComponent implements OnInit {
       .then((snapshot: any) => {
         snapshot.forEach(snapshotchild => {
           this.anuncio = snapshotchild as Anuncio
-          console.log(this.anuncio);
+          this.clienteService.getClienteById(this.anuncio.anuncianteId)
+            .then((snapshot) => {
+              this.cliente = snapshot
+            })
         })
       })
   }
+
+  /************************************ CONTROLE DOS DADOS ************************************/
 }

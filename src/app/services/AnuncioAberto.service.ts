@@ -22,13 +22,29 @@ export class AnuncioAbertoService {
 
     //conferido
     public getAnunciosAbertos(filter: Filter[]): any {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
+                    this.collection.orderBy('timestamp', 'desc')
+                        .get()
+                        .then((snapshot: any) => {
+                            let anuncios: Array<any> = []
 
-            this.getData('timestamp', 'desc')
-                .then((anuncios) => {
-                    resolve(jsonFilter(anuncios, filter))
+                            snapshot.forEach((childSnapshot: any) => {
+                                anuncios.push(childSnapshot.data())
+                            })
+
+                            return anuncios
+                        })
+                        .then((anuncios: any) => {
+
+                            anuncios.forEach((anuncio) => {
+                                this.firestoreService.getClienteFoto(anuncio.anuncianteId)
+                                    .then((url) => {
+                                        anuncio.anuncianteFoto = url
+                                    })
+                            })
+                            resolve(jsonFilter(anuncios, filter))
+                        })
                 })
-        })
     }
 
     public persistAnuncio(anuncio: Anuncio): any {
