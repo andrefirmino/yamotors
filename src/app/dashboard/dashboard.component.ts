@@ -325,7 +325,7 @@ export class DashboardComponent implements OnInit {
     this.anuncio.opcionais = this.anuncio.opcionais.filter(f => f !== opcional)
   }
 
-
+  //conferido
   private postAnuncio(): void {
     this.firestoreService.postAnuncioFotos(this.files)
       .then((snapshot: any) => {
@@ -362,6 +362,11 @@ export class DashboardComponent implements OnInit {
           continua.next(false)
         }
       })
+  }
+
+  private removeFoto(imagem): void {
+    this.anuncio.fotos = this.anuncio.fotos.filter((f) => {return f !== imagem})
+    console.log(this.anuncio.fotos)
   }
 
   /**************************** CONTROLE CADASTRO ANUNCIO ****************************/

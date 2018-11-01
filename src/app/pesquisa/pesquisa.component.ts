@@ -32,6 +32,7 @@ export class PesquisaComponent implements OnInit {
               ceil: this.maxValue,
               floor: this.minValue
             }
+            console.log(this.options)
 
             this.getAll()
 

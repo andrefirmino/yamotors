@@ -63,7 +63,7 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-                        <ngb-tab title="Cadastro">
+                        <ngb-tab title="Perfil">
                             <ng-template ngbTabContent>
                                 <br />
                                 <form (ngSubmit)="postCliente()">
@@ -369,7 +369,12 @@
                             <br>
                             <input #anuncioFiles class="form-control-file" name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
                             <br>
-
+                            <div *ngFor="let imagem of anuncio.fotos">
+                                <div class="" style="width: 14rem;">
+                                    <div><small> <a class="btn btn-outline-danger align-self-end" (click)="removeFoto(imagem)">X</a></small></div>
+                                    <img class="card-img-top" [src]="imagem || ''" alt="Card image cap">
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success center" (click)='postAnuncio()'>Cadastrar Anuncio</button>
                             </div>

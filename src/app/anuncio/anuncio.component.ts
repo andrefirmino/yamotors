@@ -6,6 +6,7 @@ import { Anuncio } from 'app/models/anuncio.model';
 import { Filter, FilterType } from 'app/models/filter.model';
 import { Cliente } from 'app/models/cliente.model';
 import { ClienteService } from 'app/services/Cliente.service';
+import { UtilsService } from 'app/services/utils.service';
 
 @Component({
   selector: 'app-anuncio',
@@ -17,7 +18,8 @@ export class AnuncioComponent implements OnInit {
   constructor(
     private anuncioAbertoService: AnuncioAbertoService,
     private clienteService: ClienteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit() {
@@ -33,6 +35,8 @@ export class AnuncioComponent implements OnInit {
   private id
   private anuncio: Anuncio = new Anuncio()
   private cliente: Cliente = new Cliente()
+  private dadpsFipe
+
   private getAnuncio(): void {
 
     let filters: Filter[] = []
@@ -46,6 +50,20 @@ export class AnuncioComponent implements OnInit {
           this.clienteService.getClienteById(this.anuncio.anuncianteId)
             .then((snapshot) => {
               this.cliente = snapshot
+
+              let params = {
+                tipo: this.anuncio.tipo,
+                marca: this.anuncio.idMarca,
+                modelo: this.anuncio.idModelo,
+                ano: this.anuncio.anoComposto
+              }
+          
+              this.utilsService.getFipeData(params)
+                .then((data) => {
+                  this.dadosFipe = data
+                  console.log(this.dadosFipe)
+                })
+            }
             })
         })
       })

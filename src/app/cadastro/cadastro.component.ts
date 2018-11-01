@@ -39,7 +39,7 @@ export class CadastroComponent implements OnInit {
         if (erro) {
           //aqui tem que mostrar avisando que o email já está cadastrado no sistema
         } else {
-          this.router.navigateByUrl('/signup')
+          this.router.navigateByUrl('/login')
         }
       })
 
