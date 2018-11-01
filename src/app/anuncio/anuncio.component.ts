@@ -39,6 +39,7 @@ export class AnuncioComponent implements OnInit {
       .then((snapshot: any) => {
         snapshot.forEach(snapshotchild => {
           this.anuncio = snapshotchild as Anuncio
+          console.log(this.anuncio);
         })
       })
   }
