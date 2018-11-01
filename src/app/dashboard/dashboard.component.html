@@ -1,50 +1,50 @@
 <div class="wrapper">
     <div class="page-header page-header-xs" data-parallax="true" [style.backgroundImage]="'url(' + garageImage + ')'">
-        <div class="filter "></div>
+        <div class="filter"></div>
     </div>
-    <div class="section profile-content ">
-        <div class="container ">
-            <div class="owner ">
-                <div class="avatar ">
-                    <img alt="Circle Image " class="img-circle img-no-padding img-responsive " [src]="cliente.foto || '' " />
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="cliente.foto || ''" />
                 </div>
-                <div class="name ">
-                    <h4 class="title ">{{cliente.nome }}
+                <div class="name">
+                    <h4 class="title">{{cliente.nome }}
                         <br />
                     </h4>
                 </div>
             </div>
-            <div class="row ">
-                <div class="col-md-6 ml-auto mr-auto text-center ">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
                     <p>{{cliente.descricao }} </p>
                     <br />
                 </div>
             </div>
             <br/>
-            <div class="nav-tabs-navigation ">
-                <div class="nav-tabs-wrapper ">
-                    <ngb-tabset [justify]=" 'center' ">
-                        <ngb-tab title="Carros ">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ngb-tabset [justify]=" 'center'">
+                        <ngb-tab title="Carros">
                             <ng-template ngbTabContent>
-                                <div class="row following " id="follows ">
-                                    <div class="col-md-9 ml-auto mr-auto ">
-                                        <ul class="list-unstyled follows ">
-                                            <div class="row ">
-                                                <div class="col-md-4 col-sm-4 ml-auto ">
-                                                    <div class="form-group ">
-                                                        <input type="text " class="form-control " placeholder="Pesquisar ">
+                                <div class="row following" id="follows">
+                                    <div class="col-md-9 ml-auto mr-auto">
+                                        <ul class="list-unstyled follows">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-4 ml-auto">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Pesquisar">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-sm-2 ml-auto mr-auto ">
-                                                    <button class="btn btn-success btn-round " data-toggle="modal" data-target=".bd-example-modal-lg" (click)='novoAnuncio()'>Inserir Veiculo</button>
+                                                <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                    <button class="btn btn-success btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='novoAnuncio()'>Inserir Veiculo</button>
                                                 </div>
                                             </div>
-                                            <li *ngFor="let anuncio of anuncios ">
-                                                <div class="row ">
-                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto ">
-                                                        <img [src]="anuncio.fotos[0] || ''" alt="Circle Image " class="img-thumbnail img-no-padding img-responsive ">
+                                            <li *ngFor="let anuncio of anuncios">
+                                                <div class="row">
+                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto">
+                                                        <img [src]="anuncio.fotos[0] || ''" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
                                                     </div>
-                                                    <div class="col-md-4 col-sm-4 ml-auto ">
+                                                    <div class="col-md-4 col-sm-4 ml-auto">
                                                         <h5>{{anuncio.titulo}}
                                                             <br/>
                                                             <small>Aberto: {{anuncio.aberto}} |
@@ -52,9 +52,9 @@
                                                             </small>
                                                         </h5>
                                                     </div>
-                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto ">
-                                                        <button class="btn btn-info btn-round " data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
-                                                        <button class="btn btn-danger btn-round " (click)="deleteAnuncio(anuncio.id) ">Excluir</button>
+                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
+                                                        <button class="btn btn-info btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
+                                                        <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
                                                     </div>
                                                 </div>
                                             </li>
@@ -63,7 +63,7 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-                        <ngb-tab title="Cadastro ">
+                        <ngb-tab title="Cadastro">
                             <ng-template ngbTabContent>
                                 <br />
                                 <form (ngSubmit)="postCliente()">
@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label> Foto ou Logo </label>
-                                            <input class="form-control-file " name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
+                                            <input class="form-control-file" name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -119,8 +119,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="tipoContato">Contato</label>
-                                                <select name="tipoContato" class="btn btn-outline-primary " [(ngModel)]="contato.tipo">
-                                                            <option [ngValue]="contato " *ngFor="let contato of tiposContato " >{{contato}}</option>
+                                                <select name="tipoContato" class="btn btn-outline-primary" [(ngModel)]="contato.tipo">
+                                                            <option [ngValue]="contato" *ngFor="let contato of tiposContato" >{{contato}}</option>
                                                           </select>
                                             </div>
                                         </div>
@@ -165,8 +165,8 @@
                                                     <input type="text" class="form-control" placeholder="Telefone 1" name="fone1">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <select name="tipo_telefone2" class="btn btn-outline-primary ">
-                                                            <option value=" ">Tipo</option>
+                                                    <select name="tipo_telefone2" class="btn btn-outline-primary">
+                                                            <option value="">Tipo</option>
                                                             <option value="celular">Celular</option>
                                                             <option value="comercial">Comercial</option>
                                                             <option value="outros">Outros</option>
@@ -180,8 +180,8 @@
                                                     <input type="text" class="form-control" placeholder="Telefone 2" name="fone2">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <select name="tipo_telefone1" class="btn btn-outline-primary ">
-                                                        <option value=" ">Tipo</option>
+                                                    <select name="tipo_telefone1" class="btn btn-outline-primary">
+                                                        <option value="">Tipo</option>
                                                         <option value="celular">Celular</option>
                                                         <option value="comercial">Comercial</option>
                                                         <option value="outros">Outros</option>
@@ -195,8 +195,8 @@
                                                     <input type="text" class="form-control" placeholder="Telefone 3" name="fone3">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <select name="tipo_telefone3" class="btn btn-outline-primary ">
-                                                        <option value=" ">Tipo</option>
+                                                    <select name="tipo_telefone3" class="btn btn-outline-primary">
+                                                        <option value="">Tipo</option>
                                                         <option value="celular">Celular</option>
                                                         <option value="comercial">Comercial</option>
                                                         <option value="outros">Outros</option>
@@ -207,15 +207,15 @@
                                         </div>
                                     -->
 
-                                    <div class="row ">
+                                    <div class="row">
                                         <div class="col-md-12">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label>Descrição Anunciante</label>
                                                 <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição da Empresa" [(ngModel)]="cliente.descricao"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-info btn-lg ">Confirmar</button>
+                                    <button type="submit" class="btn btn-info btn-lg">Confirmar</button>
                                 </form>
                             </ng-template>
                         </ngb-tab>
@@ -224,36 +224,36 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg " tabindex="-1 " role="dialog " aria-labelledby="myLargeModalLabel " aria-hidden="true ">
-        <div class="modal-dialog modal-lg ">
-            <div class="modal-content " *ngIf="progressoPublicacao === 'pendente'">
-                <div class="container topo ">
-                    <div class="modal-header ">
-                        <h4 class="modal-title ">Cadastro do Anúncio</h4>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" *ngIf="progressoPublicacao === 'pendente'">
+                <div class="container topo">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cadastro do Anúncio</h4>
                     </div>
                     <form>
-                        <div class="modal-body ">
-                            <div class="row ">
+                        <div class="modal-body">
+                            <div class="row">
                                 <div class="col-md-8">
-                                    <div class="form-group ">
+                                    <div class="form-group">
                                         <label>Titulo Anúncio</label>
-                                        <input type="text" class="form-control " name="titulo" placeholder="Titulo do Anuncio" aria-describedby="basic-addon1" [(ngModel)]='anuncio.titulo'>
+                                        <input type="text" class="form-control" name="titulo" placeholder="Titulo do Anuncio" aria-describedby="basic-addon1" [(ngModel)]='anuncio.titulo'>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col-md-11">
-                                    <div class="form-group ">
+                                    <div class="form-group">
                                         <label>Descrição Anuncio</label>
                                         <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição do Anuncio" [(ngModel)]='anuncio.descricao'></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group ">
+                                    <div class="form-group">
                                         <label for="Tipo">Tipo</label>
-                                        <select name="Tipo" class="btn btn-outline-primary " [(ngModel)]='selectedTipo' (change)='getMarcas()'>
+                                        <select name="Tipo" class="btn btn-outline-primary" [(ngModel)]='selectedTipo' (change)='getMarcas()'>
                                                     <option value="carros">Carros</option>
                                                     <option value="motos">Motos</option>
                                                     <option value="caminhoes">Caminhoes</option>
@@ -263,31 +263,31 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="marca">Marca</label>
-                                        <select name="marca" class="btn btn-outline-primary " [(ngModel)]="selectedMarca " (change)='getModelos()'>
-                                            <option [ngValue]="marca " *ngFor="let marca of marcas " >{{marca.nome}}</option>
+                                        <select name="marca" class="btn btn-outline-primary" [(ngModel)]="selectedMarca" (change)='getModelos()'>
+                                            <option [ngValue]="marca" *ngFor="let marca of marcas" >{{marca.nome}}</option>
                                           </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 ">
-                                    <div class="form-group has-success ">
+                                <div class="col-md-4">
+                                    <div class="form-group has-success">
                                         <label for="modelo">Modelo</label>
-                                        <select name="modelo" class="btn btn-outline-primary " [(ngModel)]="selectedModelo " (change)='getAnos()'>
-                                            <option *ngFor="let modelo of modelos " [ngValue]="modelo ">{{modelo.nome}}</option>
+                                        <select name="modelo" class="btn btn-outline-primary" [(ngModel)]="selectedModelo" (change)='getAnos()'>
+                                            <option *ngFor="let modelo of modelos" [ngValue]="modelo">{{modelo.nome}}</option>
                                           </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2 ">
-                                    <div class="form-group has-success ">
+                                <div class="col-md-2">
+                                    <div class="form-group has-success">
                                         <label for="ano">Ano</label>
-                                        <select name="Ano" class="btn btn-outline-primary " [(ngModel)]="selectedAno " (change)="getFipe() ">
-                                            <option *ngFor="let ano of anos " [ngValue]="ano ">{{ano.nome}}</option>
+                                        <select name="Ano" class="btn btn-outline-primary" [(ngModel)]="selectedAno" (change)="getFipe()">
+                                            <option *ngFor="let ano of anos" [ngValue]="ano">{{ano.nome}}</option>
                                           </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3 ">
-                                    <div class="form-group has-success ">
+                                <div class="col-md-3">
+                                    <div class="form-group has-success">
                                         <label for="combustivel">Combustivel</label>
-                                        <select name="combustivel" class="btn btn-primary " [(ngModel)]="anuncio.combustivel ">
+                                        <select name="combustivel" class="btn btn-primary" [(ngModel)]="anuncio.combustivel">
                                             <option value="Gasolina">Gasolina</option>
                                             <option value="Alcool">Alcool</option>
                                             <option value="Diesel">Diesel</option>
@@ -296,52 +296,52 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ">
-                                <div class="col-md-6 ">
-                                    <div class="form-group ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>Valor do Veiculo</label>
-                                        <input type="number " class="form-control " name="preco " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 " [(ngModel)]='anuncio.preco'>
+                                        <input type="number" class="form-control" name="preco" placeholder="Valor do Veiculo" aria-describedby="basic-addon1" [(ngModel)]='anuncio.preco'>
                                     </div>
                                 </div>
-                                <div class="col-md-6 ">
-                                    <div class="form-group ">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>Valor Tabela Fipe</label>
-                                        <input type="number " class="form-control " placeholder="Valor do Veiculo " aria-describedby="basic-addon1 ">
+                                        <input type="number" class="form-control" placeholder="Valor do Veiculo" aria-describedby="basic-addon1">
                                     </div>
                                 </div>
                             </div>
 
                             <!--
-                            <div class="row ">
-                                <div class="col-md-3 ">
-                                    <div class="form-check ">
-                                        <label class="form-check-label ">
-                                            <input class="form-check-input " type="checkbox " value=" "> Ar-Condicionado
-                                            <span class="form-check-sign "></span>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value=""> Ar-Condicionado
+                                            <span class="form-check-sign"></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 ">
-                                    <div class="form-check ">
-                                        <label class="form-check-label ">
-                                            <input class="form-check-input " type="checkbox " value=" "> Desembasador
-                                            <span class="form-check-sign "></span>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value=""> Desembasador
+                                            <span class="form-check-sign"></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 ">
-                                    <div class="form-check ">
-                                        <label class="form-check-label ">
-                                            <input class="form-check-input " type="checkbox " value=" "> Freio-ABS
-                                            <span class="form-check-sign "></span>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value=""> Freio-ABS
+                                            <span class="form-check-sign"></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 ">
-                                    <div class="form-check ">
-                                        <label class="form-check-label ">
-                                            <input class="form-check-input " type="checkbox " value=" "> Direção Hidraulica
-                                            <span class="form-check-sign "></span>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value=""> Direção Hidraulica
+                                            <span class="form-check-sign"></span>
                                         </label>
                                     </div>
                                 </div>
@@ -367,11 +367,11 @@
                             </ul>
                             <br>
                             <br>
-                            <input class="form-control-file " name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
+                            <input class="form-control-file" name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
                             <br>
 
-                            <div class="modal-footer ">
-                                <button type="button " class="btn btn-success center " (click)='postAnuncio()'>Cadastrar Anuncio</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success center" (click)='postAnuncio()'>Cadastrar Anuncio</button>
                             </div>
                         </div>
                     </form>
