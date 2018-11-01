@@ -66,7 +66,6 @@ export class AnuncioComponent implements OnInit {
                   this.dadosFipe = data
                   console.log(this.dadosFipe)
                 })
-            }
             })
         })
       })
