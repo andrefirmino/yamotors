@@ -50,10 +50,11 @@ export class AnuncioComponent implements OnInit {
           console.log(this.anuncio);
           this.clienteService.getClienteById(this.anuncio.anuncianteId)
             .then((snapshot) => {
-              console.log(this.cliente)
               console.log(this.anuncio)
               this.cliente = snapshot
-
+              
+              console.log(this.cliente)
+              
               let params = {
                 tipo: this.anuncio.tipo,
                 marca: this.anuncio.idMarca,
