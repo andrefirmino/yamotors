@@ -56,12 +56,10 @@
                                                     <hr size="20px" style="border: 1px solid #cccccc;">
                                                     <div class="card-header">
                                                         <div class="row">
-                                                            <button class="btn btn-info btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
-                                                            <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
-                                                        </div>
-                                                        <br>
-                                                        <div class="row">
-                                                            <button class="btn btn-warning btn-round">Status</button>
+                                                            <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
+                                                            <button class="btn btn-danger btn-round btn-sm" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
+                                                            <button class="btn btn-success btn-round btn-sm" *ngIf="!anuncio?.aberto" (click)="changeStatus(anuncio)">Abrir</button>
+                                                            <button class="btn btn-warning btn-round btn-sm" *ngIf="anuncio?.aberto" (click)="changeStatus(anuncio)">Fechar</button>
                                                         </div>
                                                     </div>
                                                 </div>

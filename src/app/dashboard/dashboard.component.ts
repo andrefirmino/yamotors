@@ -138,6 +138,16 @@ export class DashboardComponent implements OnInit {
     this.progressoPublicacao = 'pendente'
   }
 
+  public changeStatus(anuncio): void {
+    this.anuncio = anuncio
+    this.anuncio.aberto = !this.anuncio.aberto
+
+    this.anuncService.persistAnuncio(this.anuncio)
+      .then(() => {
+        this.getAnuncios()
+      })
+  }
+
   /**************************** FIM CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
 
 
@@ -354,7 +364,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(() => {
         this.progressoPublicacao = 'andamento'
 
-        if(this.progresso.estado){
+        if (this.progresso.estado) {
           this.porcentagemUpload = Math.round((this.progresso.estado.bytesTransferred / this.progresso.estado.totalBytes) * 100)
         }
         if (this.progresso.status === 'concluido') {
@@ -365,7 +375,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private removeFoto(imagem): void {
-    this.anuncio.fotos = this.anuncio.fotos.filter((f) => {return f !== imagem})
+    this.anuncio.fotos = this.anuncio.fotos.filter((f) => { return f !== imagem })
     console.log(this.anuncio.fotos)
   }
 
