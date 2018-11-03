@@ -32,6 +32,7 @@ import { UtilsService } from './services/utils.service';
 import { HttpClientModule } from '@angular/common/http'; 
 import { Progresso } from './services/Progresso.service';
 import { LOCALE_ID } from '@angular/core';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,13 @@ import { LOCALE_ID } from '@angular/core';
     HomeModule,
     ReactiveFormsModule,
     Ng5SliderModule,
-    HttpClientModule
+    HttpClientModule,
+    SweetAlert2Module.forRoot({
+      buttonsStyling: false,
+      customClass: 'modal-content',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger'
+    })
   ],
   providers: [
     Auth,

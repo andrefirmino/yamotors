@@ -42,4 +42,5 @@ export class SignupComponent implements OnInit {
   public goToCadastro(): void {
     this.router.navigateByUrl('/cadastro')
   }
+
 }

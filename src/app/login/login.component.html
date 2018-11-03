@@ -16,7 +16,7 @@
                             <button class="btn btn-success btn-sm btn-block btn-round" (click)="goToCadastro()">Cadastrar</button>
                         </form>
                         <div class="forgot">
-                            <a href="#" class="btn btn-link btn-info">Esqueceu Senha?</a>
+                            <a class="btn btn-link btn-info" [swal]="esqueceuSenha">Esqueceu Senha?</a>
                         </div>
                     </div>
                 </div>
@@ -27,3 +27,9 @@
         </div>
     </div>
 </div>
+
+<swal #esqueceuSenha title="Redefinir de Senha" text="Enviar Email para : {{usuario.email}}" type="question" [showCancelButton]="true" (confirm)="redefinirSenha(true)" (cancel)="redefinirSenha(false)">
+</swal>
+
+<swal #mySwal title="" type="" text="">
+</swal>

@@ -78,5 +78,19 @@ import { ClienteService } from "./Cliente.service";
             })
     }
 
+    public redefinirSenha(usuario: Usuario): any {
+        return new Promise((resolve) => {
+            firebase.auth().sendPasswordResetEmail(usuario.email)
+                .then((result) => {
+                    console.log(result)
+                    resolve(true)
+                })
+                .catch((result) => {
+                    console.log(result)
+                    resolve(false)
+                })
+        })
+    }
+
 
 }
