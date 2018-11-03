@@ -48,7 +48,6 @@ import { ClienteService } from "./Cliente.service";
                     .then((idToken: string) => {
                         this.token_id = idToken
                         localStorage.setItem('idToken', idToken)
-                        console.log('autenticado')
                         //this.router.navigate(['/teste'])
                     })
             })

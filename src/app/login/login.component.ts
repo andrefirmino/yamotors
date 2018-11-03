@@ -34,7 +34,16 @@ export class LoginComponent implements OnInit {
     this.authService.autenticar(this.usuario)
       .then((erro) => {
         if (erro) {
-          //aqui tem que mostrar avisando que o email nï¿½o estï¿½ cadastrado no sistema ou a senha estï¿½ errada
+          if(erro.code === "auth/invalid-email"){
+            this.mySwal.title = 'Email Inválido!'
+          } else if (erro.code === "auth/user-not-found"){
+            this.mySwal.title = 'Email Não Cadastrado!'
+          } else if (erro.code === "auth/wrong-password") {
+            this.mySwal.title = 'Senha Invalida!'
+          }
+          this.mySwal.type = "error"
+          this.mySwal.show()
+
         } else {
           this.router.navigateByUrl('/dashboard')
         }
