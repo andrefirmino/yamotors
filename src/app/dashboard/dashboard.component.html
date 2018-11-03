@@ -27,8 +27,7 @@
                         <ngb-tab title="Carros">
                             <ng-template ngbTabContent>
                                 <div class="row following" id="follows">
-                                    <div class="col-md-9 ml-auto mr-auto">
-                                        <ul class="list-unstyled follows">
+                                    <div class="col-md-12 ml-auto mr-auto">
                                             <div class="row">
                                                 <div class="col-md-4 col-sm-4 ml-auto">
                                                     <div class="form-group">
@@ -39,8 +38,36 @@
                                                     <button class="btn btn-success btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='novoAnuncio()'>Inserir Veiculo</button>
                                                 </div>
                                             </div>
-                                            <li *ngFor="let anuncio of anuncios">
-                                                <div class="row">
+                                            <br>
+                                            <div class="row posicao">
+                                                <div class="col-md-4" *ngFor="let anuncio of anuncios">
+                                                    <div class="card card-profile card-plain" style="width: 18rem;">
+                                                        <a [routerLink]="['/anuncio', anuncio.id]">
+                                                            <div class="card-avatar">
+                                                                <img class="card-img-top" [src]="anuncio?.fotos[0] || ''" alt="Card image cap">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{anuncio.titulo}}</h5>
+                                                                <h5 class="card-title">
+                                                                    <b>{{anuncio.preco | currency: 'BRL': true }}</b>
+                                                                </h5>
+                                                            </div>
+                                                        </a>
+                                                        <hr size="20px" style="border: 1px solid #cccccc;">
+                                                        <div class="card-header">
+                                                            <div class="row">
+                                                                <button class="btn btn-info btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
+                                                                <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
+                                                            </div>
+                                                            <br>
+                                                            <div class="row">
+                                                                <button class="btn btn-warning btn-round">Status</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div class="row">
                                                     <div class="col-md-2 col-sm-2 ml-auto mr-auto">
                                                         <img [src]="anuncio?.fotos[0] || ''" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
                                                     </div>
@@ -56,9 +83,8 @@
                                                         <button class="btn btn-info btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
                                                         <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                </div>-->
+                                            </div>
                                     </div>
                                 </div>
                             </ng-template>
@@ -67,155 +93,173 @@
                             <ng-template ngbTabContent>
                                 <br />
                                 <form (ngSubmit)="postCliente()">
-                                    <h5>Dados do Anunciante</h5>
+                                    <h2>Dados do Anunciante</h2>
                                     <br />
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label> CPF/CNPJ</label>
-                                            <input type="text" class='form-control' placeholder="CPF/CNPJ" name="cpf_cnpj" [(ngModel)]="cliente.cpf_cnpj">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label> Nome </label>
-                                            <input type="text" class="form-control" placeholder="nome" name="nome" [(ngModel)]="cliente.nome">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label> Foto ou Logo </label>
-                                            <input class="form-control-file " #logoInput name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-2">
-                                            <label>CEP</label>
-                                            <input type="text" class="form-control" placeholder="CEP" name="cep" [(ngModel)]="cliente.endereco.cep" (blur)="getCEPData()">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Endereço</label>
-                                            <input type="text" class="form-control" placerholder="Endereço" name="endereco" [(ngModel)]="cliente.endereco.rua">
-                                        </div>
-                                        <div class="form-group col-md-1">
-                                            <label>Número</label>
-                                            <input type="text" class="form-control" placeholder="Número" name="numero" [(ngModel)]="cliente.endereco.numero">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label>Complemento</label>
-                                            <input type="text" class="form-control" placeholder="Complemento" name="complento" [(ngModel)]="cliente.endereco.complemento">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Bairro</label>
-                                            <input type="text" class="form-control" placerholder="Bairro" name="bairro" [(ngModel)]="cliente.endereco.bairro">
-                                        </div>
-                                        <div class="form-group col-md-5">
-                                            <label>Cidade</label>
-                                            <input type="text" class="form-control" placeholder="Cidade" name="cidade" [(ngModel)]="cliente.endereco.cidade">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label>Estado</label>
-                                            <input type="text" class="form-control" placeholder="Estado" name="estado" [(ngModel)]="cliente.endereco.uf">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="tipoContato">Contato</label>
-                                                <select name="tipoContato" class="btn btn-outline-primary" [(ngModel)]="contato.tipo">
-                                                            <option [ngValue]="contato" *ngFor="let contato of tiposContato" >{{contato}}</option>
-                                                          </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="descricaoContato">Descricao</label>
-                                                <input type="text" name="descricaoContato" [(ngModel)]="contato.info">
-                                            </div>
-                                        </div>
-                                        <div class="btn btn-outline-primary" (click)="addContato()">Adicionar</div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="col-md-12">
-                                            <ul>
-                                                <li *ngFor="let contato of cliente.contatos">
-                                                    <a>
-                                                        <span>{{contato.tipo}}</span> {{contato.info}}
-                                                    </a>
-                                                    <div class="btn btn-outline-danger" title="Deletar Contato" (click)="deleteContato(contato)">x</div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!--    
-                                        <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Email - 1</label>
-                                            <input type="text" class="form-control" placeholder="E-mail 1" name="email1">
-                                            <br />
-                                            <label>Email - 2</label>
-                                            <input type="text" class="form-control" placeholder="E-mail 2" name="email2">
-                                        </div>
-                                        <div class="form-group col-md-2">
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <div class="row">
-                                                <label>Telefone 1</label>
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Telefone 1" name="fone1">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <select name="tipo_telefone2" class="btn btn-outline-primary">
-                                                            <option value="">Tipo</option>
-                                                            <option value="celular">Celular</option>
-                                                            <option value="comercial">Comercial</option>
-                                                            <option value="outros">Outros</option>
-                                                        </select>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <div class="row">
-                                                <label>Telefone 2</label>
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Telefone 2" name="fone2">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <select name="tipo_telefone1" class="btn btn-outline-primary">
-                                                        <option value="">Tipo</option>
-                                                        <option value="celular">Celular</option>
-                                                        <option value="comercial">Comercial</option>
-                                                        <option value="outros">Outros</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <div class="row">
-                                                <label>Telefone 3</label>
-                                                <div class="form-group col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Telefone 3" name="fone3">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <select name="tipo_telefone3" class="btn btn-outline-primary">
-                                                        <option value="">Tipo</option>
-                                                        <option value="celular">Celular</option>
-                                                        <option value="comercial">Comercial</option>
-                                                        <option value="outros">Outros</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    -->
-
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Descrição Anunciante</label>
-                                                <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição da Empresa" [(ngModel)]="cliente.descricao"></textarea>
-                                            </div>
+                                        <div class="col-md-3">
+                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                        <img data-src="./assets/img/fundo_principal.jpg" alt="...">
+                                                        
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                                    <div>
+                                                        <span class="btn btn-default btn-file"><span class="fileinput-new">Selecione Imagem</span><span class="fileinput-exists">Selecione Imagem</span><input type="file" name="..."></span>
+                                                        <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Deletar</a>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                                <div class="form-row">
+                                                        <div class="form-group col-md-3">
+                                                            <label> CPF/CNPJ</label>
+                                                            <input type="text" class='form-control' placeholder="CPF/CNPJ" name="cpf_cnpj" [(ngModel)]="cliente.cpf_cnpj">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label> Nome </label>
+                                                            <input type="text" class="form-control" placeholder="nome" name="nome" [(ngModel)]="cliente.nome">
+                                                        </div>
+                                                       <!-- <div class="form-group col-md-3">
+                                                            <label> Foto ou Logo </label>
+                                                            <input class="form-control-file " #logoInput name="foto_logo" type=file (change)="prepareUploadLogo($event)" />
+                                                        </div>-->
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-2">
+                                                            <label>CEP</label>
+                                                            <input type="text" class="form-control" placeholder="CEP" name="cep" [(ngModel)]="cliente.endereco.cep" (blur)="getCEPData()">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Endereço</label>
+                                                            <input type="text" class="form-control" placerholder="Endereço" name="endereco" [(ngModel)]="cliente.endereco.rua">
+                                                        </div>
+                                                        <div class="form-group col-md-1">
+                                                            <label>Número</label>
+                                                            <input type="text" class="form-control" placeholder="Número" name="numero" [(ngModel)]="cliente.endereco.numero">
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label>Complemento</label>
+                                                            <input type="text" class="form-control" placeholder="Complemento" name="complento" [(ngModel)]="cliente.endereco.complemento">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label>Bairro</label>
+                                                            <input type="text" class="form-control" placerholder="Bairro" name="bairro" [(ngModel)]="cliente.endereco.bairro">
+                                                        </div>
+                                                        <div class="form-group col-md-5">
+                                                            <label>Cidade</label>
+                                                            <input type="text" class="form-control" placeholder="Cidade" name="cidade" [(ngModel)]="cliente.endereco.cidade">
+                                                        </div>
+                                                        <div class="form-group col-md-3">
+                                                            <label>Estado</label>
+                                                            <input type="text" class="form-control" placeholder="Estado" name="estado" [(ngModel)]="cliente.endereco.uf">
+                                                        </div>
+                                                    </div>
+                                                    <h5>Contato</h5><br>
+                                                    <div class="form-row">
+                                                                
+                                                                <div class="form-group col-md-4">
+                                                                    <input type="text" class="form-control" name="descricaoContato" [(ngModel)]="contato.info" placeholder="Descricao">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                        <select name="tipoContato" class="btn btn-outline-primary" [(ngModel)]="contato.tipo">
+                                                                                <option [ngValue]="contato" *ngFor="let contato of tiposContato" >{{contato}}</option>
+                                                                                </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                        <button class="btn btn-outline-primary" (click)="addContato()">Adicionar</button>
+                                                                </div>
+                                                                </div>
+                                                       
+                                                        
+                                                    
+                
+                                                    <div class="form-row">
+                                                        <div class="col-md-12">
+                                                            <ul>
+                                                                <li *ngFor="let contato of cliente.contatos">
+                                                                    <a>
+                                                                        <span>{{contato.tipo}}</span> {{contato.info}}
+                                                                    </a>
+                                                                    <div class="btn btn-outline-danger" title="Deletar Contato" (click)="deleteContato(contato)">x</div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                
+                                                    <!--    
+                                                        <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label>Email - 1</label>
+                                                            <input type="text" class="form-control" placeholder="E-mail 1" name="email1">
+                                                            <br />
+                                                            <label>Email - 2</label>
+                                                            <input type="text" class="form-control" placeholder="E-mail 2" name="email2">
+                                                        </div>
+                                                        <div class="form-group col-md-2">
+                
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <div class="row">
+                                                                <label>Telefone 1</label>
+                                                                <div class="form-group col-md-4">
+                                                                    <input type="text" class="form-control" placeholder="Telefone 1" name="fone1">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select name="tipo_telefone2" class="btn btn-outline-primary">
+                                                                            <option value="">Tipo</option>
+                                                                            <option value="celular">Celular</option>
+                                                                            <option value="comercial">Comercial</option>
+                                                                            <option value="outros">Outros</option>
+                                                                        </select>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row">
+                                                                <label>Telefone 2</label>
+                                                                <div class="form-group col-md-4">
+                                                                    <input type="text" class="form-control" placeholder="Telefone 2" name="fone2">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select name="tipo_telefone1" class="btn btn-outline-primary">
+                                                                        <option value="">Tipo</option>
+                                                                        <option value="celular">Celular</option>
+                                                                        <option value="comercial">Comercial</option>
+                                                                        <option value="outros">Outros</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row">
+                                                                <label>Telefone 3</label>
+                                                                <div class="form-group col-md-4">
+                                                                    <input type="text" class="form-control" placeholder="Telefone 3" name="fone3">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select name="tipo_telefone3" class="btn btn-outline-primary">
+                                                                        <option value="">Tipo</option>
+                                                                        <option value="celular">Celular</option>
+                                                                        <option value="comercial">Comercial</option>
+                                                                        <option value="outros">Outros</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    -->
+                
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label>Descrição Anunciante</label>
+                                                                <textarea class="form-control" rows="4" name="descricao" placeholder="Descrição da Empresa" [(ngModel)]="cliente.descricao"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-info btn-lg">Confirmar</button>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-info btn-lg">Confirmar</button>
                                 </form>
                             </ng-template>
                         </ngb-tab>
