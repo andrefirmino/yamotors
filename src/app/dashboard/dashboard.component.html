@@ -1,12 +1,12 @@
 <div class="wrapper">
-    <div class="page-header page-header-xs" data-parallax="true" [style.backgroundImage]="'url(' + garageImage + ')'">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/fundo_dashboard.jpg');">
         <div class="filter"></div>
     </div>
     <div class="section profile-content">
         <div class="container">
             <div class="owner">
                 <div class="avatar">
-                    <img alt="Circle Image" class="img-circle img-no-padding img-responsive" [src]="cliente?.foto || ''" />
+                    <img  class="img-circle img-no-padding img-responsive" [src]="cliente?.foto || ''" />
                 </div>
                 <div class="name">
                     <h4 class="title">{{cliente?.nome }}
@@ -31,7 +31,7 @@
                                         <div class="row">
                                             <div class="col-md-4 col-sm-4 ml-auto">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Pesquisar">
+                                                   <!-- <input type="text" class="form-control" placeholder="Pesquisar">-->
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-sm-2 ml-auto mr-auto">
@@ -41,10 +41,10 @@
                                         <br>
                                         <div class="row posicao">
                                             <div class="col-md-4" *ngFor="let anuncio of anuncios">
-                                                <div class="card card-profile card-plain" style="width: 18rem;">
+                                                <div class="card" style="width: 18rem;">
                                                     <a [routerLink]="['/anuncio', anuncio.id]">
-                                                        <div class="card-avatar">
-                                                            <img class="card-img-top" [src]="anuncio?.fotos[0] || ''" alt="Card image cap">
+                                                        <div class="card-title">
+                                                                <img class="tamanho" [src]="anuncio?.fotos[0] || ''" alt="Card image cap">
                                                         </div>
                                                         <div class="card-body">
                                                             <h5 class="card-title">{{anuncio.titulo}}</h5>
@@ -55,7 +55,7 @@
                                                     </a>
                                                     <hr size="20px" style="border: 1px solid #cccccc;">
                                                     <div class="card-header">
-                                                        <div class="row">
+                                                        <div class="row text-center">
                                                             <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
                                                             <button class="btn btn-danger btn-round btn-sm" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
                                                             <button class="btn btn-success btn-round btn-sm" *ngIf="!anuncio?.aberto" (click)="changeStatus(anuncio)">Abrir</button>
@@ -64,24 +64,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!--<div class="row">
-                                                    <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                        <img [src]="anuncio?.fotos[0] || ''" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive">
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4 ml-auto">
-                                                        <h5>{{anuncio?.titulo}}
-                                                            <br/>
-                                                            <small>Aberto: {{anuncio?.aberto}} |
-                                                                <b> {{anuncio?.preco}} </b>
-                                                            </small>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-2 ml-auto mr-auto">
-                                                        <button class="btn btn-info btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='editarAnuncio(anuncio)'>Editar</button>
-                                                        <button class="btn btn-danger btn-round" (click)="deleteAnuncio(anuncio.id)">Excluir</button>
-                                                    </div>
-                                                </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -156,10 +138,10 @@
                                             <h5>Contato</h5><br>
                                             <div class="form-row">
 
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-3">
                                                     <input type="text" class="form-control" name="descricaoContato" [(ngModel)]="contato.info" placeholder="Descricao">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-2">
                                                     <select name="tipoContato" class="btn btn-outline-primary" [(ngModel)]="contato.tipo">
                                                                                 <option [ngValue]="contato" *ngFor="let contato of tiposContato" >{{contato}}</option>
                                                                                 </select>
@@ -172,14 +154,14 @@
 
 
 
-                                            <div class="form-row">
-                                                <div class="col-md-12">
+                                            <div class="form-row text-left">
+                                                <div class="col-md-6">
                                                     <ul>
                                                         <li *ngFor="let contato of cliente.contatos">
                                                             <a>
                                                                 <span>{{contato.tipo}}</span> {{contato.info}}
                                                             </a>
-                                                            <div class="btn btn-outline-danger" title="Deletar Contato" (click)="deleteContato(contato)">x</div>
+                                                            <div class="btn btn-outline-danger btn-just-icon" title="Deletar Contato" (click)="deleteContato(contato)">x</div>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -268,9 +250,12 @@
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" *ngIf="progressoPublicacao === 'pendente'">
-                <div class="container topo">
+                <!--<div class="container topo">-->
                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        <span aria-hidden="true">&times;</span>
                         <h4 class="modal-title">Cadastro do Anúncio</h4>
+                        
                     </div>
                     <form>
                         <div class="modal-body">
@@ -290,6 +275,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <h5 class="text-center">Dados do Veiculo</h5>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -301,7 +287,7 @@
                                                 </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="marca">Marca</label>
                                         <select name="marca" class="btn btn-outline-primary" [(ngModel)]="selectedMarca" (change)='getModelos()'>
@@ -309,34 +295,43 @@
                                           </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group has-success">
-                                        <label for="modelo">Modelo</label>
-                                        <select name="modelo" class="btn btn-outline-primary" [(ngModel)]="selectedModelo" (change)='getAnos()'>
-                                            <option *ngFor="let modelo of modelos" [ngValue]="modelo">{{modelo.nome}}</option>
-                                          </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group has-success">
-                                        <label for="ano">Ano</label>
-                                        <select name="Ano" class="btn btn-outline-primary" [(ngModel)]="selectedAno" (change)="getFipe()">
-                                            <option *ngFor="let ano of anos" [ngValue]="ano">{{ano.nome}}</option>
-                                          </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group has-success">
-                                        <label for="combustivel">Combustivel</label>
-                                        <select name="combustivel" class="btn btn-primary" [(ngModel)]="anuncio.combustivel">
-                                            <option value="Gasolina">Gasolina</option>
-                                            <option value="Alcool">Alcool</option>
-                                            <option value="Diesel">Diesel</option>
-                                            <option value="Flex">Flex</option>
-                                        </select>
-                                    </div>
+                                <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Modelo</label><br>
+                                            <select name="modelo" class="btn btn-outline-primary tm_modelo" [(ngModel)]="selectedModelo" (change)='getAnos()'>
+                                                <option *ngFor="let modelo of modelos" [ngValue]="modelo">{{modelo.nome}}</option>
+                                                </select>
+                                        </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                    <div class="col-md-3">
+                                            <div class="form-group has-success">
+                                                <label>Ano</label><br>
+                                                <select name="Ano" class="btn btn-outline-primary" [(ngModel)]="selectedAno" (change)="getFipe()">
+                                                    <option *ngFor="let ano of anos" [ngValue]="ano">{{ano.nome}}</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group has-success">
+                                                <label for="combustivel">Combustivel</label>
+                                                <select name="combustivel" class="btn btn-primary" [(ngModel)]="anuncio.combustivel">
+                                                    <option value="Gasolina">Gasolina</option>
+                                                    <option value="Alcool">Alcool</option>
+                                                    <option value="Diesel">Diesel</option>
+                                                    <option value="Flex">Flex</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Valor Tabela Fipe</label>
+                                                <!--<label>{{dadosFipe.valor}}</label>-->
+                                            </div>
+                                        </div>
+                            </div>
+                            <h5 class="text-center">Adicione o Valor de Venda do Veículo</h5>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -344,12 +339,7 @@
                                         <input type="number" class="form-control" name="preco" placeholder="Valor do Veiculo" aria-describedby="basic-addon1" [(ngModel)]='anuncio.preco'>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Valor Tabela Fipe</label>
-                                        <input type="number" class="form-control" placeholder="Valor do Veiculo" aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <!--
@@ -388,7 +378,7 @@
                                 </div>
                             </div>
                             -->
-
+                            <h5 class="text-center">Insira os Opcionais</h5>
                             <div class="row">
                                 <div>
                                     <label>Inserir Opcional
@@ -421,7 +411,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+               <!-- </div>-->
             </div>
             <div class="modal-content" *ngIf="progressoPublicacao === 'andamento'">
 
