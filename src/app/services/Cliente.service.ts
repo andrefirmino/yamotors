@@ -62,4 +62,8 @@ export class ClienteService {
     public getCurrentUserHash(): string {
         return btoa(firebase.auth().currentUser.email);
     }
+
+    public getEmailValidado(): boolean {
+        return firebase.auth().currentUser.emailVerified
+    }
 }

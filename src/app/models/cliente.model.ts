@@ -38,6 +38,7 @@ export class Cliente {
     public foto: string;
     public descricao: string;
     public timestamp: number;
+    public cadastroCompleto: boolean
 
     constructor(){
         this.email = null;
@@ -48,6 +49,7 @@ export class Cliente {
         this.foto = null;
         this.descricao = null;
         this.timestamp = new Date().getTime();
+        this.cadastroCompleto = false
     }
 }
 
