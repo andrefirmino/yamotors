@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   private anuncios: Anuncio[]
   private garageImage: string
   private files: any
+  private auxFoto = [];
 
   //conferido
   private getUserData(): void {
@@ -181,6 +182,7 @@ export class DashboardComponent implements OnInit {
   //conferido
   private prepareUploadLogo(event): void {
     this.files = (<HTMLInputElement>event.target).files;
+    
   }
 
   //conferido
@@ -294,6 +296,24 @@ export class DashboardComponent implements OnInit {
   //conferido
   private prepareUpload(event): void {
     this.files = (<HTMLInputElement>event.target).files;
+    let render = new FileReader();
+    let aux = [];
+    Array.prototype.forEach.call(this.files, file => {
+      aux.push(file);
+    });
+    aux.forEach(element => {
+      render.readAsDataURL(element);
+      this.auxFoto.push(render.result);
+    });
+    console.log(this.auxFoto);
+  }
+
+  // ja sei o que vou fazer rsrs olha a gambi rsrs
+
+  //Verificar
+  excluiImg(ex){
+    this.files.splice(ex, 1);
+    console.log(this.files);
   }
 
   //conferido

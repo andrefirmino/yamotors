@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
             .then((result) => {
                 result.forEach((an) => {
                     this.recentes.push(an as Anuncio)
+                    console.log(this.recentes);
                 })
             })
     }

@@ -1,6 +1,6 @@
 <div class="wrapper">
 
-    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/acesso_dash.png');">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/pesquisa.jpg');">
         <div class="filter"></div>
     </div>
     <div class="section profile-content">
@@ -31,8 +31,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h2 align="center">Dados do Veiculo</h2><br>
-                    <h3><strong>{{anuncio.titulo}}</strong></h3>
+                    <h2 align="center">Dados do Anúncio</h2><br>
                     <div class="row">
                         <div class="col-md-12">
                             <p> Descrição : {{anuncio.descricao}}</p>
@@ -42,7 +41,10 @@
                         <h3>Valor : <strong class="label label-success">{{anuncio.preco | currency: 'BRL': true}}</strong></h3>
                     </div>
                     <div>
-                        <h3>Valor Fipe : <strong class="label label-danger">{{dadosFipe.preco}}</strong></h3><br>
+                        <h3>Valor Fipe : <strong class="label label-danger">{{dadosFipe.preco}} </strong></h3>
+                        <h4>Atualização Fipe: {{dadosFipe.referencia}}</h4>
+                        <br>
+                        
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -61,7 +63,13 @@
                             <ul>
                                 <li *ngFor="let anuncio of anuncio.opcionais">
                                     <a>
-                                        <span>{{anuncio.tipo}}</span> {{anuncio.info}}
+                                        <table>
+                                            <tr>
+                                                <td>{{anuncio.tipo}}</td>
+                                                <td>{{anuncio.info}}</td>
+                                            </tr>
+                                        </table>
+                                        
                                     </a>
                                 </li>
                             </ul>
@@ -72,39 +80,57 @@
         </div>
     </div>
     <div class="section section-dark text-center landing-section">
-        <div class="container">
-            <h2 class="title center">Dados Vendedor</h2>
-            <div class="row justify-content-center">
-                <div>
-                    <div class="card card-profile card-plain">
-                        <div class="card-avatar">
-                            <a [routerLink]="['/perfil', anuncio.anuncianteId]">
-                                <img [src]="cliente?.foto || ''">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <a [routerLink]="['/perfil', anuncio.anuncianteId]">
-                                <div class="author">
-                                    <h4 class="card-title">{{cliente.nome}}</h4>
-                                    <h6 class="card-category text-muted">{{cliente.descricao}}</h6>
+            <div class="container">
+                <h2 class="title center">Dados Vendedor</h2>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row justify-content-center">
+                            <div>
+                                <div class="card card-profile card-plain">
+                                    <div class="card-avatar">
+                                        <img [src]="cliente?.foto || ''">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="author">
+                                            <h4 class="card-title">{{cliente.nome}}</h4>
+                                            <h6 class="card-category text-muted">{{cliente.descricao}}</h6>
+                                        </div>
+                                        <div class="card-description text-center">
+    
+    
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
-                            <div class="card-description text-center">
-                                <h4>Contatos</h4><br>
-                                <table *ngFor="let contato of cliente.contatos text-center">
-                                    <tr>
-                                        <td>{{contato.tipo}}</td>
-                                        <td>{{contato.info}}</td>
-                                    </tr>
-                                </table>
-                                <br>
-                                <h4>Endereço</h4><br>
-                                <p>
-                                    {{cliente.endereco.rua}}, {{cliente.endereco.numero}} {{cliente.endereco.complemento}}<br>
-                                    {{cliente.endereco.bairro}}, {{cliente.endereco.cidade}}/{{cliente.endereco.uf}}<br>
-                                    {{cliente.endereco.cep}}
-                                </p>
-
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="row justify-content-center">
+                            <div>
+                                <div class="card card-profile card-plain">
+                                    
+                                    <div class="card-description text-center subir">
+                                        <h4>Contatos</h4>
+                                        <br>
+                                        <div class="row" *ngFor="let contato of cliente.contatos text-center">
+                                            <div class="col-md-6 text-right">
+                                               <p> {{contato.tipo}}</p>
+                                            </div>
+                                            <div class="col-md-6 text-left">
+                                                {{contato.info}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <h4>Endereço</h4>
+                                        <br>
+                                        <p>
+                                            {{cliente.endereco.rua}}, {{cliente.endereco.numero}} {{cliente.endereco.complemento}}
+                                            <br> {{cliente.endereco.bairro}}, {{cliente.endereco.cidade}}/{{cliente.endereco.uf}}
+                                            <br> {{cliente.endereco.cep}}
+                                        </p>
+    
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -25,7 +25,9 @@
                             <h5 class="card-title">{{barato.titulo}}</h5>
                             <h5 class="card-title">
                                 <b>{{barato.preco | currency: 'BRL': true }}</b>
+                                
                             </h5>
+                            <h6 class="card-title">{{barato.nomeMarca}} | {{barato.nomeModelo}}</h6>
                         </div>
                     </a>
                     <hr size="20px" style="border: 1px solid #cccccc;">
@@ -56,9 +58,11 @@
                             <h5 class="card-title">
                                 <b>{{recente.preco | currency: 'BRL': true }}</b>
                             </h5>
+                            <h6 class="card-title">{{recente.nomeMarca}} | {{recente.nomeModelo}}</h6>
+                            
                         </div>
                     </a>
-                    <hr size="20px" style="border: 1px solid #cccccc;">
+                    <hr size="2px" style="border: 1px solid #cccccc; cima">
                     <div class="card-header">
                         <a [routerLink]="['/perfil', recente.anuncianteId]">
                             <div class="row">
