@@ -14,6 +14,7 @@ import { Subject } from 'rxjs/Rx';
 import { Progresso } from 'app/services/Progresso.service';
 import { FirestoreService } from 'app/services/Firestore.service';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { SwalComponent } from '@toverux/ngx-sweetalert2';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -44,17 +45,21 @@ export class DashboardComponent implements OnInit {
   }
 
   /**************************** CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
+  @ViewChild('mySwal') private mySwal: SwalComponent
+  
   private cliente: Cliente
   private anuncios: Anuncio[]
   private garageImage: string
   private files: any
-  private auxFoto = [];
+  private auxFoto = []
+  private emailValidado: boolean = false;
 
   //conferido
   private getUserData(): void {
     this.clienteService.getCurrentClient()
       .then((result) => {
         this.cliente = result as Cliente
+        this.emailValidado = this.clienteService.getEmailValidado()
       })
   }
 
@@ -63,7 +68,6 @@ export class DashboardComponent implements OnInit {
     let aux = []
     this.anuncioService.getAnuncios().then((result) => {
       result.forEach((an) => {
-        aux.push(an as Anuncio)
       })
     }).then(() => {
       this.anuncios = aux
@@ -167,7 +171,12 @@ export class DashboardComponent implements OnInit {
     let path = btoa(this.cliente.email)
 
     this.cliente.foto = path
-
+    
+    this.cliente.cadastroCompleto = ((this.cliente.cpf_cnpj !== null && this.cliente.cpf_cnpj !== undefined && this.cliente.cpf_cnpj !== '') && 
+                                     this.cliente.contatos.length > 0 && 
+                                     (this.cliente.nome !== null && this.cliente.nome !== undefined && this.cliente.nome !== '') && 
+                                     (this.cliente.endereco.cep !== null && this.cliente.endereco.cep !== undefined && this.cliente.endereco.cep !== ''))
+          
     this.clienteService.persistCliente(this.cliente)
       .then(() => {
         this.firestoreService.postClienteFoto(this.files, path)
@@ -182,7 +191,7 @@ export class DashboardComponent implements OnInit {
   //conferido
   private prepareUploadLogo(event): void {
     this.files = (<HTMLInputElement>event.target).files;
-    
+
   }
 
   //conferido
@@ -311,7 +320,7 @@ export class DashboardComponent implements OnInit {
   // ja sei o que vou fazer rsrs olha a gambi rsrs
 
   //Verificar
-  excluiImg(ex){
+  excluiImg(ex) {
     this.files.splice(ex, 1);
     console.log(this.files);
   }
