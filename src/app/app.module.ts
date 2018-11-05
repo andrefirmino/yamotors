@@ -33,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Progresso } from './services/Progresso.service';
 import { LOCALE_ID } from '@angular/core';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { SobreComponent } from './sobre/sobre.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
     DashboardComponent,
     CadastroComponent,
     PerfilComponent,
-    AnuncioComponent
+    AnuncioComponent,
+    SobreComponent
   ],
   imports: [
     BrowserModule,

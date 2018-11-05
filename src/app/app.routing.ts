@@ -10,6 +10,8 @@ import { PesquisaComponent } from './pesquisa/pesquisa.component';
 import { LoginComponent } from './login/login.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AnuncioComponent } from './anuncio/anuncio.component';
+import { SuporteComponent } from './suporte/suporte.component';
+import { SobreComponent } from './sobre/sobre.component';
 
 
 const routes: Routes =[
@@ -18,9 +20,11 @@ const routes: Routes =[
     { path: 'dashboard',        component: DashboardComponent},
     { path: 'cadastro',         component: CadastroComponent},
     { path: 'pesquisa',         component: PesquisaComponent},
-    { path: 'login',           component: LoginComponent },
+    { path: 'login',            component: LoginComponent },
     { path: 'perfil/:id',       component: PerfilComponent },
-    { path: 'anuncio/:id',       component: AnuncioComponent },
+    { path: 'anuncio/:id',      component: AnuncioComponent },
+    { path: 'suporte',          component: SuporteComponent},
+    { path: 'sobre',            component: SobreComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

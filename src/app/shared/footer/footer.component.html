@@ -3,10 +3,15 @@
         <div class="row">
             <nav class="footer-nav">
                 <ul>
-                    <li><a href=#>Suporte</a></li>
+                    <li><a [routerLink]="['/suporte']">Suporte</a></li>
+                    <li><a [routerLink]="['/sobre']">Sobre</a></li>
                 </ul>
+                
             </nav>
+            
             <div class="credits ml-auto">
+                    <i class="fa fa-phone"></i> (16) 3701-9999 |
+                    <i class="fa fa-envelope"></i>suporte@yamotors.com.br  
                 <span class="copyright">
                     © {{data | date: 'yyyy'}}, TG Fatec <i class="fa fa-star heart"></i> by André | Yuri
                 </span>
