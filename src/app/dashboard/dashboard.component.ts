@@ -26,6 +26,15 @@ export class DashboardComponent implements OnInit {
 
   closeResult: string;
 
+  //controle de Validação dos campos cadastro de usuario
+  public imagemValido : boolean;
+  public cpfValido: boolean;
+  public nomeValido: boolean;
+  public bairro: boolean;
+  public cidade: boolean;
+  public descricao: boolean;
+
+
   constructor(
     private clienteService: ClienteService,
     private anuncioService: AnuncioService,
@@ -38,6 +47,10 @@ export class DashboardComponent implements OnInit {
     private modalService: NgbModal
   ) { }
 
+  public atualizaImagem(imagem: any): void{
+    this.atualizaImagem = imagem
+    console.log(imagem);
+  }
 
   openLg(content, id_anuncio) {
     if(id_anuncio === 0){
