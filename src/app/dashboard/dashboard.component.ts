@@ -15,12 +15,16 @@ import { Progresso } from 'app/services/Progresso.service';
 import { FirestoreService } from 'app/services/Firestore.service';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { SwalComponent } from '@toverux/ngx-sweetalert2';
+import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  closeResult: string;
 
   constructor(
     private clienteService: ClienteService,
@@ -30,9 +34,36 @@ export class DashboardComponent implements OnInit {
     private utilsService: UtilsService,
     private firestoreService: FirestoreService,
     private progresso: Progresso,
-    private anuncService: AnuncioService
+    private anuncService: AnuncioService,
+    private modalService: NgbModal
   ) { }
 
+
+  openLg(content, id_anuncio) {
+    if(id_anuncio === 0){
+      this.novoAnuncio();
+    } else {
+      this.editarAnuncio(id_anuncio);
+    }
+       
+    this.modalService.open(content, { size: 'lg'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+  
   ngOnInit() {
     this.anuncios = new Array()
     this.getUserData()
@@ -53,7 +84,8 @@ export class DashboardComponent implements OnInit {
   private anuncios: Anuncio[]
   private garageImage: string
   private files: any
-  private auxFoto = []
+  private auxFoto = [];
+  private fotosEnviar = [];
   private emailValidado: boolean = false;
 
   //conferido
@@ -313,24 +345,30 @@ export class DashboardComponent implements OnInit {
   //conferido
   private prepareUpload(event): void {
     this.files = (<HTMLInputElement>event.target).files;
-    let render = new FileReader();
-    let aux = [];
+    this.auxFoto = [];
     Array.prototype.forEach.call(this.files, file => {
-      aux.push(file);
+      this.fotosEnviar.push(file);
     });
-    aux.forEach(element => {
+    this.fotosEnviar.forEach(element => {
+      let render = new FileReader();
       render.readAsDataURL(element);
-      this.auxFoto.push(render.result);
+      render.onload = () =>{
+        this.auxFoto.push(render.result);
+      }
     });
     console.log(this.auxFoto);
+    console.log(this.fotosEnviar);
+    this.fotosEnviar = this.fotosEnviar.reverse();
   }
+
 
   // ja sei o que vou fazer rsrs olha a gambi rsrs
 
   //Verificar
   excluiImg(ex) {
-    this.files.splice(ex, 1);
-    console.log(this.files);
+    this.auxFoto.splice(ex, 1);
+    this.fotosEnviar.splice(ex, 1);
+    console.log(this.fotosEnviar);
   }
 
   //conferido
@@ -416,6 +454,7 @@ export class DashboardComponent implements OnInit {
     console.log(this.anuncio.fotos)
   }
 
+  
   /**************************** CONTROLE CADASTRO ANUNCIO ****************************/
 
 }

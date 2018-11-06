@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { Ng5SliderModule } from 'ng5-slider';
+
 //registerLocaleData(localePt);
 
 import { AppComponent } from './app.component';
@@ -60,6 +61,7 @@ import { SobreComponent } from './sobre/sobre.component';
     ReactiveFormsModule,
     Ng5SliderModule,
     HttpClientModule,
+    NgbModule,
     SweetAlert2Module.forRoot({
       buttonsStyling: false,
       customClass: 'modal-content',
