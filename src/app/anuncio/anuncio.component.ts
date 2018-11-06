@@ -19,13 +19,18 @@ export class AnuncioComponent implements OnInit {
     private anuncioAbertoService: AnuncioAbertoService,
     private clienteService: ClienteService,
     private route: ActivatedRoute,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private anuncioService: AnuncioService
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      if (params['id']) {
-        this.id = params['id']
+      this.id = params['id']
+
+      if (params['anunciante']) {
+        this.anunciante = params['anunciante']
+        this.getAnuncioFechado()
+      } else {
         this.getAnuncio()
       }
     })
@@ -33,6 +38,7 @@ export class AnuncioComponent implements OnInit {
 
   /************************************ CONTROLE DOS DADOS ************************************/
   private id
+  private anunciante
   private anuncio: Anuncio = new Anuncio()
   private cliente: Cliente = new Cliente()
   private dadosFipe
@@ -47,25 +53,48 @@ export class AnuncioComponent implements OnInit {
       .then((snapshot: any) => {
         snapshot.forEach(snapshotchild => {
           this.anuncio = snapshotchild as Anuncio
-          console.log(this.anuncio);
           this.clienteService.getClienteById(this.anuncio.anuncianteId)
             .then((snapshot) => {
-              console.log(this.anuncio)
               this.cliente = snapshot
-              
-              console.log(this.cliente)
-              
+
+
               let params = {
                 tipo: this.anuncio.tipo,
                 marca: this.anuncio.idMarca,
                 modelo: this.anuncio.idModelo,
                 ano: this.anuncio.anoComposto
               }
-          
+
               this.utilsService.getFipeData(params)
                 .then((data) => {
                   this.dadosFipe = data
-                  console.log(this.dadosFipe)
+                })
+            })
+        })
+      })
+  }
+
+  public getAnuncioFechado(): void {
+    this.anuncioService.getAnuncioByClienteAndId(this.anunciante, this.id)
+      .then((snapshot: any) => {
+        snapshot.forEach(snapshotchild => {
+          this.anuncio = snapshotchild as Anuncio
+          console.log(this.anuncio)
+          this.clienteService.getClienteById(this.anuncio.anuncianteId)
+            .then((snapshot) => {
+              this.cliente = snapshot
+
+
+              let params = {
+                tipo: this.anuncio.tipo,
+                marca: this.anuncio.idMarca,
+                modelo: this.anuncio.idModelo,
+                ano: this.anuncio.anoComposto
+              }
+
+              this.utilsService.getFipeData(params)
+                .then((data) => {
+                  this.dadosFipe = data
                 })
             })
         })

@@ -78,6 +78,7 @@ export class DashboardComponent implements OnInit {
   /**************************** CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
   @ViewChild('mySwal') private mySwal: SwalComponent
   @ViewChild('swDeleteAnuncio') private swDeleteAnuncio: SwalComponent
+  @ViewChild('swChangeAnuncio') private swChangeAnuncio: SwalComponent
 
 
   private cliente: Cliente
@@ -184,13 +185,20 @@ export class DashboardComponent implements OnInit {
   }
 
   public changeStatus(anuncio): void {
-    this.anuncio = anuncio
-    this.anuncio.aberto = !this.anuncio.aberto
+    this.swChangeAnuncio.show()
+    .then((data) => {
+      if (data.value === true) {
+        this.anuncio = anuncio
+        this.anuncio.aberto = !this.anuncio.aberto
 
-    this.anuncService.persistAnuncio(this.anuncio)
-      .then(() => {
-        this.getAnuncios()
+        this.anuncService.persistAnuncio(this.anuncio)
+          .then(() => {
+            this.getAnuncios()
+          })
+        }
       })
+      
+      
   }
 
   /**************************** FIM CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
@@ -361,6 +369,7 @@ export class DashboardComponent implements OnInit {
     this.fotosEnviar = this.fotosEnviar.reverse();
   }
 
+  // this.fotosEnviar -> Passar para o FireBase porem ela é um array padrao.
 
   // ja sei o que vou fazer rsrs olha a gambi rsrs
 

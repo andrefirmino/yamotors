@@ -77,4 +77,17 @@ export class AnuncioService {
         })
 
     }
+
+    //conferido
+    public getAnuncioByClienteAndId(cliente: string, id: string): any {
+        let anuncios = []
+        return new Promise((resolve, reject) => {
+            firebase.firestore().collection('cliente').doc(cliente)
+            .collection('anuncios').doc(id).get()
+                .then((result) => {
+                    anuncios.push(result.data())
+                    resolve(anuncios)
+                })
+        })
+    }
 }
