@@ -30,8 +30,6 @@ import { ClienteService } from "./Cliente.service";
                 this.cliente = new Cliente()
                 this.cliente.email = usuario.email
                 this.cliente.foto = 'padrao.jpg'
-                this.cliente.nome = 'Aqui ficara o seu nome'
-                this.cliente.descricao = 'Assim que possivel entre na area do perfil e edite seu perfil'
 
                 this.clienteService.persistCliente(this.cliente)
 

@@ -25,7 +25,7 @@ export class ClienteService {
                     let cli = snapshot.data()
                     this.firestoreService.getClienteFoto(cli.foto)
                         .then((url) => {
-                            cli.foto = url
+                            cli.urlFoto = url
                             resolve(cli)
                         })
                 })

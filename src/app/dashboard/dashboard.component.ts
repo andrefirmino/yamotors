@@ -46,7 +46,9 @@ export class DashboardComponent implements OnInit {
 
   /**************************** CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
   @ViewChild('mySwal') private mySwal: SwalComponent
-  
+  @ViewChild('swDeleteAnuncio') private swDeleteAnuncio: SwalComponent
+
+
   private cliente: Cliente
   private anuncios: Anuncio[]
   private garageImage: string
@@ -68,6 +70,7 @@ export class DashboardComponent implements OnInit {
     let aux = []
     this.anuncioService.getAnuncios().then((result) => {
       result.forEach((an) => {
+        aux.push(an as Anuncio)
       })
     }).then(() => {
       this.anuncios = aux
@@ -84,9 +87,14 @@ export class DashboardComponent implements OnInit {
 
   //conferido
   private deleteAnuncio(id: string) {
-    this.anuncioService.deleteAnuncio(id)
-      .then(() => {
-        this.getAnuncios()
+    this.swDeleteAnuncio.show()
+      .then((data) => {
+        if (data.value === true) {
+          this.anuncioService.deleteAnuncio(id)
+            .then(() => {
+              this.getAnuncios()
+            })
+        }
       })
   }
 
@@ -168,18 +176,18 @@ export class DashboardComponent implements OnInit {
 
   //conferido
   private postCliente(): void {
-    let path = btoa(this.cliente.email)
+    if (this.files) {
+      this.cliente.foto = btoa(this.cliente.email)
+    }
 
-    this.cliente.foto = path
-    
-    this.cliente.cadastroCompleto = ((this.cliente.cpf_cnpj !== null && this.cliente.cpf_cnpj !== undefined && this.cliente.cpf_cnpj !== '') && 
-                                     this.cliente.contatos.length > 0 && 
-                                     (this.cliente.nome !== null && this.cliente.nome !== undefined && this.cliente.nome !== '') && 
-                                     (this.cliente.endereco.cep !== null && this.cliente.endereco.cep !== undefined && this.cliente.endereco.cep !== ''))
-          
+    this.cliente.cadastroCompleto = ((this.cliente.cpf_cnpj !== null && this.cliente.cpf_cnpj !== undefined && this.cliente.cpf_cnpj !== '') &&
+      this.cliente.contatos.length > 0 &&
+      (this.cliente.nome !== null && this.cliente.nome !== undefined && this.cliente.nome !== '') &&
+      (this.cliente.endereco.cep !== null && this.cliente.endereco.cep !== undefined && this.cliente.endereco.cep !== ''))
+
     this.clienteService.persistCliente(this.cliente)
       .then(() => {
-        this.firestoreService.postClienteFoto(this.files, path)
+        this.firestoreService.postClienteFoto(this.files, this.cliente.foto)
           .then(() => {
             this.getUserData()
             this.files = null
