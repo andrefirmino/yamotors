@@ -45,7 +45,7 @@
                                         <div class="row posicao">
                                             <div class="col-md-4" *ngFor="let anuncio of anuncios">
                                                 <div class="card" style="width: 18rem;">
-                                                    <a [routerLink]="['/anuncio', anuncio.id]">
+                                                    <a [routerLink]="['/anuncio', anuncio.anuncianteId, anuncio.id]">
                                                         <div class="card-title">
                                                             <img class="tamanho" [src]="anuncio?.fotos[0] || ''" alt="Card image cap">
                                                         </div>
@@ -157,10 +157,10 @@
                                             <div class="form-row text-left">
                                                 <div class="col-md-6">
                                                     <table class="table table-striped table-hover text-center">
-                                                        <caption>Lista de Opcioinais</caption>
+                                                        <caption>Lista de Contatos</caption>
                                                         <thead class="">
                                                             <tr class="table-primary">
-                                                                <th>Tipo</th>
+                                                                <th>Contato</th>
                                                                 <th>Info</th>
                                                                 <th></th>
                                                             </tr>
@@ -365,11 +365,28 @@
                                     </button>
                             </div>
                         </div>
-                        <ul class="heroes">
-                            <li *ngFor="let opcional of anuncio.opcionais">
-                                {{opcional.info}}<button class="btn btn-outline-danger btn-just-icon" (click)="deleteOpcional(opcional)">x</button>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-striped table-hover text-center">
+                                    <caption>Lista de Opcioinais</caption>
+                                    <thead class="">
+                                        <tr class="table-primary">
+                                            <th>Opcional</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let opcional of anuncio.opcionais">
+                                            <td> {{opcional.info}}</td>
+                                            <td>
+                                                <div class="btn btn-outline-danger btn-just-icon btn-sm" title="Deletar Opcional" (click)="deleteOpcional(opcional)">x</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <br>
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <span class="btn btn-success btn-file">Inserir foto<input type="file" name="arquivos1" multiple accept="image/*" (change)="teste($event)"></span>
@@ -445,4 +462,7 @@
 </swal>
 
 <swal #swDeleteAnuncio title="" type="question" text="Deseja excluir o Anuncio?" [showCancelButton]=true>
+</swal>
+
+<swal #swChangeAnuncio title="" type="question" text="Deseja alterar o status do Anuncio?" [showCancelButton]=true>
 </swal>

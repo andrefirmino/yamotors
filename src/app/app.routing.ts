@@ -15,16 +15,17 @@ import { SobreComponent } from './sobre/sobre.component';
 
 
 const routes: Routes =[
-    { path: '',                 component: HomeComponent},
-    { path: 'home',             component: HomeComponent },
-    { path: 'dashboard',        component: DashboardComponent},
-    { path: 'cadastro',         component: CadastroComponent},
-    { path: 'pesquisa',         component: PesquisaComponent},
-    { path: 'login',            component: LoginComponent },
-    { path: 'perfil/:id',       component: PerfilComponent },
-    { path: 'anuncio/:id',      component: AnuncioComponent },
-    { path: 'suporte',          component: SuporteComponent},
-    { path: 'sobre',            component: SobreComponent},
+    { path: '',                        component: HomeComponent},
+    { path: 'home',                    component: HomeComponent },
+    { path: 'dashboard',               component: DashboardComponent},
+    { path: 'cadastro',                component: CadastroComponent},
+    { path: 'pesquisa',                component: PesquisaComponent},
+    { path: 'login',                   component: LoginComponent },
+    { path: 'perfil/:id',              component: PerfilComponent },
+    { path: 'anuncio/:id',             component: AnuncioComponent },
+    { path: 'anuncio/:anunciante/:id', component: AnuncioComponent },
+    { path: 'suporte',                 component: SuporteComponent},
+    { path: 'sobre',                   component: SobreComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
