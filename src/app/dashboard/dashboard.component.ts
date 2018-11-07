@@ -17,6 +17,7 @@ import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { SwalComponent } from '@toverux/ngx-sweetalert2';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -62,9 +63,9 @@ export class DashboardComponent implements OnInit {
     }
 
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+      this.closeResult = ``;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeResult = ``;
     });
 
   }
@@ -245,6 +246,9 @@ export class DashboardComponent implements OnInit {
         this.firestoreService.postClienteFoto(this.files, this.cliente.foto)
           .then(() => {
             this.getUserData()
+            this.mySwal.title = 'Cadastro alterado com Sucesso!'
+            this.mySwal.type = "success"
+            this.mySwal.show()
             this.files = null
             this.logoInput.nativeElement.value = ""
           })
@@ -439,6 +443,7 @@ export class DashboardComponent implements OnInit {
 
       })
       .then(() => {
+        this.getAnuncios()
         this.anuncService.persistAnuncio(this.anuncio)
           .then(() => {
             this.progresso.status = 'concluido'

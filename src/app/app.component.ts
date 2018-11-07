@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
 
         }
 
-        //Yuri - inicialização do firebase
+        //Yuri - inicializaï¿½ï¿½o do firebase
         firebase.initializeApp(environment.firebase);
         firebase.firestore().settings({timestampsInSnapshots: true})
         
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     removeFooter() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
         titlee = titlee.slice( 1 );
-        if(titlee === 'signup' || titlee === 'nucleoicons' || titlee === 'cadastro'){
+        if(titlee === 'login' || titlee === 'nucleoicons' || titlee === 'cadastro'){
             return false;
         }
         else {
