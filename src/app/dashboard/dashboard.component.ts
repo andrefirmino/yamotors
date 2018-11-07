@@ -443,11 +443,11 @@ export class DashboardComponent implements OnInit {
 
       })
       .then(() => {
-        this.getAnuncios()
         this.anuncService.persistAnuncio(this.anuncio)
           .then(() => {
             this.progresso.status = 'concluido'
             this.files = null
+            this.getAnuncios()
           })
 
       })
