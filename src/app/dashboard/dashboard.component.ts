@@ -31,9 +31,24 @@ export class DashboardComponent implements OnInit {
   public imagemValido: boolean;
   public cpfValido: boolean;
   public nomeValido: boolean;
-  public bairro: boolean;
-  public cidade: boolean;
-  public descricao: boolean;
+  public cepValido: boolean;
+  public enderecoValido: boolean;
+  public numeroValido: boolean;
+  public bairroValido: boolean;
+  public cidadeValido: boolean;
+  public estadoValido: boolean;
+  public descricaoValido: boolean;
+
+  //controle de Validação dos campos cadastro de anuncio
+  public tituloValido: boolean;
+  public descricaoAnuncioValido: boolean;
+  public tipoValido: boolean;
+  public marcaValido: boolean;
+  public modeloValido: boolean;
+  public anoValido: boolean;
+  public combustivelValido: boolean;
+  public valorValido: boolean;
+  
 
 
   constructor(
