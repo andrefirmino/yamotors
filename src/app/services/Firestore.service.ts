@@ -57,12 +57,11 @@ export class FirestoreService {
         let retornos = []
 
         return new Promise((resolve) => {
-            if(!imagens){
+            if(!imagens || imagens.length === 0){
                 resolve([])
             }
             Array.prototype.forEach.call(imagens, file => {
                 let nomeImagem = this.utilsService.getNewIdFoto()
-
                 firebase.storage().ref()
                     .child(`anuncios/${nomeImagem}`)
                     .put(file)
