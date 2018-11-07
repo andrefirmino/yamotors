@@ -13,9 +13,9 @@
                     <br><br>
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="id"  [ngClass]="id == 0 ? 'active' : ''" *ngFor="let image of anuncio?.fotos, let id = index;"></li>
+                            <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="id" [ngClass]="id == 0 ? 'active' : ''" *ngFor="let image of anuncio?.fotos, let id = index;"></li>
                         </ol>
-                        <div class="carousel-inner" >
+                        <div class="carousel-inner">
                             <div class="carousel-item" [ngClass]="idx == 0 ? 'active' : ''" *ngFor="let image of anuncio?.fotos, let idx = index;">
                                 <img class="d-block w-100" alt="First slide" src="{{image}}">
                             </div>
@@ -44,7 +44,7 @@
                         <h3>Valor Fipe : <strong class="label label-danger">{{dadosFipe.preco}} </strong></h3>
                         <h4>Atualização Fipe: {{dadosFipe.referencia}}</h4>
                         <br>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -69,7 +69,7 @@
                                                 <td>{{anuncio.info}}</td>
                                             </tr>
                                         </table>
-                                        
+
                                     </a>
                                 </li>
                             </ul>
@@ -80,60 +80,60 @@
         </div>
     </div>
     <div class="section section-dark text-center landing-section">
-            <div class="container">
-                <h2 class="title center">Dados Vendedor</h2>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="row justify-content-center">
-                            <div>
-                                <div class="card card-profile card-plain">
-                                    <div class="card-avatar">
+        <div class="container">
+            <h2 class="title center">Dados Vendedor</h2>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row justify-content-center">
+                        <div>
+                            <div class="card card-profile card-plain">
+                                <div class="card-avatar">
+                                    <a [routerLink]="['/perfil', anuncio?.anuncianteId]">
                                         <img [src]="cliente?.foto || ''">
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="author">
-                                            <h4 class="card-title">{{cliente.nome}}</h4>
-                                            <h6 class="card-category text-muted">{{cliente.descricao}}</h6>
-                                        </div>
-                                        <div class="card-description text-center">
-    
-    
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="row justify-content-center">
-                            <div>
-                                <div class="card card-profile card-plain">
-                                    
-                                    <div class="card-description text-center subir">
-                                        <h4>Contatos</h4>
-                                        <br>
-                                        <div class="row" *ngFor="let contato of cliente.contatos text-center">
-                                            <div class="col-md-6 text-right">
-                                               <p> {{contato.tipo}}</p>
-                                            </div>
-                                            <div class="col-md-6 text-left">
-                                                {{contato.info}}
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <h4>Endereço</h4>
-                                        <br>
-                                        <p>
-                                            {{cliente.endereco.rua}}, {{cliente.endereco.numero}} {{cliente.endereco.complemento}}
-                                            <br> {{cliente.endereco.bairro}}, {{cliente.endereco.cidade}}/{{cliente.endereco.uf}}
-                                            <br> {{cliente.endereco.cep}}
-                                        </p>
-    
+                                <div class="card-body">
+                                    <div class="author">
+                                        <h4 class="card-title">{{cliente.nome}}</h4>
+                                        <h6 class="card-category text-muted">{{cliente.descricao}}</h6>
+                                    </div>
+                                    <div class="card-description text-center">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-7">
+                    <div class="row justify-content-center">
+                        <div>
+                            <div class="card card-profile card-plain">
+
+                                <div class="card-description text-center subir">
+                                    <h4>Contatos</h4>
+                                    <br>
+                                    <div class="row" *ngFor="let contato of cliente.contatos text-center">
+                                        <div class="col-md-6 text-right">
+                                            <p> {{contato.tipo}}</p>
+                                        </div>
+                                        <div class="col-md-6 text-left">
+                                            {{contato.info}}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <h4>Endereço</h4>
+                                    <br>
+                                    <p>
+                                        {{cliente.endereco.rua}}, {{cliente.endereco.numero}} {{cliente.endereco.complemento}}
+                                        <br> {{cliente.endereco.bairro}}, {{cliente.endereco.cidade}}/{{cliente.endereco.uf}}
+                                        <br> {{cliente.endereco.cep}}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--<img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">-->
+        </div>
+        <!--<img class="card-img-top" [src]="anuncio.fotos[0] || ''" alt="Card image cap">-->
