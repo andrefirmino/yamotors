@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   closeResult: string;
 
   //controle de Validação dos campos cadastro de usuario
-  public imagemValido : boolean;
+  public imagemValido: boolean;
   public cpfValido: boolean;
   public nomeValido: boolean;
   public bairro: boolean;
@@ -47,24 +47,26 @@ export class DashboardComponent implements OnInit {
     private modalService: NgbModal
   ) { }
 
-  public atualizaImagem(imagem: any): void{
+  public atualizaImagem(imagem: any): void {
     this.atualizaImagem = imagem
-    console.log(imagem);
   }
 
-  openLg(content, id_anuncio) {
-    if(id_anuncio === 0){
+  openLg(content, anuncio) {
+    this.auxFoto = []
+    this.fotosEnviar = []
+
+    if (anuncio === 0) {
       this.novoAnuncio();
     } else {
-      this.editarAnuncio(id_anuncio);
+      this.editarAnuncio(anuncio);
     }
-       
-    this.modalService.open(content, { size: 'lg'}).result.then((result) => {
+
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    
+
   }
 
   private getDismissReason(reason: any): string {
@@ -73,10 +75,10 @@ export class DashboardComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
-  
+
   ngOnInit() {
     this.anuncios = new Array()
     this.getUserData()
@@ -146,7 +148,6 @@ export class DashboardComponent implements OnInit {
 
   //conferido
   private editarAnuncio(anuncio): void {
-    console.log(anuncio)
     this.progressoPublicacao = 'pendente'
 
     this.anuncio = anuncio
@@ -195,23 +196,24 @@ export class DashboardComponent implements OnInit {
     this.anos = []
 
     this.progressoPublicacao = 'pendente'
+
   }
 
   public changeStatus(anuncio): void {
     this.swChangeAnuncio.show()
-    .then((data) => {
-      if (data.value === true) {
-        this.anuncio = anuncio
-        this.anuncio.aberto = !this.anuncio.aberto
+      .then((data) => {
+        if (data.value === true) {
+          this.anuncio = anuncio
+          this.anuncio.aberto = !this.anuncio.aberto
 
-        this.anuncService.persistAnuncio(this.anuncio)
-          .then(() => {
-            this.getAnuncios()
-          })
+          this.anuncService.persistAnuncio(this.anuncio)
+            .then(() => {
+              this.getAnuncios()
+            })
         }
       })
-      
-      
+
+
   }
 
   /**************************** FIM CONTROLE APRESENTAÇÃO PRINCIPAL ****************************/
@@ -368,29 +370,24 @@ export class DashboardComponent implements OnInit {
     this.files = (<HTMLInputElement>event.target).files;
     this.auxFoto = [];
     Array.prototype.forEach.call(this.files, file => {
-      this.fotosEnviar.push(file);
-    });
+      this.fotosEnviar.push(file)
+    })
     this.fotosEnviar.forEach(element => {
-      let render = new FileReader();
-      render.readAsDataURL(element);
-      render.onload = () =>{
-        this.auxFoto.push(render.result);
+      let render = new FileReader()
+      render.readAsDataURL(element)
+      render.onload = () => {
+        this.auxFoto.push(render.result)
       }
-    });
-    console.log(this.auxFoto);
-    console.log(this.fotosEnviar);
-    this.fotosEnviar = this.fotosEnviar.reverse();
+    })
   }
 
   // this.fotosEnviar -> Passar para o FireBase porem ela é um array padrao.
 
-  // ja sei o que vou fazer rsrs olha a gambi rsrs
 
   //Verificar
   excluiImg(ex) {
-    this.auxFoto.splice(ex, 1);
-    this.fotosEnviar.splice(ex, 1);
-    console.log(this.fotosEnviar);
+    this.auxFoto.splice(ex, 1)
+    this.fotosEnviar.splice(ex, 1)
   }
 
   //conferido
@@ -434,7 +431,7 @@ export class DashboardComponent implements OnInit {
 
   //conferido
   private postAnuncio(): void {
-    this.firestoreService.postAnuncioFotos(this.files)
+    this.firestoreService.postAnuncioFotos(this.fotosEnviar)
       .then((snapshot: any) => {
         snapshot.forEach(childsnapshot => {
           this.anuncio.fotos.push(childsnapshot)
@@ -473,10 +470,9 @@ export class DashboardComponent implements OnInit {
 
   private removeFoto(imagem): void {
     this.anuncio.fotos = this.anuncio.fotos.filter((f) => { return f !== imagem })
-    console.log(this.anuncio.fotos)
   }
 
-  
+
   /**************************** CONTROLE CADASTRO ANUNCIO ****************************/
 
 }

@@ -60,7 +60,6 @@ export class FirestoreService {
             if(!imagens){
                 resolve([])
             }
-            
             Array.prototype.forEach.call(imagens, file => {
                 let nomeImagem = this.utilsService.getNewIdFoto()
 

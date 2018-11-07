@@ -42,7 +42,7 @@
                                             </div>-->
                                             <div class="col-md-12 col-sm-12 ml-auto mr-auto">
                                                 <button class="btn btn-success btn-round" (click)="openLg(content, 0)" *ngIf="cliente?.cadastroCompleto && emailValidado">Inserir Veiculo</button>
-                                                <button class="btn btn-success btn-round" (click)="openLg(content, 0)" *ngIf="!cliente?.cadastroCompleto || !emailValidado" [swal]="{title: 'Existem pendências no seu cadastro, Verifique!', type: 'info'}">Inserir Veiculo</button>
+                                                <button class="btn btn-success btn-round" *ngIf="!cliente?.cadastroCompleto || !emailValidado" [swal]="{title: 'Existem pendências no seu cadastro, Verifique!', type: 'info'}">Inserir Veiculo</button>
                                                 <!--<button class="btn btn-success btn-round" data-toggle="modal" data-target=".bd-example-modal-lg" (click)='novoAnuncio()'
                                                     *ngIf="cliente?.cadastroCompleto && emailValidado">Inserir Anuncio</button>
                                                 <button class="btn btn-success btn-round" *ngIf="!cliente?.cadastroCompleto || !emailValidado" [swal]="{title: 'Existem pendências no seu cadastro, Verifique!', type: 'info'}">Inserir Anuncio</button>-->
@@ -96,8 +96,8 @@
                                                 <div>
                                                     <span class="btn btn-default btn-file">
                                                         <span class="fileinput-new">Selecione Imagem</span>
-                                                        <span class="fileinput-exists">Selecione Imagem</span>
-                                                        <input type="file" name="..." #logoInput (change)="prepareUploadLogo($event)">
+                                                    <span class="fileinput-exists">Selecione Imagem</span>
+                                                    <input type="file" name="..." #logoInput (change)="prepareUploadLogo($event)">
                                                     </span>
                                                 </div>
                                             </div>
@@ -167,8 +167,7 @@
 
                                             <div class="form-row text-left">
                                                 <div class="col-md-6">
-                                                    <table class="table table-striped table-hover text-center">
-                                                        <caption>Lista de Contatos</caption>
+                                                    <table class="table table-striped table-hover text-center" *ngIf="cliente.contatos.length > 0">
                                                         <thead class="">
                                                             <tr class="table-primary">
                                                                 <th>Contato</th>
@@ -269,7 +268,7 @@
             </div>
         </div>
     </div>
-       <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" *ngIf="progressoPublicacao === 'pendente'">
                     <div class="container topo">
@@ -433,36 +432,8 @@
                                 <button type="button" class="btn btn-success center" (click)='postAnuncio()'>Cadastrar Anuncio</button>
                             </div>
                         </div>
-<<<<<<< HEAD
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal('custom-modal-1');">Close</button>
-=======
-                        <div class="row">
-                            <div class="col-md-6">
-                                <table class="table table-striped table-hover text-center">
-                                    <caption>Lista de Opcioinais</caption>
-                                    <thead class="">
-                                        <tr class="table-primary">
-                                            <th>Opcional</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let opcional of anuncio.opcionais">
-                                            <td> {{opcional.info}}</td>
-                                            <td>
-                                                <div class="btn btn-outline-danger btn-just-icon btn-sm" title="Deletar Opcional" (click)="deleteOpcional(opcional)">x</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <br>
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <span class="btn btn-success btn-file">Inserir foto<input type="file" name="arquivos1" multiple accept="image/*" (change)="teste($event)"></span>
->>>>>>> 74a8876dbd5dd6f88130762af5ca579c10ca1c69
 
                         </div>
                     </form>
@@ -499,11 +470,11 @@
 </div>-->
 
 
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Cadastro Anúncio</h4>
-    </div>
-    <div class="modal-content" *ngIf="progressoPublicacao === 'pendente'">
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Cadastro Anúncio</h4>
+        </div>
+        <div class="modal-content" *ngIf="progressoPublicacao === 'pendente'">
             <!--<div class="container topo">-->
             <form>
                 <div class="modal-body">
@@ -566,7 +537,7 @@
                         <div class="col-md-4">
                             <div class="form-group has-success">
                                 <label for="combustivel">Combustivel</label>
-                                <select name="combustivel" class="btn btn-primary" [(ngModel)]="anuncio.combustivel">
+                                <select name="combustivel" class="btn btn-outline-primary" [(ngModel)]="anuncio.combustivel">
                                     <option value="Gasolina">Gasolina</option>
                                     <option value="Alcool">Alcool</option>
                                     <option value="Diesel">Diesel</option>
@@ -604,55 +575,84 @@
                             </button>
                         </div>
                     </div>
-                    <ul class="heroes">
-                        <li *ngFor="let opcional of anuncio.opcionais">
-                            {{opcional.info}}
-                            <button class="btn btn-outline-danger btn-just-icon" (click)="deleteOpcional(opcional)">x</button>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-striped table-hover text-center" *ngIf="anuncio.opcionais.length > 0">
+                                <thead class="">
+                                    <tr class="table-primary">
+                                        <th>Opcional</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let opcional of anuncio.opcionais">
+                                        <td> {{opcional.info}}</td>
+                                        <td>
+                                            <div class="btn btn-outline-danger btn-just-icon btn-sm" title="Deletar Opcional" (click)="deleteOpcional(opcional)">x</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <br>
                     <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <!--
                         <span class="btn btn-success btn-file">Inserir foto
                             <input type="file" name="arquivos1" multiple accept="image/*" (change)="teste($event)">
                         </span>
-
+                        -->
                         <div class="fileinput-preview" style="max-width: 200px; max-height: 150px;"></div>
                         <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
 
                     </div>
                     <br>
                     <div (click)='anuncioFiles.click();' class="fileUpload btn btn-danger">
-                        <input style="display: none;" #anuncioFiles class="form-control-file btn btn-danger" name="arquivos" type=file multiple accept="image/*"
-                            (change)="prepareUpload($event)" />
+                        <input style="display: none;" #anuncioFiles class="form-control-file btn btn-danger" name="arquivos" type=file multiple accept="image/*" (change)="prepareUpload($event)" />
                         <span>Inserir Fotos</span>
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let img of auxFoto, let ex = index">
-                                <td>
-                                    <img style="width: 50%; height: auto;" src="{{img}}" alt="">
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" (click)="excluiImg(ex);">Excluir</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <div *ngFor="let imagem of anuncio.fotos">
-                        <div class="" style="width: 14rem;">
-                            <div>
-                                <small>
-                                    <a class="btn btn-outline-danger align-self-end" (click)="removeFoto(imagem)">X</a>
-                                </small>
-                            </div>
-                            <img class="card-img-top" [src]="imagem || ''" alt="Card image cap">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table" *ngIf="auxFoto.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>Novas Fotos</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let img of auxFoto, let ex = index">
+                                        <td>
+                                            <img style="width: 50%; height: auto;" src="{{img}}" alt="">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" (click)="excluiImg(ex);">Excluir</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <table class="table" *ngIf="anuncio.fotos.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>Fotos ja cadastradas</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let img of anuncio.fotos">
+                                        <td>
+                                            <img style="width: 50%; height: auto;" src="{{img}}" alt="">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" (click)="removeFoto(img)">Excluir</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -660,7 +660,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-            
+
 
                 </div>
             </form>
@@ -672,8 +672,8 @@
                 <h5 class="modal-title" id="exampleModalLabel">Publicação em andamento</h5>
             </div>
             <div class="modal-body">
-                    {{ porcentagemUpload }}
-                Progresso: <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                {{ porcentagemUpload }} Progresso:
+                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
             </div>
         </div>
 
@@ -690,20 +690,20 @@
                 Sua publicação foi realizada com sucesso!
             </div>
         </div>
-    <div class="modal-footer">
-        
-    </div>
-</ng-template>
+        <div class="modal-footer">
 
-<hr>
+        </div>
+    </ng-template>
 
-<pre>{{closeResult}}</pre>
+    <hr>
 
-<swal #mySwal title="" type="" text="">
-</swal>
+    <pre>{{closeResult}}</pre>
 
-<swal #swDeleteAnuncio title="" type="question" text="Deseja excluir o Anuncio?" [showCancelButton]=true>
-</swal>
+    <swal #mySwal title="" type="" text="">
+    </swal>
 
-<swal #swChangeAnuncio title="" type="question" text="Deseja alterar o status do Anuncio?" [showCancelButton]=true>
-</swal>
+    <swal #swDeleteAnuncio title="" type="question" text="Deseja excluir o Anuncio?" [showCancelButton]=true>
+    </swal>
+
+    <swal #swChangeAnuncio title="" type="question" text="Deseja alterar o status do Anuncio?" [showCancelButton]=true>
+    </swal>
